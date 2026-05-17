@@ -1,0 +1,87 @@
+[
+  {
+    "id": "inst_01",
+    "descripcion": "Estudiante sin conocimientos previos → Data Scientist",
+    "habilidades_iniciales": [],
+    "perfil_objetivo": "data_scientist",
+    "objetivo_texto": "Quiero convertirme en Data Scientist desde cero"
+  },
+  {
+    "id": "inst_02",
+    "descripcion": "Estudiante con base matemática → Data Scientist",
+    "habilidades_iniciales": [
+      "matematicas_basicas",
+      "estadistica_basica",
+      "logica_programacion"
+    ],
+    "perfil_objetivo": "data_scientist",
+    "objetivo_texto": "Tengo base matemática y quiero ser Data Scientist"
+  },
+  {
+    "id": "inst_03",
+    "descripcion": "Programador Python junior → Data Scientist",
+    "habilidades_iniciales": [
+      "logica_programacion",
+      "python_basico",
+      "matematicas_basicas"
+    ],
+    "perfil_objetivo": "data_scientist",
+    "objetivo_texto": "Sé Python básico y quiero especializarme en Data Science"
+  },
+  {
+    "id": "inst_04",
+    "descripcion": "Estudiante sin conocimientos → Backend Developer",
+    "habilidades_iniciales": [],
+    "perfil_objetivo": "backend_developer",
+    "objetivo_texto": "Quiero ser desarrollador backend desde cero"
+  },
+  {
+    "id": "inst_05",
+    "descripcion": "Desarrollador frontend → Backend Developer",
+    "habilidades_iniciales": [
+      "html_css",
+      "javascript",
+      "logica_programacion"
+    ],
+    "perfil_objetivo": "backend_developer",
+    "objetivo_texto": "Soy frontend y quiero pasarme al backend con Python"
+  },
+  {
+    "id": "inst_06",
+    "descripcion": "Programador con APIs → ML Engineer",
+    "habilidades_iniciales": [
+      "logica_programacion",
+      "python_basico",
+      "python_avanzado",
+      "apis_rest"
+    ],
+    "perfil_objetivo": "ml_engineer",
+    "objetivo_texto": "Soy backend developer y quiero transicionarme a ML Engineering"
+  },
+  {
+    "id": "inst_07",
+    "descripcion": "Data Scientist que quiere ser ML Engineer",
+    "habilidades_iniciales": [
+      "logica_programacion",
+      "python_basico",
+      "python_avanzado",
+      "matematicas_basicas",
+      "algebra_lineal",
+      "calculo_optimizacion",
+      "estadistica_basica",
+      "estadistica_inferencial",
+      "pandas_numpy",
+      "machine_learning",
+      "feature_engineering"
+    ],
+    "perfil_objetivo": "ml_engineer",
+    "objetivo_texto": "Soy Data Scientist y quiero llevar mis modelos a producción como ML Engineer"
+  },
+  {
+    "id": "inst_08",
+    "descripcion": "Estudiante sin conocimientos → ML Engineer (camino completo)",
+    "habilidades_iniciales": [],
+    "perfil_objetivo": "ml_engineer",
+    "objetivo_texto": "Quiero ser ML Engineer, aún no tengo conocimientos técnicos"
+  }
+]
