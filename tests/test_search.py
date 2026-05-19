@@ -16,7 +16,10 @@ Para cada instancia:
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent))
+ROOT = Path(__file__).resolve().parent.parent
+SRC = ROOT / "src"
+
+sys.path.insert(0, str(SRC))
 
 from graph import GrafoCursos
 from search import astar, greedy, validar_trayectoria
