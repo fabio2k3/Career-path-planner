@@ -1,18 +1,22 @@
 """
 main.py
+-------
+Pipeline principal del sistema Career Path Planner.
 
-Pipeline completo interactivo del sistema Career Path Planner.
+Uso:
+    python src/main.py
+    python src/main.py --objetivo "Quiero ser Data Scientist"
+    python src/main.py --objetivo "Quiero ser ML Engineer" --algoritmo greedy
+    python src/main.py --objetivo "..." --sin-llm
 
-Modos de uso:
-  1. Interactivo : el usuario escribe su objetivo en lenguaje natural
-  2. Demo        : ejecuta casos predefinidos sin necesidad de input
-
-Flujo completo:
-  Objetivo NL → LLM Parseador → A* → LLM Evaluador → Resultado
+Modos:
+    Interactivo (sin argumentos): solicita el objetivo por teclado.
+    Automático  (con --objetivo) : ejecuta directamente con el texto dado.
 """
 
-import sys
+import argparse
 import json
+import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
@@ -21,151 +25,166 @@ from graph import GrafoCursos
 from search import astar, greedy, validar_trayectoria
 from llm_integration import pipeline_completo, parsear_objetivo, evaluar_trayectoria
 
+
 SEP  = "═" * 62
 SEP2 = "─" * 62
 
 
-def imprimir_resultado(resultado: dict):
-    """Imprime el resultado completo del pipeline de forma legible."""
+def imprimir_bienvenida():
     print(f"\n{SEP}")
-    print(f"  RESULTADO DEL SISTEMA")
+    print("  CAREER PATH PLANNER")
+    print("  Sistema de Planificación de Trayectoria Profesional")
+    print("  Proyecto Final — Inteligencia Artificial y Simulación")
     print(SEP)
 
-    # Paso 1: Parseo
-    parseo = resultado.get("paso1_parseo", {})
-    if parseo:
-        print(f"\n  [PARSEO LLM]")
-        print(f"  Perfil detectado  : {parseo.get('perfil_detectado', '?')}")
-        print(f"  Confianza         : {parseo.get('confianza', '?')}")
-        print(f"  Habilidades ({len(parseo.get('habilidades_validas', []))}) : "
-              f"{', '.join(parseo.get('habilidades_validas', []))}")
 
-    # Paso 2: Trayectoria
-    busqueda = resultado.get("paso2_busqueda", {})
-    if busqueda and busqueda.get("exito"):
-        print(f"\n  [TRAYECTORIA GENERADA]")
-        print(f"  Cursos  : {busqueda['num_cursos']}")
-        print(f"  Semanas : {busqueda['costo_total_semanas']}")
-        print(f"  Orden:")
-        for i, nombre in enumerate(busqueda.get("trayectoria_nombres", []), 1):
-            print(f"    {i:>2}. {nombre}")
-
-    # Paso 3: Evaluación
-    evaluacion = resultado.get("paso3_evaluacion", {})
-    if evaluacion:
-        puntuacion = evaluacion.get("puntuacion", "?")
-        calidad    = evaluacion.get("nivel_calidad", "?").upper()
-        barra = "█" * int(puntuacion) + "░" * (10 - int(puntuacion)) \
-            if isinstance(puntuacion, int) else ""
-        print(f"\n  [EVALUACIÓN LLM]")
-        print(f"  Puntuación : {puntuacion}/10  [{barra}]  {calidad}")
-        print(f"\n  Fortalezas:")
-        for f in evaluacion.get("fortalezas", []):
-            print(f"    ✓ {f}")
-        print(f"\n  Debilidades:")
-        for d in evaluacion.get("debilidades", []):
-            print(f"    ✗ {d}")
-        print(f"\n  Sugerencias:")
-        for s in evaluacion.get("sugerencias", []):
-            print(f"    → {s}")
-        print(f"\n  Resumen:")
-        print(f"    \"{evaluacion.get('resumen', '')}\"")
-
-    print(f"\n{SEP}")
+def imprimir_trayectoria(result, titulo="Trayectoria generada"):
+    print(f"\n  {titulo}:")
+    print(f"  {SEP2}")
+    for i, c in enumerate(result.trayectoria, 1):
+        print(f"    {i:>2}. [{c.nivel[:3].upper()}] {c.nombre} "
+              f"({c.duracion_semanas} semanas)")
+    print(f"  {SEP2}")
+    print(f"  Total: {result.num_cursos} cursos | "
+          f"{result.costo_total_semanas} semanas | "
+          f"{result.nodos_expandidos} nodos expandidos | "
+          f"{result.tiempo_segundos:.3f}s")
 
 
-def modo_interactivo(grafo: GrafoCursos):
-    """Modo interactivo: el usuario escribe su objetivo."""
-    print(f"\n{SEP}")
-    print(f"  CAREER PATH PLANNER — Modo Interactivo")
-    print(SEP)
-    print(f"\n  Describe tu objetivo profesional en lenguaje natural.")
-    print(f"  Ejemplos:")
-    print(f"    - Quiero ser Data Scientist trabajando con Python y ML")
-    print(f"    - Me interesa el backend y construir APIs escalables")
-    print(f"    - Quiero llevar modelos de IA a producción como ML Engineer")
-    print(f"\n  (escribe 'salir' para terminar)\n")
+def imprimir_evaluacion(evaluacion):
+    puntuacion = evaluacion.get("puntuacion", "?")
+    calidad    = evaluacion.get("nivel_calidad", "?").upper()
+    if isinstance(puntuacion, (int, float)):
+        barra = "█" * int(puntuacion) + "░" * (10 - int(puntuacion))
+        print(f"\n  Evaluación LLM: {puntuacion}/10  [{barra}]  {calidad}")
+    else:
+        print(f"\n  Evaluación LLM: {puntuacion}/10  {calidad}")
 
-    while True:
-        try:
-            objetivo = input("  Tu objetivo: ").strip()
-        except (EOFError, KeyboardInterrupt):
-            print("\n  Saliendo...")
-            break
-
-        if objetivo.lower() in ("salir", "exit", "quit", ""):
-            print("  ¡Hasta luego!")
-            break
-
-        print()
-        resultado = pipeline_completo(
-            objetivo_texto=objetivo,
-            grafo=grafo,
-            algoritmo_fn=astar,
-            habilidades_iniciales=frozenset(),
-            instancia_id="interactivo",
-        )
-        imprimir_resultado(resultado)
+    print(f"\n  Fortalezas:")
+    for f in evaluacion.get("fortalezas", []):
+        print(f"    ✓ {f}")
+    print(f"\n  Debilidades:")
+    for d in evaluacion.get("debilidades", []):
+        print(f"    ✗ {d}")
+    print(f"\n  Sugerencias:")
+    for s in evaluacion.get("sugerencias", []):
+        print(f"    → {s}")
+    print(f"\n  Resumen: \"{evaluacion.get('resumen', '?')}\"")
 
 
-def modo_demo(grafo: GrafoCursos):
-    """Modo demo: ejecuta 3 casos predefinidos."""
-    print(f"\n{SEP}")
-    print(f"  CAREER PATH PLANNER — Modo Demo")
-    print(SEP)
+def modo_con_llm(objetivo_texto: str, algoritmo: str, grafo: GrafoCursos):
+    """Pipeline completo con LLM: parseo → búsqueda → evaluación."""
+    print(f"\n  Objetivo: \"{objetivo_texto}\"")
+    print(f"  Algoritmo: {algoritmo.upper()} | Modo: con LLM\n")
 
-    casos = [
-        {
-            "objetivo": "Quiero convertirme en Data Scientist analizando datos con Python",
-            "habilidades_iniciales": frozenset(),
-            "id": "demo_01",
-        },
-        {
-            "objetivo": "Soy desarrollador frontend y quiero pasarme al backend con Python",
-            "habilidades_iniciales": frozenset(["html_css", "javascript", "logica_programacion"]),
-            "id": "demo_02",
-        },
-        {
-            "objetivo": "Quiero llevar modelos de machine learning a producción como ML Engineer",
-            "habilidades_iniciales": frozenset(["python_avanzado", "machine_learning"]),
-            "id": "demo_03",
-        },
-    ]
+    algoritmo_fn = astar if algoritmo == "astar" else greedy
 
-    for i, caso in enumerate(casos, 1):
-        print(f"\n  {'─'*60}")
-        print(f"  Demo {i}/3 — {caso['objetivo']}")
-        if caso["habilidades_iniciales"]:
-            print(f"  Habilidades iniciales: {sorted(caso['habilidades_iniciales'])}")
-        print(f"  {'─'*60}")
+    resultado = pipeline_completo(
+        objetivo_texto=objetivo_texto,
+        grafo=grafo,
+        algoritmo_fn=algoritmo_fn,
+        habilidades_iniciales=frozenset(),
+        instancia_id="main_pipeline",
+    )
 
-        resultado = pipeline_completo(
-            objetivo_texto=caso["objetivo"],
-            grafo=grafo,
-            algoritmo_fn=astar,
-            habilidades_iniciales=caso["habilidades_iniciales"],
-            instancia_id=caso["id"],
-        )
-        imprimir_resultado(resultado)
+    if not resultado["exito_total"]:
+        print("\n  ✗ No se pudo completar el pipeline.")
+        return
+
+    # Mostrar trayectoria
+    busqueda = resultado["paso2_busqueda"]
+    print(f"\n{SEP2}")
+    print(f"  TRAYECTORIA ÓPTIMA — {busqueda['num_cursos']} cursos, "
+          f"{busqueda['costo_total_semanas']} semanas")
+    print(SEP2)
+    for i, nombre in enumerate(busqueda["trayectoria_nombres"], 1):
+        print(f"    {i:>2}. {nombre}")
+
+    # Mostrar evaluación
+    imprimir_evaluacion(resultado["paso3_evaluacion"])
+
+
+def modo_sin_llm(objetivo_texto: str, algoritmo: str, grafo: GrafoCursos):
+    """Búsqueda directa sin LLM: el usuario elige perfil del catálogo."""
+    print(f"\n  Objetivo: \"{objetivo_texto}\"")
+    print(f"  Algoritmo: {algoritmo.upper()} | Modo: sin LLM\n")
+
+    # Mostrar perfiles disponibles
+    print("  Perfiles disponibles:")
+    perfiles = list(grafo.perfiles.keys())
+    for i, pid in enumerate(perfiles, 1):
+        perfil = grafo.perfiles[pid]
+        print(f"    {i}. {perfil.nombre} ({pid})")
+
+    print()
+    try:
+        opcion = int(input("  Selecciona un perfil (número): ").strip())
+        perfil_id = perfiles[opcion - 1]
+    except (ValueError, IndexError):
+        print("  ✗ Opción inválida.")
+        return
+
+    algoritmo_fn = astar if algoritmo == "astar" else greedy
+    result = algoritmo_fn(grafo, frozenset(), perfil_id, "main",
+                          criterio="cursos")
+
+    if not result.exito:
+        print("  ✗ No se encontró trayectoria.")
+        return
+
+    imprimir_trayectoria(result, f"Trayectoria hacia {perfil_id}")
+
+    # Validar
+    ok, msg = validar_trayectoria(grafo, result.trayectoria,
+                                   frozenset(), perfil_id)
+    print(f"\n  Validación: {'✓ Trayectoria válida' if ok else f'✗ {msg}'}")
 
 
 def main():
-    print(SEP)
-    print(f"  CAREER PATH PLANNER")
-    print(f"  Sistema de Planificación de Trayectorias Profesionales")
-    print(SEP)
+    parser = argparse.ArgumentParser(
+        description="Career Path Planner — Planificación de trayectoria profesional"
+    )
+    parser.add_argument("--objetivo", type=str, default=None,
+                        help="Objetivo profesional en lenguaje natural")
+    parser.add_argument("--algoritmo", type=str, default="astar",
+                        choices=["astar", "greedy"],
+                        help="Algoritmo de búsqueda (default: astar)")
+    parser.add_argument("--sin-llm", action="store_true",
+                        help="Ejecutar sin usar el LLM")
+    args = parser.parse_args()
+
+    imprimir_bienvenida()
 
     grafo = GrafoCursos()
-    print(f"\n  Catálogo cargado: {len(grafo.cursos)} cursos | "
+    print(f"\n  Sistema cargado: {len(grafo.cursos)} cursos | "
           f"{len(grafo.habilidades)} habilidades | "
-          f"{len(grafo.perfiles)} perfiles")
+          f"{len(grafo.perfiles)} perfiles\n")
 
-    # Determinar modo según argumentos
-    args = sys.argv[1:]
-    if "--demo" in args:
-        modo_demo(grafo)
+    # Obtener objetivo
+    if args.objetivo:
+        objetivo_texto = args.objetivo
     else:
-        modo_interactivo(grafo)
+        print("  Escribe tu objetivo profesional (o 'salir' para terminar):")
+        objetivo_texto = input("  > ").strip()
+        if objetivo_texto.lower() in ("salir", "exit", "q"):
+            print("  Hasta luego.")
+            return
+
+    if not objetivo_texto:
+        print("  ✗ Objetivo vacío.")
+        return
+
+    # Ejecutar pipeline
+    if args.sin_llm:
+        modo_sin_llm(objetivo_texto, args.algoritmo, grafo)
+    else:
+        try:
+            modo_con_llm(objetivo_texto, args.algoritmo, grafo)
+        except EnvironmentError as e:
+            print(f"\n  ✗ {e}")
+            print("\n  Ejecuta con --sin-llm para usar el sistema sin API key.")
+
+    print(f"\n{SEP}\n")
 
 
 if __name__ == "__main__":
