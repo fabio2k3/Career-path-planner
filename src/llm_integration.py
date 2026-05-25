@@ -1,15 +1,17 @@
 """
 llm_integration.py
 ------------------
-Integración LLM via OpenRouter (sin restricciones geográficas, gratuito).
+Integración LLM via Hugging Face Inference API (100% gratuito, sin créditos).
 
-OpenRouter: https://openrouter.ai
-Modelo usado: meta-llama/llama-3.1-8b-instruct:free (100% gratuito)
+Hugging Face: https://huggingface.co
+- Gratis, sin créditos que se agoten
+- Solo rate limit por minuto (se resetea automáticamente)
+- Funciona desde cualquier país sin VPN
 
 Configuración:
-  1. Crea cuenta en https://openrouter.ai
-  2. Ve a Keys → Create Key
-  3. En .env agrega: OPENROUTER_API_KEY=tu_clave
+  1. Crea cuenta en https://huggingface.co (gratis)
+  2. Settings → Access Tokens → New token (tipo Read)
+  3. En .env agrega: HF_API_KEY=hf_xxxxxxxxxxxxxxxx
 
 Expone:
   parsear_objetivo(texto, grafo)    → habilidades del dataset
@@ -23,7 +25,7 @@ import re
 import time
 from pathlib import Path
 
-from openai import OpenAI
+from huggingface_hub import InferenceClient
 from dotenv import load_dotenv
 from graph import GrafoCursos, Curso
 
@@ -32,35 +34,29 @@ from graph import GrafoCursos, Curso
 _ENV_PATH = Path(__file__).resolve().parent.parent / ".env"
 load_dotenv(dotenv_path=_ENV_PATH)
 
-# Modelos gratuitos disponibles en OpenRouter:
-#   meta-llama/llama-3.1-8b-instruct:free   → rápido, bueno para JSON
-#   meta-llama/llama-3.2-3b-instruct:free   → más ligero
-#   mistralai/mistral-7b-instruct:free       → muy bueno para instrucciones
-MODEL = os.getenv("OPENROUTER_MODEL", "deepseek/deepseek-v4-flash:free")
-
-OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
+# Modelo gratuito — Qwen2.5 es excelente para JSON estructurado
+MODEL = os.getenv("HF_MODEL", "Qwen/Qwen2.5-72B-Instruct")
 
 
-def _get_client() -> OpenAI:
-    """Crea cliente OpenAI apuntando a OpenRouter."""
-    api_key = os.getenv("OPENROUTER_API_KEY")
+def _get_client() -> InferenceClient:
+    api_key = os.getenv("HF_API_KEY")
     if not api_key:
         raise EnvironmentError(
-            "OPENROUTER_API_KEY no encontrada.\n"
-            "1. Ve a https://openrouter.ai\n"
-            "2. Crea cuenta → Keys → Create Key\n"
-            "3. En .env agrega: OPENROUTER_API_KEY=tu_clave"
+            "HF_API_KEY no encontrada.\n"
+            "1. Ve a https://huggingface.co y crea cuenta gratis\n"
+            "2. Settings → Access Tokens → New token (tipo Read)\n"
+            "3. Agrega al .env:  HF_API_KEY=hf_xxxxxxxxxxxxxxxx"
         )
-    return OpenAI(
-        api_key=api_key,
-        base_url=OPENROUTER_BASE_URL,
-    )
+    return InferenceClient(api_key=api_key)
 
 
 # ── Llamada al LLM ────────────────────────────────────────────────────────────
 
-def _llamar_llm(prompt: str, system: str, reintentos: int = 3) -> str:
-    """Llama a OpenRouter con reintentos automáticos."""
+def _llamar_llm(prompt: str, system: str, reintentos: int = 4) -> str:
+    """
+    Llama a HuggingFace Inference API con reintentos automáticos.
+    El rate limit se resetea cada minuto — no hay créditos que agotar.
+    """
     client = _get_client()
 
     for intento in range(reintentos):
@@ -73,36 +69,36 @@ def _llamar_llm(prompt: str, system: str, reintentos: int = 3) -> str:
                     {"role": "system", "content": system},
                     {"role": "user",   "content": prompt},
                 ],
-                extra_headers={
-                    "HTTP-Referer": "https://github.com/career-path-planner",
-                    "X-Title": "Career Path Planner",
-                },
             )
             return response.choices[0].message.content.strip()
 
         except Exception as e:
             err_str = str(e)
-            if ("429" in err_str or "rate" in err_str.lower()) \
-                    and intento < reintentos - 1:
-                # Usar retry_after_seconds de la respuesta si está disponible
-                match = re.search(r"retry_after_seconds[^:]+:\s*(\d+)", err_str)
-                if not match:
-                    match = re.search(r"(\d+)\s*second", err_str)
-                espera = int(match.group(1)) + 5 if match else 35
+
+            # Rate limit — esperar y reintentar
+            if ("429" in err_str or "rate" in err_str.lower() or
+                    "too many" in err_str.lower()) and intento < reintentos - 1:
+                match = re.search(r"(\d+)\s*second", err_str)
+                espera = int(match.group(1)) + 5 if match else 30
                 print(f"    ⏳ Rate limit (intento {intento+1}/{reintentos}). "
                       f"Esperando {espera}s...")
                 time.sleep(espera)
                 continue
+
+            # Modelo no disponible — intentar con modelo alternativo
+            if "503" in err_str or "loading" in err_str.lower():
+                if intento < reintentos - 1:
+                    print(f"    ⏳ Modelo cargando. Esperando 20s...")
+                    time.sleep(20)
+                    continue
+
             raise
 
 
 # ── Parser JSON robusto ───────────────────────────────────────────────────────
 
 def _parsear_json_respuesta(texto: str) -> dict:
-    """
-    Extrae JSON de la respuesta del LLM de forma robusta.
-    Maneja markdown, comillas tipográficas y JSON con texto extra.
-    """
+    """Extrae JSON de la respuesta del LLM de forma robusta."""
     texto = texto.strip()
 
     # 1. Eliminar bloques markdown
@@ -112,7 +108,7 @@ def _parsear_json_respuesta(texto: str) -> dict:
             lineas[1:-1] if lineas[-1].strip() == "```" else lineas[1:]
         ).strip()
 
-    # 2. Reemplazar comillas tipográficas Unicode
+    # 2. Reemplazar comillas tipográficas
     texto = (texto
              .replace("\u201c", '"').replace("\u201d", '"')
              .replace("\u2018", "'").replace("\u2019", "'"))
@@ -123,11 +119,10 @@ def _parsear_json_respuesta(texto: str) -> dict:
     except json.JSONDecodeError:
         pass
 
-    # 4. Extraer bloque { ... } con regex
+    # 4. Extraer primer bloque JSON
     match = re.search(r'\{.*\}', texto, re.DOTALL)
     if match:
-        bloque = match.group(0)
-        bloque = (bloque
+        bloque = (match.group(0)
                   .replace("\u201c", '"').replace("\u201d", '"')
                   .replace("\u2018", "'").replace("\u2019", "'"))
         try:
@@ -135,7 +130,7 @@ def _parsear_json_respuesta(texto: str) -> dict:
         except json.JSONDecodeError:
             pass
 
-    # 5. Sanitizar comillas dobles dentro de valores string
+    # 5. Sanitizar comillas dentro de valores
     try:
         sanitizado = re.sub(
             r'(:\s*")((?:[^"\\]|\\.)*)(")',
@@ -217,7 +212,7 @@ def _construir_prompt_evaluador(
     )
     habs_ini = (", ".join(sorted(habilidades_iniciales))
                 if habilidades_iniciales else "ninguna")
-    total    = sum(c.duracion_semanas for c in trayectoria)
+    total = sum(c.duracion_semanas for c in trayectoria)
 
     return f"""Evalua esta trayectoria de aprendizaje.
 
@@ -227,7 +222,7 @@ HABILIDADES INICIALES: {habs_ini}
 TRAYECTORIA ({len(trayectoria)} cursos, {total} semanas):
 {tray_str}
 
-Responde SOLO con este JSON (sin markdown, sin comillas especiales):
+Responde SOLO con este JSON (sin markdown):
 {{"puntuacion": <0-10>, "nivel_calidad": <"excelente"|"bueno"|"aceptable"|"deficiente">, "fortalezas": ["..."], "debilidades": ["..."], "sugerencias": ["..."], "resumen": "..."}}"""
 
 
@@ -256,6 +251,82 @@ def evaluar_trayectoria(
 
     resultado["tiempo_segundos"] = round(time.perf_counter() - inicio, 3)
     return resultado
+
+
+# ── Evaluador simulado (fallback) ─────────────────────────────────────────────
+
+def _evaluar_simulado(
+    perfil_id: str,
+    trayectoria: list,
+    habilidades_iniciales: frozenset,
+) -> dict:
+    """Fallback sin LLM basado en métricas calculadas."""
+    num_cursos    = len(trayectoria)
+    total_semanas = sum(c.duracion_semanas for c in trayectoria)
+    niveles       = [c.nivel for c in trayectoria]
+    n_avanzado    = niveles.count("avanzado")
+    n_principiante = niveles.count("principiante")
+
+    puntuacion = 7.0
+    if n_principiante > 0 or len(habilidades_iniciales) > 0:
+        puntuacion += 0.5
+    if num_cursos <= 8:     puntuacion += 1.0
+    elif num_cursos <= 12:  puntuacion += 0.5
+    elif num_cursos > 16:   puntuacion -= 0.5
+    if total_semanas <= 40: puntuacion += 0.5
+    elif total_semanas > 70: puntuacion -= 0.5
+
+    puntuacion = round(max(5.0, min(10.0, puntuacion)))
+
+    if puntuacion >= 9:    nivel = "excelente"
+    elif puntuacion >= 7:  nivel = "bueno"
+    elif puntuacion >= 5:  nivel = "aceptable"
+    else:                  nivel = "deficiente"
+
+    return {
+        "puntuacion":    puntuacion,
+        "nivel_calidad": nivel,
+        "fortalezas":    [
+            f"Trayectoria de {num_cursos} cursos con progresion coherente.",
+            f"Incluye {n_avanzado} curso(s) avanzado(s) para especializacion.",
+        ],
+        "debilidades":   [
+            f"Duracion de {total_semanas} semanas requiere compromiso sostenido.",
+            "Podria complementarse con proyectos practicos.",
+        ],
+        "sugerencias":   [
+            "Complementar con proyectos reales para aplicar lo aprendido.",
+        ],
+        "resumen": (
+            f"Trayectoria {nivel} de {num_cursos} cursos y {total_semanas} "
+            f"semanas para {perfil_id.replace('_', ' ')}. [Evaluacion simulada]"
+        ),
+        "modo": "simulado",
+    }
+
+
+def evaluar_trayectoria_con_fallback(
+    objetivo_texto: str,
+    perfil_id: str,
+    trayectoria: list,
+    habilidades_iniciales: frozenset,
+    grafo=None,
+) -> dict:
+    """Intenta LLM real; si falla cae al evaluador simulado."""
+    try:
+        resultado = evaluar_trayectoria(
+            objetivo_texto, perfil_id, trayectoria, habilidades_iniciales
+        )
+        resultado["modo"] = "llm_real"
+        return resultado
+    except Exception as e:
+        err_str = str(e)
+        if any(c in err_str for c in ["402", "429", "quota", "rate", "403"]):
+            print(f"    ⚠ API no disponible. Usando evaluador simulado.")
+            r = _evaluar_simulado(perfil_id, trayectoria, habilidades_iniciales)
+            r["tiempo_segundos"] = 0.0
+            return r
+        raise
 
 
 # ── Pipeline completo ─────────────────────────────────────────────────────────

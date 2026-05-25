@@ -207,11 +207,11 @@ def main():
     from pathlib import Path
     from dotenv import load_dotenv
     load_dotenv(dotenv_path=Path(__file__).resolve().parent.parent / ".env")
-    if not os.getenv("OPENROUTER_API_KEY"):
-        print("\n  ✗ ERROR: OPENROUTER_API_KEY no encontrada.")
-        print("  Crea un archivo .env en la raíz del proyecto con:")
-        print("  OPENROUTER_API_KEY=tu_clave_aqui")
-        return
+    if not os.getenv("HF_API_KEY"):
+        print("\n  ✗ ERROR: HF_API_KEY no encontrada.")
+        print("  1. Ve a https://huggingface.co y crea cuenta gratis")
+        print("  2. Settings → Access Tokens → New token (tipo Read)")
+        print("  3. Crea .env con: HF_API_KEY=hf_xxxxxxxxxx")
  
     print("\n  ✓ API key detectada. Iniciando tests...\n")
  

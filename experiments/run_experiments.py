@@ -113,7 +113,7 @@ def experimento_con_llm(grafo, instancias):
     print(SEP)
 
     try:
-        from llm_integration import evaluar_trayectoria
+        from llm_integration import evaluar_trayectoria_con_fallback as evaluar_trayectoria
     except ImportError as e:
         print(f"  ✗ No se pudo importar llm_integration: {e}")
         return []
@@ -143,7 +143,6 @@ def experimento_con_llm(grafo, instancias):
         resumen_llm    = None
 
         try:
-            time.sleep(10)  # delay para evitar rate limit del tier gratuito
             ev = evaluar_trayectoria(
                 inst.objetivo_texto,
                 inst.perfil_objetivo,
