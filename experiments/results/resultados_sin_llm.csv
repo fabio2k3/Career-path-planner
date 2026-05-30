@@ -1,17 +1,17 @@
 instancia_id,descripcion,perfil_objetivo,habs_iniciales,algoritmo,exito,num_cursos,costo_total_semanas,nodos_expandidos,tiempo_segundos,trayectoria_valida,trayectoria_ids
-inst_01,Estudiante sin conocimientos previos → Data Scientist,data_scientist,0,A* (cursos),True,12,53,212,0.00571,True,c03|c08|c04|c10|c11|c01|c02|c07|c16|c19|c20|c24
-inst_01,Estudiante sin conocimientos previos → Data Scientist,data_scientist,0,Greedy,True,12,53,17,0.000695,True,c03|c08|c04|c10|c11|c01|c02|c07|c16|c19|c20|c24
-inst_02,Estudiante con base matemática → Data Scientist,data_scientist,3,A* (cursos),True,9,43,74,0.002577,True,c08|c10|c11|c02|c07|c16|c19|c20|c24
-inst_02,Estudiante con base matemática → Data Scientist,data_scientist,3,Greedy,True,9,43,10,0.00037,True,c08|c10|c11|c02|c07|c16|c19|c20|c24
-inst_03,Programador Python junior → Data Scientist,data_scientist,3,A* (cursos),True,9,43,68,0.00283,True,c07|c08|c04|c10|c11|c16|c19|c20|c24
-inst_03,Programador Python junior → Data Scientist,data_scientist,3,Greedy,True,9,43,10,0.000399,True,c07|c08|c04|c10|c11|c16|c19|c20|c24
-inst_04,Estudiante sin conocimientos → Backend Developer,backend_developer,0,A* (cursos),True,10,39,178,0.007722,True,c01|c02|c07|c15|c18|c21|c23|c30|c06|c12
-inst_04,Estudiante sin conocimientos → Backend Developer,backend_developer,0,Greedy,True,10,39,15,0.001076,True,c01|c02|c07|c15|c18|c21|c23|c30|c06|c12
-inst_05,Desarrollador frontend → Backend Developer,backend_developer,3,A* (cursos),True,9,36,140,0.00468,True,c02|c07|c15|c18|c21|c23|c30|c06|c12
-inst_05,Desarrollador frontend → Backend Developer,backend_developer,3,Greedy,True,9,36,11,0.000474,True,c02|c07|c15|c18|c21|c23|c30|c06|c12
-inst_06,Programador con APIs → ML Engineer,ml_engineer,4,A* (cursos),True,12,64,11399,0.333112,True,c23|c29|c03|c04|c08|c10|c19|c35|c09|c25|c16|c24
-inst_06,Programador con APIs → ML Engineer,ml_engineer,4,Greedy,True,12,64,532,0.010067,True,c23|c29|c03|c04|c08|c10|c19|c35|c09|c25|c16|c24
-inst_07,Data Scientist que quiere ser ML Engineer,ml_engineer,11,A* (cursos),True,5,29,25,0.00145,True,c25|c15|c23|c29|c35
-inst_07,Data Scientist que quiere ser ML Engineer,ml_engineer,11,Greedy,True,5,29,10,0.000335,True,c25|c15|c23|c29|c35
-inst_08,Estudiante sin conocimientos → ML Engineer (camino completo),ml_engineer,0,A* (cursos),True,16,80,16907,0.382595,True,c01|c02|c07|c15|c23|c29|c03|c04|c08|c10|c19|c35|c09|c25|c16|c24
-inst_08,Estudiante sin conocimientos → ML Engineer (camino completo),ml_engineer,0,Greedy,True,16,80,542,0.007373,True,c01|c02|c07|c15|c23|c29|c03|c04|c08|c10|c19|c35|c09|c25|c16|c24
+inst_01,Estudiante sin conocimientos previos → Data Scientist,data_scientist,0,A* (cursos),True,11,44,252,0.022147,True,c01|c02|c03|c04|c61|c07|c08|c10|c11|c20|c24
+inst_01,Estudiante sin conocimientos previos → Data Scientist,data_scientist,0,Greedy,True,11,44,18,0.00196,True,c03|c08|c04|c10|c11|c01|c02|c61|c07|c20|c24
+inst_02,Estudiante con base matemática → Data Scientist,data_scientist,3,A* (cursos),True,8,34,148,0.013718,True,c02|c61|c07|c08|c10|c11|c20|c24
+inst_02,Estudiante con base matemática → Data Scientist,data_scientist,3,Greedy,True,8,34,9,0.001082,True,c08|c10|c11|c02|c61|c07|c20|c24
+inst_03,Programador Python junior → Data Scientist,data_scientist,3,A* (cursos),True,8,34,160,0.013117,True,c04|c61|c07|c08|c10|c11|c20|c24
+inst_03,Programador Python junior → Data Scientist,data_scientist,3,Greedy,True,9,38,11,0.001847,True,c07|c08|c42|c20|c04|c10|c11|c61|c24
+inst_04,Estudiante sin conocimientos → Backend Developer,backend_developer,0,A* (cursos),True,10,39,248,0.012206,True,c01|c02|c07|c15|c18|c21|c23|c30|c06|c12
+inst_04,Estudiante sin conocimientos → Backend Developer,backend_developer,0,Greedy,True,10,39,15,0.00131,True,c01|c02|c07|c15|c18|c21|c23|c30|c06|c12
+inst_05,Desarrollador frontend → Backend Developer,backend_developer,3,A* (cursos),True,9,36,198,0.011312,True,c02|c07|c15|c18|c21|c23|c30|c06|c12
+inst_05,Desarrollador frontend → Backend Developer,backend_developer,3,Greedy,True,9,36,11,0.000886,True,c02|c07|c15|c18|c21|c23|c30|c06|c12
+inst_06,Programador con APIs → ML Engineer,ml_engineer,4,A* (cursos),True,9,45,2035,0.150028,True,c23|c29|c03|c04|c61|c24|c35|c09|c25
+inst_06,Programador con APIs → ML Engineer,ml_engineer,4,Greedy,True,9,43,25,0.002386,True,c23|c46|c03|c04|c61|c24|c35|c09|c25
+inst_07,Data Scientist que quiere ser ML Engineer,ml_engineer,11,A* (cursos),True,5,27,108,0.013362,True,c25|c46|c15|c23|c35
+inst_07,Data Scientist que quiere ser ML Engineer,ml_engineer,11,Greedy,True,5,21,10,0.001195,True,c51|c46|c15|c23|c35
+inst_08,Estudiante sin conocimientos → ML Engineer (camino completo),ml_engineer,0,A* (cursos),True,13,59,7887,0.537791,True,c01|c02|c07|c46|c03|c04|c61|c24|c15|c23|c35|c09|c25
+inst_08,Estudiante sin conocimientos → ML Engineer (camino completo),ml_engineer,0,Greedy,True,13,59,34,0.002427,True,c01|c02|c07|c46|c15|c23|c03|c04|c61|c24|c35|c09|c25

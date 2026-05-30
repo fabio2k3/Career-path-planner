@@ -17,7 +17,7 @@ from typing import FrozenSet
 
 # ------ Rutas -----
 BASE_DIR = Path(__file__).resolve().parent.parent
-DATASET_PATH  = BASE_DIR / "data" / "dataset.json"
+DATASET_PATH = BASE_DIR / "data" / "dataset_sintetico.json"
 INSTANCES_PATH = BASE_DIR / "data" / "instances" / "instances.json"
 
 

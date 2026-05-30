@@ -213,16 +213,42 @@ def _construir_prompt_evaluador(
     habs_ini = (", ".join(sorted(habilidades_iniciales))
                 if habilidades_iniciales else "ninguna")
     total = sum(c.duracion_semanas for c in trayectoria)
+    num_cursos = len(trayectoria)
 
-    return f"""Evalua esta trayectoria de aprendizaje.
+    return f"""Evalua esta trayectoria de aprendizaje de forma MUY critica, estricta y discriminante.
 
 OBJETIVO: {objetivo_texto}
 PERFIL: {perfil_id}
 HABILIDADES INICIALES: {habs_ini}
-TRAYECTORIA ({len(trayectoria)} cursos, {total} semanas):
+TRAYECTORIA ({num_cursos} cursos, {total} semanas):
 {tray_str}
 
-Responde SOLO con este JSON (sin markdown):
+CRITERIOS OBLIGATORIOS DE EVALUACION:
+- La puntuacion NO debe ser optimista por defecto.
+- Prioriza la eficiencia: numero de cursos y semanas importan mucho.
+- Penaliza con fuerza trayectorias largas aunque cumplan el objetivo.
+- Recompensa trayectorias concisas y bien orientadas solo si son realmente eficientes.
+- La calidad global debe reflejar el equilibrio entre logro del objetivo, longitud de la ruta y concision.
+
+REGLAS DE PENALIZACION SEVERA:
+- Si la trayectoria tiene mas de 12 cursos O mas de 50 semanas, la puntuacion maxima permitida es 7.
+- En ese caso, evita "excelente" y evita "bueno" salvo que la trayectoria sea excepcionalmente compacta en otros aspectos.
+- Si ademas la trayectoria es claramente excesiva, por ejemplo 16 cursos / 80 semanas o similar, la puntuacion debe caer preferentemente entre 4 y 6.
+- Para trayectorias excesivamente largas, el nivel_calidad debe ser "aceptable" o "deficiente".
+- En trayectorias largas, las debilidades deben mencionar explicitamente la sobreextension, el costo temporal y la falta de concision.
+
+REGLAS DE RECOMPENSA:
+- Si la trayectoria logra el objetivo con 5 a 7 cursos y menos de 35 semanas, debe recibir una puntuacion de 8 a 10.
+- En esos casos, el nivel_calidad debe ser "bueno" o "excelente".
+- Las fortalezas deben resaltar la concision, eficiencia y alineacion con el objetivo.
+- Solo otorga puntuaciones altas si la trayectoria es verdaderamente eficiente, no solo porque cumpla el objetivo.
+
+REGLA DE JUSTIFICACION:
+- Debes justificar SIEMPRE la penalizacion o la recompensa en las secciones "fortalezas" y "debilidades" del JSON.
+- Si penalizas por exceso de longitud, dilo de forma explicita en debilidades.
+- Si recompensas por eficiencia, dilo de forma explicita en fortalezas.
+
+RESPONDE SOLO con este JSON (sin markdown ni texto extra):
 {{"puntuacion": <0-10>, "nivel_calidad": <"excelente"|"bueno"|"aceptable"|"deficiente">, "fortalezas": ["..."], "debilidades": ["..."], "sugerencias": ["..."], "resumen": "..."}}"""
 
 
