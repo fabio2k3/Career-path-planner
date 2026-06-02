@@ -1,29 +1,14 @@
-#!/usr/bin/env python3
 """
-validate_dataset.py
+validate_dataset.py  (scripts/)
 
-Valida la integridad estructural y lógica de un dataset de cursos para el
-planificador de trayectorias.
-
-Comprobaciones:
-  - Estructura JSON esperada
-  - Metadatos coherentes
-  - IDs únicos de cursos
-  - Habilidades únicas
-  - Cursos con campos obligatorios
-  - Prerrequisitos y habilidades referencian habilidades existentes
-  - Detecta habilidades huérfanas
-  - Construye un grafo de dependencia entre cursos y comprueba que sea DAG
-  - Verifica que exista al menos una ruta razonable hacia cada perfil
+Validación completa y portable de cualquier dataset del proyecto.
+Acepta --input para apuntar a cualquier archivo JSON.
+Por defecto busca dataset_sintetico.json, luego dataset.json.
 
 Uso:
-  python validate_dataset.py --input data/dataset.json
-  python validate_dataset.py --input data/dataset_synthetic.json
-
-Salida:
-  - Imprime diagnóstico en consola
-  - Devuelve código 0 si todo está correcto
-  - Devuelve código 1 si encuentra errores
+    python scripts/validate_dataset.py
+    python scripts/validate_dataset.py --input data/dataset.json
+    python scripts/validate_dataset.py --input data/dataset_sintetico.json --strict
 """
 
 from __future__ import annotations
@@ -33,86 +18,88 @@ import json
 import sys
 from collections import defaultdict, deque
 from pathlib import Path
-from typing import Any
 
 
-REQUIRED_TOP_KEYS = {
-    "metadata",
-    "habilidades",
-    "cursos",
-    "perfiles_profesionales",
-}
+# ── Constantes ────────────────────────────────────────────────────────────────
+
+REQUIRED_TOP_KEYS = {"metadata", "habilidades", "cursos", "perfiles_profesionales"}
 
 
-def load_dataset(path: Path) -> dict[str, Any]:
+# ── Carga ─────────────────────────────────────────────────────────────────────
+
+def load_dataset(path: Path) -> dict:
     with path.open("r", encoding="utf-8") as f:
         data = json.load(f)
     if not isinstance(data, dict):
-        raise ValueError("El archivo JSON raíz debe ser un objeto/diccionario.")
+        raise ValueError("El JSON raíz debe ser un objeto/diccionario.")
     return data
 
 
-def is_non_empty_str(x: Any) -> bool:
+def _is_non_empty_str(x) -> bool:
     return isinstance(x, str) and bool(x.strip())
 
 
-def validate_structure(data: dict[str, Any], errors: list[str], warnings: list[str]) -> None:
+# ── Validaciones ──────────────────────────────────────────────────────────────
+
+def validate_structure(
+    data: dict, errors: list[str], warnings: list[str]
+) -> None:
     missing = REQUIRED_TOP_KEYS - set(data.keys())
     if missing:
-        errors.append(f"Faltan claves obligatorias en el JSON: {sorted(missing)}")
+        errors.append(f"Faltan claves obligatorias: {sorted(missing)}")
 
-    metadata = data.get("metadata")
-    if not isinstance(metadata, dict):
-        errors.append("'metadata' debe ser un objeto/diccionario.")
-        return
-
-    habilidades = data.get("habilidades")
-    cursos = data.get("cursos")
-    perfiles = data.get("perfiles_profesionales")
-
-    if not isinstance(habilidades, list):
+    if not isinstance(data.get("metadata"), dict):
+        errors.append("'metadata' debe ser un diccionario.")
+    if not isinstance(data.get("habilidades"), list):
         errors.append("'habilidades' debe ser una lista.")
-    if not isinstance(cursos, list):
+    if not isinstance(data.get("cursos"), list):
         errors.append("'cursos' debe ser una lista.")
-    if not isinstance(perfiles, dict):
+    if not isinstance(data.get("perfiles_profesionales"), dict):
         errors.append("'perfiles_profesionales' debe ser un diccionario.")
 
-    if isinstance(metadata, dict):
-        if "total_cursos" in metadata and isinstance(cursos, list):
-            if metadata["total_cursos"] != len(cursos):
-                warnings.append(
-                    f"metadata.total_cursos={metadata['total_cursos']} no coincide con len(cursos)={len(cursos)}."
-                )
-        if "total_habilidades" in metadata and isinstance(habilidades, list):
-            if metadata["total_habilidades"] != len(habilidades):
-                warnings.append(
-                    f"metadata.total_habilidades={metadata['total_habilidades']} no coincide con len(habilidades)={len(habilidades)}."
-                )
+    meta   = data.get("metadata", {})
+    cursos = data.get("cursos", [])
+    habs   = data.get("habilidades", [])
+
+    if isinstance(meta, dict) and isinstance(cursos, list):
+        if "total_cursos" in meta and meta["total_cursos"] != len(cursos):
+            warnings.append(
+                f"metadata.total_cursos={meta['total_cursos']} "
+                f"≠ len(cursos)={len(cursos)}."
+            )
+    if isinstance(meta, dict) and isinstance(habs, list):
+        if "total_habilidades" in meta and meta["total_habilidades"] != len(habs):
+            warnings.append(
+                f"metadata.total_habilidades={meta['total_habilidades']} "
+                f"≠ len(habilidades)={len(habs)}."
+            )
 
 
-def validate_habilidades(data: dict[str, Any], errors: list[str], warnings: list[str]) -> set[str]:
+def validate_habilidades(
+    data: dict, errors: list[str], warnings: list[str]
+) -> set[str]:
     habilidades = data.get("habilidades", [])
     if not isinstance(habilidades, list):
         return set()
 
     seen = set()
-    dup = set()
+    dups = set()
     for i, h in enumerate(habilidades):
-        if not is_non_empty_str(h):
+        if not _is_non_empty_str(h):
             errors.append(f"Habilidad inválida en índice {i}: debe ser string no vacío.")
             continue
         if h in seen:
-            dup.add(h)
+            dups.add(h)
         seen.add(h)
 
-    if dup:
-        errors.append(f"Habilidades duplicadas detectadas: {sorted(dup)}")
+    if dups:
+        errors.append(f"Habilidades duplicadas: {sorted(dups)}")
 
     return seen
 
 
 def validate_perfiles(
-    data: dict[str, Any],
+    data: dict,
     habilidades_set: set[str],
     errors: list[str],
     warnings: list[str],
@@ -123,29 +110,30 @@ def validate_perfiles(
 
     result: dict[str, set[str]] = {}
     for pid, perfil in perfiles.items():
-        if not is_non_empty_str(pid):
+        if not _is_non_empty_str(pid):
             errors.append("Se encontró un ID de perfil vacío o inválido.")
             continue
         if not isinstance(perfil, dict):
-            errors.append(f"El perfil '{pid}' debe ser un diccionario.")
+            errors.append(f"Perfil '{pid}' debe ser un diccionario.")
             continue
 
         req = perfil.get("habilidades_requeridas")
         if not isinstance(req, list):
-            errors.append(f"El perfil '{pid}' debe tener 'habilidades_requeridas' como lista.")
+            errors.append(
+                f"Perfil '{pid}': 'habilidades_requeridas' debe ser una lista."
+            )
             continue
 
         req_set: set[str] = set()
         for h in req:
-            if not is_non_empty_str(h):
-                errors.append(f"Perfil '{pid}' tiene una habilidad requerida inválida: {h!r}")
+            if not _is_non_empty_str(h):
+                errors.append(f"Perfil '{pid}': habilidad inválida: {h!r}")
                 continue
             req_set.add(h)
             if h not in habilidades_set:
                 errors.append(
-                    f"Perfil '{pid}' requiere la habilidad '{h}', pero no existe en el catálogo de habilidades."
+                    f"Perfil '{pid}': habilidad '{h}' no existe en el catálogo."
                 )
-
         result[pid] = req_set
 
     if not perfiles:
@@ -155,143 +143,113 @@ def validate_perfiles(
 
 
 def validate_courses(
-    data: dict[str, Any],
+    data: dict,
     habilidades_set: set[str],
     errors: list[str],
     warnings: list[str],
-) -> tuple[dict[str, dict[str, Any]], dict[str, list[str]]]:
+) -> dict[str, dict]:
     cursos = data.get("cursos", [])
     if not isinstance(cursos, list):
-        return {}, {}
+        return {}
 
-    by_id: dict[str, dict[str, Any]] = {}
-    skill_to_courses: dict[str, list[str]] = defaultdict(list)
-
+    by_id: dict[str, dict] = {}
     required_fields = {
-        "id",
-        "nombre",
-        "descripcion",
-        "prerrequisitos",
-        "habilidades",
-        "duracion_semanas",
-        "nivel",
+        "id", "nombre", "descripcion", "prerrequisitos",
+        "habilidades", "duracion_semanas", "nivel",
     }
-
     allowed_niveles = {"principiante", "intermedio", "avanzado"}
 
     for idx, curso in enumerate(cursos):
         if not isinstance(curso, dict):
-            errors.append(f"Curso en índice {idx} no es un objeto/diccionario.")
+            errors.append(f"Curso en índice {idx} no es un diccionario.")
             continue
 
         missing = required_fields - set(curso.keys())
         if missing:
             errors.append(
-                f"Curso en índice {idx} ('{curso.get('id', 'sin_id')}') tiene campos faltantes: {sorted(missing)}"
+                f"Curso índice {idx} ('{curso.get('id', 'sin_id')}'): "
+                f"campos faltantes: {sorted(missing)}"
             )
             continue
 
         cid = curso.get("id")
-        nombre = curso.get("nombre")
-        descripcion = curso.get("descripcion")
-        prereq = curso.get("prerrequisitos")
-        teaches = curso.get("habilidades")
-        duracion = curso.get("duracion_semanas")
-        nivel = curso.get("nivel")
-
-        if not is_non_empty_str(cid):
-            errors.append(f"Curso en índice {idx} tiene un 'id' inválido: {cid!r}")
+        if not _is_non_empty_str(cid):
+            errors.append(f"Curso índice {idx}: 'id' inválido: {cid!r}")
             continue
         if cid in by_id:
-            errors.append(f"ID de curso duplicado detectado: '{cid}'")
+            errors.append(f"ID de curso duplicado: '{cid}'")
             continue
         by_id[cid] = curso
 
-        if not is_non_empty_str(nombre):
-            errors.append(f"Curso '{cid}' tiene un 'nombre' inválido.")
-        if not is_non_empty_str(descripcion):
-            errors.append(f"Curso '{cid}' tiene una 'descripcion' inválida.")
+        if not _is_non_empty_str(curso.get("nombre")):
+            errors.append(f"Curso '{cid}': 'nombre' inválido.")
+        if not _is_non_empty_str(curso.get("descripcion")):
+            errors.append(f"Curso '{cid}': 'descripcion' inválida.")
+
+        prereq  = curso.get("prerrequisitos", [])
+        teaches = curso.get("habilidades", [])
+        dur     = curso.get("duracion_semanas")
+        nivel   = curso.get("nivel")
 
         if not isinstance(prereq, list):
-            errors.append(f"Curso '{cid}' debe tener 'prerrequisitos' como lista.")
+            errors.append(f"Curso '{cid}': 'prerrequisitos' debe ser lista.")
             prereq = []
         if not isinstance(teaches, list):
-            errors.append(f"Curso '{cid}' debe tener 'habilidades' como lista.")
+            errors.append(f"Curso '{cid}': 'habilidades' debe ser lista.")
             teaches = []
 
-        if not isinstance(duracion, int) or duracion <= 0:
-            errors.append(f"Curso '{cid}' tiene 'duracion_semanas' inválida: {duracion!r}")
-        elif duracion > 80:
-            warnings.append(f"Curso '{cid}' tiene una duración muy alta ({duracion} semanas).")
+        if not isinstance(dur, int) or dur <= 0:
+            errors.append(
+                f"Curso '{cid}': 'duracion_semanas' inválida: {dur!r}"
+            )
+        elif dur > 80:
+            warnings.append(
+                f"Curso '{cid}': duración muy alta ({dur} semanas)."
+            )
 
         if nivel not in allowed_niveles:
             errors.append(
-                f"Curso '{cid}' tiene nivel inválido: {nivel!r}. "
+                f"Curso '{cid}': nivel inválido '{nivel}'. "
                 f"Permitidos: {sorted(allowed_niveles)}"
             )
 
-        # Cursos deben enseñar al menos una habilidad
         if not teaches:
             warnings.append(f"Curso '{cid}' no enseña ninguna habilidad.")
+
         for h in teaches:
-            if not is_non_empty_str(h):
-                errors.append(f"Curso '{cid}' tiene una habilidad enseñada inválida: {h!r}")
-                continue
-            if h not in habilidades_set:
+            if not _is_non_empty_str(h):
+                errors.append(f"Curso '{cid}': habilidad enseñada inválida: {h!r}")
+            elif h not in habilidades_set:
                 errors.append(
-                    f"Curso '{cid}' enseña la habilidad '{h}', pero no existe en el catálogo."
+                    f"Curso '{cid}': enseña '{h}' que no existe en el catálogo."
                 )
-            skill_to_courses[h].append(cid)
 
-        # Prerrequisitos deben referir habilidades existentes
         for h in prereq:
-            if not is_non_empty_str(h):
-                errors.append(f"Curso '{cid}' tiene un prerrequisito inválido: {h!r}")
-                continue
-            if h not in habilidades_set:
+            if not _is_non_empty_str(h):
+                errors.append(f"Curso '{cid}': prerrequisito inválido: {h!r}")
+            elif h not in habilidades_set:
                 errors.append(
-                    f"Curso '{cid}' requiere la habilidad '{h}', pero no existe en el catálogo."
+                    f"Curso '{cid}': requiere '{h}' que no existe en el catálogo."
                 )
 
-        # Evitar que un curso se autodependa por enseñar una habilidad que también requiere
         inter = set(prereq) & set(teaches)
         if inter:
             warnings.append(
-                f"Curso '{cid}' comparte prerrequisitos y habilidades impartidas: {sorted(inter)}"
+                f"Curso '{cid}': mismas habilidades en prereqs y enseñadas: "
+                f"{sorted(inter)}"
             )
 
-    return by_id, skill_to_courses
+    return by_id
 
 
-def build_course_dependency_graph(
-    cursos_by_id: dict[str, dict[str, Any]],
-) -> dict[str, set[str]]:
-    """
-    Grafo dirigido entre cursos:
-      A -> B si A enseña alguna habilidad que B requiere como prerrequisito.
-    """
-    skill_to_courses: dict[str, list[str]] = defaultdict(list)
-    for cid, curso in cursos_by_id.items():
-        for h in curso.get("habilidades", []):
-            skill_to_courses[h].append(cid)
-
-    graph: dict[str, set[str]] = {cid: set() for cid in cursos_by_id}
-    for cid, curso in cursos_by_id.items():
-        prereqs = set(curso.get("prerrequisitos", []))
-        for skill in prereqs:
-            for provider in skill_to_courses.get(skill, []):
-                if provider != cid:
-                    graph[provider].add(cid)
-    return graph
-
-
-def detect_cycles(graph: dict[str, set[str]]) -> list[list[str]]:
+def detect_cycles(graph: dict[str, set[str]]) -> list[str]:
+    """Kahn: devuelve lista de nodos en ciclo, vacía si es DAG."""
     indeg = {u: 0 for u in graph}
     for u, neigh in graph.items():
         for v in neigh:
             indeg[v] = indeg.get(v, 0) + 1
 
-    q = deque([u for u, d in indeg.items() if d == 0])
+    q       = deque(u for u, d in indeg.items() if d == 0)
     visited = 0
     while q:
         u = q.popleft()
@@ -301,142 +259,145 @@ def detect_cycles(graph: dict[str, set[str]]) -> list[list[str]]:
             if indeg[v] == 0:
                 q.append(v)
 
-    if visited == len(graph):
-        return []
-
-    # Recuperar nodos en ciclo aproximado
-    cyclic_nodes = [u for u, d in indeg.items() if d > 0]
-    return [cyclic_nodes]
+    return [u for u, d in indeg.items() if d > 0] if visited < len(graph) else []
 
 
-def detect_orphan_skills(
-    habilidades_set: set[str],
-    cursos_by_id: dict[str, dict[str, Any]],
-    perfiles_req: dict[str, set[str]],
-) -> tuple[set[str], set[str]]:
-    taught: set[str] = set()
-    required: set[str] = set()
+def build_course_dependency_graph(
+    cursos_by_id: dict[str, dict]
+) -> dict[str, set[str]]:
+    """Grafo de dependencia entre cursos: A→B si A enseña algo que B requiere."""
+    skill_to_courses: dict[str, list[str]] = defaultdict(list)
+    for cid, curso in cursos_by_id.items():
+        for h in curso.get("habilidades", []):
+            skill_to_courses[h].append(cid)
 
-    for curso in cursos_by_id.values():
-        taught.update(curso.get("habilidades", []))
-        required.update(curso.get("prerrequisitos", []))
-
-    for req in perfiles_req.values():
-        required.update(req)
-
-    orphan = habilidades_set - (taught | required)
-    teach_only = taught - required
-    return orphan, teach_only
-
-
-def path_to_skill_exists(
-    target_skill: str,
-    cursos_by_id: dict[str, dict[str, Any]],
-) -> bool:
-    """
-    Comprueba si existe al menos un curso que enseñe la habilidad.
-    Es una condición mínima para que la habilidad pueda alcanzarse.
-    """
-    for curso in cursos_by_id.values():
-        if target_skill in curso.get("habilidades", []):
-            return True
-    return False
+    graph: dict[str, set[str]] = {cid: set() for cid in cursos_by_id}
+    for cid, curso in cursos_by_id.items():
+        for skill in curso.get("prerrequisitos", []):
+            for provider in skill_to_courses.get(skill, []):
+                if provider != cid:
+                    graph[provider].add(cid)
+    return graph
 
 
 def validate_reachability(
     perfiles_req: dict[str, set[str]],
-    cursos_by_id: dict[str, dict[str, Any]],
+    cursos_by_id: dict[str, dict],
     warnings: list[str],
 ) -> None:
+    """Avisa si alguna habilidad requerida por un perfil no la enseña ningún curso."""
+    taught = set()
+    for curso in cursos_by_id.values():
+        taught.update(curso.get("habilidades", []))
+
     for pid, reqs in perfiles_req.items():
-        missing = [s for s in reqs if not path_to_skill_exists(s, cursos_by_id)]
+        missing = [s for s in reqs if s not in taught]
         if missing:
             warnings.append(
-                f"El perfil '{pid}' requiere habilidades sin curso que las imparta: {missing}"
+                f"Perfil '{pid}': habilidades sin curso que las imparta: {missing}"
             )
 
 
+# ── Resumen final ─────────────────────────────────────────────────────────────
+
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Valida un dataset de cursos.")
-    parser.add_argument(
-        "--input",
-        "-i",
-        type=Path,
-        default=Path("data/dataset.json"),
-        help="Ruta del archivo JSON del dataset.",
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    _SYNTH   = BASE_DIR / "data" / "dataset_sintetico.json"
+    _BASE    = BASE_DIR / "data" / "dataset.json"
+
+    default_input = _SYNTH if _SYNTH.exists() else _BASE
+
+    parser = argparse.ArgumentParser(
+        description="Validación completa de un dataset del proyecto."
     )
     parser.add_argument(
-        "--strict",
-        action="store_true",
-        help="Convierte warnings en error de validación.",
+        "--input", "-i",
+        type=Path,
+        default=default_input,
+        help="Ruta del archivo JSON a validar.",
+    )
+    parser.add_argument(
+        "--strict", action="store_true",
+        help="Tratar warnings como errores.",
     )
     args = parser.parse_args()
 
-    path = args.input
-    if not path.exists():
-        print(f"✗ No existe el archivo: {path}", file=sys.stderr)
+    if not args.input.exists():
+        print(f"✗ No existe el archivo: {args.input}", file=sys.stderr)
         return 1
 
-    errors: list[str] = []
+    errors:   list[str] = []
     warnings: list[str] = []
 
     try:
-        data = load_dataset(path)
+        data = load_dataset(args.input)
     except Exception as e:
         print(f"✗ Error leyendo JSON: {e}", file=sys.stderr)
         return 1
 
     validate_structure(data, errors, warnings)
     habilidades_set = validate_habilidades(data, errors, warnings)
-    perfiles_req = validate_perfiles(data, habilidades_set, errors, warnings)
-    cursos_by_id, _ = validate_courses(data, habilidades_set, errors, warnings)
+    perfiles_req    = validate_perfiles(data, habilidades_set, errors, warnings)
+    cursos_by_id    = validate_courses(data, habilidades_set, errors, warnings)
 
-    orphan, teach_only = detect_orphan_skills(habilidades_set, cursos_by_id, perfiles_req)
+    # Habilidades huérfanas
+    taught   = set()
+    required = set()
+    for curso in cursos_by_id.values():
+        taught.update(curso.get("habilidades", []))
+        required.update(curso.get("prerrequisitos", []))
+    for req in perfiles_req.values():
+        required.update(req)
+
+    orphan     = habilidades_set - (taught | required)
+    teach_only = taught - required
     if orphan:
         warnings.append(
-            f"Habilidades definidas pero no usadas ni requeridas por ningún perfil: {sorted(orphan)}"
+            f"Habilidades definidas pero no usadas ni requeridas: {sorted(orphan)}"
         )
     if teach_only:
         warnings.append(
-            f"Habilidades enseñadas por cursos pero no exigidas por ningún perfil: {sorted(teach_only)}"
+            f"Habilidades enseñadas pero no requeridas por ningún perfil: "
+            f"{sorted(teach_only)}"
         )
 
     validate_reachability(perfiles_req, cursos_by_id, warnings)
 
-    graph = build_course_dependency_graph(cursos_by_id)
-    cycles = detect_cycles(graph)
-    if cycles:
+    graph  = build_course_dependency_graph(cursos_by_id)
+    cyclic = detect_cycles(graph)
+    if cyclic:
         errors.append(
-            "Se detectó un ciclo en el grafo de dependencia entre cursos derivado de prerrequisitos."
+            f"Ciclo detectado en el grafo de dependencia entre cursos: {cyclic}"
         )
 
     # Resumen
     print("=" * 72)
-    print(f"VALIDACIÓN DEL DATASET: {path}")
+    print(f"VALIDACIÓN: {args.input.name}")
     print("=" * 72)
-    print(f"Cursos: {len(cursos_by_id)}")
-    print(f"Habilidades: {len(habilidades_set)}")
-    print(f"Perfiles: {len(perfiles_req)}")
-    print(f"Dependencias entre cursos: {sum(len(v) for v in graph.values())}")
+    print(f"  Cursos              : {len(cursos_by_id)}")
+    print(f"  Habilidades         : {len(habilidades_set)}")
+    print(f"  Perfiles            : {len(perfiles_req)}")
+    print(f"  Dependencias cursos : {sum(len(v) for v in graph.values())}")
 
     if warnings:
-        print("\nWARNINGS:")
+        print(f"\nWARNINGS ({len(warnings)}):")
         for w in warnings:
-            print(f"  - {w}")
+            print(f"  ⚠ {w}")
 
     if errors:
-        print("\nERRORES:")
+        print(f"\nERRORES ({len(errors)}):")
         for e in errors:
-            print(f"  - {e}")
-        print("\n✗ Dataset inválido.")
-        return 1 if (errors or (args.strict and warnings)) else 0
+            print(f"  ✗ {e}")
 
-    if args.strict and warnings:
-        print("\n✗ Validación estricta fallida por warnings.")
-        return 1
+    fallo = bool(errors) or (args.strict and bool(warnings))
+    print()
+    if fallo:
+        print("✗ Dataset inválido.")
+    else:
+        print("✓ Dataset válido.")
+    print("=" * 72)
 
-    print("\n✓ Dataset válido.")
-    return 0
+    return 1 if fallo else 0
 
 
 if __name__ == "__main__":
