@@ -10,12 +10,6 @@ Algoritmos de búsqueda sobre el DAG de cursos:
   - k_mejores()                : genera k trayectorias distintas ordenadas por costo
   - validar_trayectoria()      : verifica prerrequisitos y objetivo alcanzado
 
-Optimizaciones
---------------
-- Punteros padre (came_from) en lugar de copiar la trayectoria en cada nodo.
-- cursos_tomados se deduce directamente del estado (frozenset de habilidades)
-  usando un índice inverso precalculado, evitando O(n) por nodo expandido.
-- Estado = frozenset de habilidades adquiridas.
 """
 
 import heapq

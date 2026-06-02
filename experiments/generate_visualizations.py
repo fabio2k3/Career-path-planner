@@ -9,11 +9,6 @@ Gráficos producidos:
   03_calidad_solucion.png  — Cursos y semanas por instancia (A*)
   04_tiempo_busqueda.png   — Tiempo de búsqueda A* vs Greedy (ms, escala log)
 
-Correcciones v2:
-  - Emparejamiento por instancia_id en lugar de zip() para evitar
-    desincronización si alguna instancia falla.
-  - Filtro por exito=="True" antes de graficar.
-  - _color_perfil() con color por defecto para perfiles no catalogados.
 """
 
 import csv

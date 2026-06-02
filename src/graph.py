@@ -9,10 +9,6 @@ Proporciona:
   - Cálculo del estado resultante al tomar un curso.
   - Verificación de si un estado satisface un perfil objetivo.
 
-Correcciones v2:
-  - Validación de perfil_id con mensaje descriptivo.
-  - DATASET_PATH busca dataset_sintetico.json primero, cae a dataset.json si no existe.
-  - cargar_instancias() valida que el perfil_objetivo exista en el dataset.
 """
 
 import json

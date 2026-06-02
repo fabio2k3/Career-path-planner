@@ -5,11 +5,6 @@ Genera un informe ejecutivo en Markdown a partir de los resultados experimentale
 
 Salida:
   - results/informe_ejecutivo.md
-
-Correcciones v2:
-  - No aborta si falta uno de los dos CSVs, avisa y genera lo que puede.
-  - Emparejamiento por instancia_id para calcular delta de semanas.
-  - Tabla cuantitativa LLM incluida en el informe.
 """
 
 import csv

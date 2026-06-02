@@ -1,36 +1,39 @@
 """
 test_search.py
 
-Prueba los algoritmos A* y Greedy sobre 3 instancias del dataset:
-  - inst_01: desde cero → Data Scientist
-  - inst_05: frontend   → Backend Developer
-  - inst_07: DS         → ML Engineer
+Prueba los algoritmos A* y Greedy sobre instancias del dataset.
 
 Para cada instancia:
-  1. Corre A* y Greedy.
-  2. Imprime la trayectoria encontrada.
-  3. Valida que la trayectoria es correcta (prerrequisitos respetados + objetivo alcanzado).
-  4. Compara ambos algoritmos.
+  1. Corre A* (criterio=semanas) y A* (criterio=cursos).
+  2. Corre Greedy.
+  3. Imprime la trayectoria encontrada.
+  4. Valida que la trayectoria es correcta.
+  5. Compara los tres algoritmos.
 """
 
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC = ROOT / "src"
-
+SRC  = ROOT / "src"
 sys.path.insert(0, str(SRC))
 
 from graph import GrafoCursos
 from search import astar, greedy, validar_trayectoria
 
 
-def correr_instancia(grafo, instancia):
-    print(f"\n{'═'*56}")
-    print(f"  INSTANCIA: {instancia.id}")
+SEP  = "═" * 62
+SEP2 = "─" * 62
+
+
+# ── Helpers ───────────────────────────────────────────────────────────────────
+
+def correr_instancia(grafo: GrafoCursos, instancia) -> None:
+    print(f"\n{SEP}")
+    print(f"  INSTANCIA : {instancia.id}")
     print(f"  {instancia.descripcion}")
-    print(f"  Objetivo : {instancia.objetivo_texto}")
-    print(f"{'═'*56}")
+    print(f"  Objetivo  : {instancia.objetivo_texto}")
+    print(SEP)
     print(f"  Habilidades iniciales: {len(instancia.habilidades_iniciales)}")
     if instancia.habilidades_iniciales:
         for h in sorted(instancia.habilidades_iniciales):
@@ -39,74 +42,145 @@ def correr_instancia(grafo, instancia):
 
     resultados = {}
 
-    for nombre, algoritmo in [("A*", astar), ("Greedy", greedy)]:
-        resultado = algoritmo(
-            grafo,
-            instancia.habilidades_iniciales,
-            instancia.perfil_objetivo,
-            instancia.id,
-        )
-        resultado.imprimir()
-        resultados[nombre] = resultado
+    # A* criterio semanas
+    r_sem = astar(
+        grafo,
+        instancia.habilidades_iniciales,
+        instancia.perfil_objetivo,
+        instancia.id,
+        criterio="semanas",
+    )
+    r_sem.imprimir()
+    resultados["A* (semanas)"] = r_sem
 
-        # Validación de la trayectoria
-        if resultado.exito:
-            valido, msg = validar_trayectoria(
-                grafo,
-                resultado.trayectoria,
+    # A* criterio cursos
+    r_cur = astar(
+        grafo,
+        instancia.habilidades_iniciales,
+        instancia.perfil_objetivo,
+        instancia.id,
+        criterio="cursos",
+    )
+    r_cur.imprimir()
+    resultados["A* (cursos)"] = r_cur
+
+    # Greedy
+    r_gre = greedy(
+        grafo,
+        instancia.habilidades_iniciales,
+        instancia.perfil_objetivo,
+        instancia.id,
+    )
+    r_gre.imprimir()
+    resultados["Greedy"] = r_gre
+
+    # Validación de cada trayectoria
+    print(f"\n  Validación de trayectorias:")
+    for nombre, r in resultados.items():
+        if r.exito:
+            ok, msg = validar_trayectoria(
+                grafo, r.trayectoria,
                 instancia.habilidades_iniciales,
                 instancia.perfil_objetivo,
             )
-            status = "✓ Trayectoria VÁLIDA" if valido else f"✗ INVÁLIDA: {msg}"
-            print(f"  Validación: {status}\n")
-
-    # Comparación
-    r_astar  = resultados["A*"]
-    r_greedy = resultados["Greedy"]
-
-    if r_astar.exito and r_greedy.exito:
-        print(f"  {'─'*54}")
-        print(f"  COMPARACIÓN A* vs Greedy")
-        print(f"  {'─'*54}")
-        print(f"  {'Métrica':<35} {'A*':>8} {'Greedy':>8}")
-        print(f"  {'─'*54}")
-        print(f"  {'Cursos en trayectoria':<35} {len(r_astar.trayectoria):>8} {len(r_greedy.trayectoria):>8}")
-        print(f"  {'Costo total (semanas)':<35} {r_astar.costo_total_semanas:>8} {r_greedy.costo_total_semanas:>8}")
-        print(f"  {'Nodos expandidos':<35} {r_astar.nodos_expandidos:>8} {r_greedy.nodos_expandidos:>8}")
-        print(f"  {'Tiempo (s)':<35} {r_astar.tiempo_segundos:>8.4f} {r_greedy.tiempo_segundos:>8.4f}")
-
-        diff = r_greedy.costo_total_semanas - r_astar.costo_total_semanas
-        if diff > 0:
-            print(f"\n  → A* encontró una trayectoria {diff} semana(s) más corta que Greedy.")
-        elif diff < 0:
-            print(f"\n  → Greedy encontró una trayectoria {-diff} semana(s) más corta (caso inusual).")
+            status = "✓ VÁLIDA" if ok else f"✗ INVÁLIDA: {msg}"
         else:
-            print(f"\n  → Ambos algoritmos encontraron trayectorias de igual costo.")
-        print(f"  {'═'*56}\n")
+            status = "— Sin solución"
+        print(f"    {nombre:<18}: {status}")
+
+    # Tabla comparativa
+    print(f"\n  Comparativa:")
+    print(f"  {'Algoritmo':<18} {'Cursos':>7} {'Semanas':>8} "
+          f"{'Nodos':>8} {'Tiempo(s)':>10}")
+    print(f"  {SEP2}")
+    for nombre, r in resultados.items():
+        if r.exito:
+            print(f"  {nombre:<18} {r.num_cursos:>7} "
+                  f"{r.costo_total_semanas:>8} "
+                  f"{r.nodos_expandidos:>8} "
+                  f"{r.tiempo_segundos:>10.4f}")
+        else:
+            print(f"  {nombre:<18} {'—':>7} {'—':>8} {'—':>8} {'—':>10}")
+
+    # Análisis A*(semanas) vs Greedy
+    if r_sem.exito and r_gre.exito:
+        diff = r_gre.costo_total_semanas - r_sem.costo_total_semanas
+        if diff > 0:
+            print(f"\n  → A*(semanas) es {diff} semana(s) más corto que Greedy. "
+                  f"✓ Ventaja de optimalidad confirmada.")
+        elif diff < 0:
+            print(f"\n  → Greedy encontró {-diff} semana(s) menos (caso inusual).")
+        else:
+            print(f"\n  → A*(semanas) y Greedy coinciden en costo total.")
+
+    # Análisis A*(semanas) vs A*(cursos)
+    if r_sem.exito and r_cur.exito:
+        d_sem = r_sem.costo_total_semanas - r_cur.costo_total_semanas
+        d_cur = r_cur.num_cursos - r_sem.num_cursos
+        if d_sem != 0 or d_cur != 0:
+            print(f"  → A*(semanas) vs A*(cursos): "
+                  f"{abs(d_sem)} sem {'menos' if d_sem < 0 else 'más'}, "
+                  f"{abs(d_cur)} curso(s) {'más' if d_cur > 0 else 'menos'}.")
+        else:
+            print(f"  → A*(semanas) y A*(cursos) encuentran la misma trayectoria.")
 
 
-def main():
-    print("=" * 56)
+def test_sin_solucion(grafo: GrafoCursos) -> None:
+    """Verifica que A* y Greedy devuelven exito=False ante un perfil inexistente."""
+    print(f"\n{SEP}")
+    print(f"  TEST CASO SIN SOLUCIÓN — perfil inexistente")
+    print(SEP)
+
+    perfil_falso = "perfil_que_no_existe_xyz"
+    habs         = frozenset()
+
+    for nombre, fn in [("A*", lambda: astar(grafo, habs, perfil_falso, "test")),
+                       ("Greedy", lambda: greedy(grafo, habs, perfil_falso, "test"))]:
+        try:
+            r = fn()
+            status = "✗ INCORRECTO: debería haber fallado" if r.exito else "✓ exito=False correctamente"
+        except ValueError as e:
+            status = f"✓ ValueError capturado: {str(e)[:60]}"
+        except Exception as e:
+            status = f"⚠ Excepción inesperada: {e}"
+        print(f"  {nombre:<8}: {status}")
+
+
+# ── Main ──────────────────────────────────────────────────────────────────────
+
+def main() -> None:
+    print(SEP)
     print("  TEST DE BÚSQUEDA — Career Path Planner")
-    print("  Algoritmos: A* y Greedy")
-    print("=" * 56)
+    print("  Algoritmos: A* (semanas), A* (cursos), Greedy")
+    print(SEP)
 
-    grafo = GrafoCursos()
+    grafo      = GrafoCursos()
     instancias = grafo.cargar_instancias()
 
-    # Seleccionar 3 instancias representativas para el test del día 3
-    ids_test = {"inst_01", "inst_05", "inst_07"}
+    print(f"\n  Grafo cargado: {len(grafo.cursos)} cursos | "
+          f"{len(grafo.habilidades)} habilidades | "
+          f"{len(grafo.perfiles)} perfiles")
+
+    # Seleccionar 3 instancias representativas
+    ids_test       = {"inst_01", "inst_05", "inst_07"}
     instancias_test = [i for i in instancias if i.id in ids_test]
 
-    print(f"\n  Grafo cargado: {len(grafo.cursos)} cursos, "
-          f"{len(grafo.habilidades)} habilidades, "
-          f"{len(grafo.perfiles)} perfiles.")
-    print(f"  Ejecutando {len(instancias_test)} instancias de prueba...\n")
+    if not instancias_test:
+        print(f"\n  ⚠ No se encontraron las instancias {ids_test}.")
+        print(f"  Usando las 3 primeras disponibles.")
+        instancias_test = instancias[:3]
+
+    print(f"  Ejecutando {len(instancias_test)} instancia(s) de prueba...\n")
 
     for instancia in instancias_test:
         correr_instancia(grafo, instancia)
 
-    print("\n  ✓ Todas las pruebas completadas.")
+    # Test caso sin solución
+    test_sin_solucion(grafo)
+
+    print(f"\n{SEP}")
+    print("  ✓ Todas las pruebas completadas.")
+    print(SEP)
 
 
 if __name__ == "__main__":
