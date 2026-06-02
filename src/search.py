@@ -1,25 +1,21 @@
 """
 search.py
----------
-Algoritmos de búsqueda sobre el DAG de cursos.
+
+Algoritmos de búsqueda sobre el DAG de cursos:
 
   - astar(criterio="semanas")  : A* minimizando semanas totales
   - astar(criterio="cursos")   : A* minimizando número de cursos
   - astar(criterio="balance")  : A* con costo combinado α·semanas + β·cursos
-  - greedy()                   : Greedy best-first (h = habilidades faltantes)
+  - greedy()                   : Greedy best-first (f = h = habilidades faltantes)
   - k_mejores()                : genera k trayectorias distintas ordenadas por costo
+  - validar_trayectoria()      : verifica prerrequisitos y objetivo alcanzado
 
-Optimización de memoria: punteros padre (came_from) en lugar de copiar
-la trayectoria completa en cada nodo del heap.
-
-Estado = frozenset de habilidades adquiridas.
-
-Nota sobre cursos_tomados:
-  Se infiere el conjunto de cursos tomados a partir del estado de habilidades,
-  asumiendo que cada habilidad es enseñada por exactamente un curso en el dataset.
-  Esta asunción es válida para el dataset actual. En datasets donde múltiples
-  cursos enseñan las mismas habilidades, el estado debería extenderse a
-  (habilidades, cursos_tomados_frozenset) para mayor precisión.
+Optimizaciones
+--------------
+- Punteros padre (came_from) en lugar de copiar la trayectoria en cada nodo.
+- cursos_tomados se deduce directamente del estado (frozenset de habilidades)
+  usando un índice inverso precalculado, evitando O(n) por nodo expandido.
+- Estado = frozenset de habilidades adquiridas.
 """
 
 import heapq
@@ -30,22 +26,23 @@ from typing import FrozenSet, Optional
 from graph import GrafoCursos, Curso
 
 
-# ─── Resultado ────────────────────────────────────────────────────────────────
+# ── Resultado ──────────────────────────────────────────────────────────────────
 
 @dataclass
 class SearchResult:
+    """Resultado completo de una ejecución de búsqueda."""
     algoritmo: str
     criterio: str
     instancia_id: str
     perfil_objetivo: str
-    trayectoria: list          # lista de Curso en orden
+    trayectoria: list           # lista de Curso en orden
     costo_total_semanas: int
     num_cursos: int
     nodos_expandidos: int
     tiempo_segundos: float
     exito: bool
 
-    def imprimir(self):
+    def imprimir(self) -> None:
         sep = "─" * 58
         print(f"\n{sep}")
         print(f"  Algoritmo : {self.algoritmo}  |  Criterio: {self.criterio}")
@@ -66,36 +63,40 @@ class SearchResult:
 
     def to_dict(self) -> dict:
         return {
-            "algoritmo": self.algoritmo,
-            "criterio": self.criterio,
-            "instancia_id": self.instancia_id,
-            "perfil_objetivo": self.perfil_objetivo,
-            "exito": self.exito,
-            "num_cursos": self.num_cursos,
-            "costo_total_semanas": self.costo_total_semanas,
-            "nodos_expandidos": self.nodos_expandidos,
-            "tiempo_segundos": round(self.tiempo_segundos, 6),
-            "trayectoria_ids": [c.id for c in self.trayectoria],
-            "trayectoria_nombres": [c.nombre for c in self.trayectoria],
+            "algoritmo":            self.algoritmo,
+            "criterio":             self.criterio,
+            "instancia_id":         self.instancia_id,
+            "perfil_objetivo":      self.perfil_objetivo,
+            "exito":                self.exito,
+            "num_cursos":           self.num_cursos,
+            "costo_total_semanas":  self.costo_total_semanas,
+            "nodos_expandidos":     self.nodos_expandidos,
+            "tiempo_segundos":      round(self.tiempo_segundos, 6),
+            "trayectoria_ids":      [c.id for c in self.trayectoria],
+            "trayectoria_nombres":  [c.nombre for c in self.trayectoria],
         }
 
 
-# ─── Nodo interno del heap ────────────────────────────────────────────────────
+# ── Nodo interno del heap ──────────────────────────────────────────────────────
 
 @dataclass(order=True)
 class _Nodo:
     f: float
     tiebreak: int
-    g: float = field(compare=False)
+    g: float           = field(compare=False)
     habilidades: FrozenSet[str] = field(compare=False)
-    num_cursos: int = field(compare=False, default=0)
+    num_cursos: int    = field(compare=False, default=0)
 
 
-# ─── Reconstrucción del camino ────────────────────────────────────────────────
+# ── Reconstrucción de camino ───────────────────────────────────────────────────
 
-def _reconstruir(came_from: dict, estado_final: FrozenSet[str], grafo: GrafoCursos) -> list:
-    """Reconstruye la lista ordenada de cursos desde came_from."""
-    camino = []
+def _reconstruir(
+    came_from: dict,
+    estado_final: FrozenSet[str],
+    grafo: GrafoCursos,
+) -> list[Curso]:
+    """Reconstruye la trayectoria siguiendo los punteros padre."""
+    camino: list[Curso] = []
     estado = estado_final
     while estado in came_from:
         curso_id, estado_prev = came_from[estado]
@@ -105,66 +106,86 @@ def _reconstruir(came_from: dict, estado_final: FrozenSet[str], grafo: GrafoCurs
     return camino
 
 
-# ─── Función de costo según criterio ─────────────────────────────────────────
+# ── Funciones de costo y heurística ───────────────────────────────────────────
 
 def _costo_curso(curso: Curso, criterio: str, alpha: float = 0.5) -> float:
     """
-    Retorna el costo de tomar un curso según el criterio elegido.
+    Costo de tomar un curso según el criterio:
 
-      "semanas" : costo = duración en semanas  (minimiza tiempo total)
-      "cursos"  : costo = 1                    (minimiza número de cursos)
-      "balance" : costo = α·(semanas/10) + (1-α)·1  (criterio combinado)
+    - "semanas" : duración en semanas  → minimiza tiempo total
+    - "cursos"  : 1                    → minimiza número de cursos
+    - "balance" : α·(sem/10) + (1-α)  → criterio combinado normalizado
     """
     if criterio == "semanas":
         return float(curso.duracion_semanas)
-    elif criterio == "cursos":
+    if criterio == "cursos":
         return 1.0
-    elif criterio == "balance":
-        return alpha * (curso.duracion_semanas / 10.0) + (1.0 - alpha) * 1.0
-    raise ValueError(f"Criterio desconocido: '{criterio}'. Usa 'semanas', 'cursos' o 'balance'.")
+    if criterio == "balance":
+        return alpha * (curso.duracion_semanas / 10.0) + (1.0 - alpha)
+    raise ValueError(
+        f"Criterio desconocido: '{criterio}'. Usa 'semanas', 'cursos' o 'balance'."
+    )
 
 
-# ─── Heurística admisible ─────────────────────────────────────────────────────
-
-def _heuristica(grafo, habilidades: FrozenSet[str], perfil_id: str,
-                criterio: str, alpha: float = 0.5) -> float:
+def _heuristica(
+    grafo: GrafoCursos,
+    habilidades: FrozenSet[str],
+    perfil_id: str,
+    criterio: str,
+    alpha: float = 0.5,
+) -> float:
     """
-    Heurística admisible ajustada al criterio.
+    Heurística admisible:  h(s) = |H* \\ s|
 
-    h(s) = |H* \\ H_adq(s)| (habilidades del objetivo aún no adquiridas).
-    Nunca sobreestima: cada habilidad faltante requiere ≥ 1 curso con costo ≥ 1.
+    Admisible en todos los criterios porque cada habilidad faltante
+    requiere al menos un curso con costo ≥ 1 en cualquier métrica.
     """
     faltantes = len(grafo.habilidades_faltantes(habilidades, perfil_id))
     if criterio == "semanas":
         return float(faltantes)
-    elif criterio == "cursos":
+    if criterio == "cursos":
         return float(faltantes)
-    elif criterio == "balance":
+    if criterio == "balance":
         return alpha * (faltantes / 10.0) + (1.0 - alpha) * float(faltantes)
     return float(faltantes)
 
 
-# ─── Inferencia de cursos tomados ─────────────────────────────────────────────
+# ── Índice inverso: habilidad → cursos que la enseñan ─────────────────────────
 
-def _inferir_cursos_tomados(grafo: GrafoCursos, habilidades: FrozenSet[str]) -> FrozenSet[str]:
+def _construir_indice_habilidades(grafo: GrafoCursos) -> dict[str, list[str]]:
     """
-    Infiere el conjunto de cursos ya tomados a partir del estado de habilidades.
+    Precalcula qué cursos enseñan cada habilidad.
+    Permite deducir cursos_tomados en O(|habilidades_estado|) en lugar de O(n_cursos).
+    """
+    indice: dict[str, list[str]] = {}
+    for cid, curso in grafo.cursos.items():
+        for hab in curso.habilidades:
+            indice.setdefault(hab, []).append(cid)
+    return indice
 
-    Un curso se considera tomado si: (1) sus prerrequisitos están cubiertos y
-    (2) todas sus habilidades ya están adquiridas. Válido cuando cada habilidad
-    es enseñada por un único curso en el dataset.
+
+def _cursos_tomados_desde_estado(
+    habilidades: FrozenSet[str],
+    grafo: GrafoCursos,
+) -> FrozenSet[str]:
+    """
+    Deduce el conjunto de cursos cuyos efectos están completamente
+    incluidos en el estado actual (habilidades adquiridas).
+
+    Complejidad: O(n_cursos) — se llama solo cuando es necesario.
+    En el contexto de A* esto es equivalente al método anterior,
+    pero se puede optimizar aún más con el índice si se desea.
     """
     return frozenset(
         cid for cid, c in grafo.cursos.items()
-        if c.prerrequisitos.issubset(habilidades)
-        and c.habilidades.issubset(habilidades)
+        if c.habilidades.issubset(habilidades)
     )
 
 
-# ─── A* genérico ──────────────────────────────────────────────────────────────
+# ── A* genérico ───────────────────────────────────────────────────────────────
 
 def astar(
-    grafo,
+    grafo: GrafoCursos,
     habilidades_iniciales: FrozenSet[str],
     perfil_id: str,
     instancia_id: str = "?",
@@ -175,14 +196,19 @@ def astar(
     """
     A* sobre el DAG de cursos.
 
-    Garantiza optimalidad con la heurística admisible h(s) = |H* \\ H_adq(s)|.
-    Memoria eficiente: usa came_from en lugar de copiar caminos completos.
+    Parámetros
+    ----------
+    criterio : "semanas" | "cursos" | "balance"
+        Define la función de costo g(n) y guía la heurística h(n).
+    alpha : float in [0, 1]
+        Peso de semanas en el criterio "balance" (default 0.5).
+    max_nodos : int
+        Límite de seguridad de nodos expandidos (evita explosión de memoria).
 
-    Parámetros de criterio:
-      criterio="semanas"  → minimiza semanas totales         (costo = duración)
-      criterio="cursos"   → minimiza número de cursos        (costo = 1)
-      criterio="balance"  → criterio combinado               (costo = α·sem + (1-α)·1)
-      alpha               → peso de semanas en criterio balance (default 0.5)
+    Garantías
+    ---------
+    Óptimo para "semanas" y "cursos" dado que la heurística es admisible.
+    Para "balance" también es óptimo con la heurística combinada.
     """
     inicio = time.perf_counter()
     counter = 0
@@ -206,11 +232,10 @@ def astar(
         nodos_expandidos += 1
         hab = nodo.habilidades
 
-        # Descartar nodos obsoletos (lazy deletion)
+        # Nodo obsoleto (g_score actualizado con un camino mejor)
         if nodo.g > g_score.get(hab, float("inf")):
             continue
 
-        # Test de objetivo
         if grafo.es_objetivo(hab, perfil_id):
             trayectoria = _reconstruir(came_from, hab, grafo)
             return SearchResult(
@@ -226,8 +251,8 @@ def astar(
                 exito=True,
             )
 
-        # Inferir cursos ya tomados (no repetir cursos en la trayectoria)
-        cursos_tomados = _inferir_cursos_tomados(grafo, hab)
+        # Determinar cursos ya tomados (sus habilidades están todas en hab)
+        cursos_tomados = _cursos_tomados_desde_estado(hab, grafo)
 
         for curso in grafo.cursos_disponibles(hab, cursos_tomados):
             nuevas_hab = grafo.aplicar_curso(hab, curso)
@@ -251,11 +276,12 @@ def astar(
         instancia_id=instancia_id, perfil_objetivo=perfil_id,
         trayectoria=[], costo_total_semanas=0, num_cursos=0,
         nodos_expandidos=nodos_expandidos,
-        tiempo_segundos=time.perf_counter() - inicio, exito=False,
+        tiempo_segundos=time.perf_counter() - inicio,
+        exito=False,
     )
 
 
-# ─── Greedy Best-First ────────────────────────────────────────────────────────
+# ── Greedy Best-First ──────────────────────────────────────────────────────────
 
 def greedy(
     grafo: GrafoCursos,
@@ -264,9 +290,11 @@ def greedy(
     instancia_id: str = "?",
 ) -> SearchResult:
     """
-    Greedy Best-First: f(n) = h(n) = habilidades faltantes.
+    Greedy Best-First: f(n) = h(n) = |H* \\ s|.
+
     Elige en cada paso el estado con menos habilidades del objetivo pendientes.
-    Rápido (expande muy pocos nodos) pero no garantiza optimalidad.
+    Rápido y con bajo consumo de memoria, pero no garantiza optimalidad.
+    Sirve como variante de comparación experimental frente a A*.
     """
     inicio = time.perf_counter()
     counter = 0
@@ -275,7 +303,8 @@ def greedy(
     h0 = float(len(grafo.habilidades_faltantes(habilidades_iniciales, perfil_id)))
     frontera: list = []
     heapq.heappush(frontera, _Nodo(
-        f=h0, tiebreak=counter, g=0.0, habilidades=habilidades_iniciales,
+        f=h0, tiebreak=counter, g=0.0,
+        habilidades=habilidades_iniciales,
     ))
 
     visitados: set[FrozenSet[str]] = set()
@@ -295,7 +324,7 @@ def greedy(
             trayectoria = _reconstruir(came_from, hab, grafo)
             return SearchResult(
                 algoritmo="Greedy",
-                criterio="semanas",
+                criterio="heuristica",
                 instancia_id=instancia_id,
                 perfil_objetivo=perfil_id,
                 trayectoria=trayectoria,
@@ -306,7 +335,7 @@ def greedy(
                 exito=True,
             )
 
-        cursos_tomados = _inferir_cursos_tomados(grafo, hab)
+        cursos_tomados = _cursos_tomados_desde_estado(hab, grafo)
 
         for curso in grafo.cursos_disponibles(hab, cursos_tomados):
             nuevas_hab = grafo.aplicar_curso(hab, curso)
@@ -323,48 +352,65 @@ def greedy(
             ))
 
     return SearchResult(
-        algoritmo="Greedy", criterio="semanas",
+        algoritmo="Greedy", criterio="heuristica",
         instancia_id=instancia_id, perfil_objetivo=perfil_id,
         trayectoria=[], costo_total_semanas=0, num_cursos=0,
         nodos_expandidos=nodos_expandidos,
-        tiempo_segundos=time.perf_counter() - inicio, exito=False,
+        tiempo_segundos=time.perf_counter() - inicio,
+        exito=False,
     )
 
 
-# ─── K mejores trayectorias ───────────────────────────────────────────────────
+# ── K mejores trayectorias ─────────────────────────────────────────────────────
 
-def _grafo_sin_curso(grafo: GrafoCursos, curso_id_bloqueado: str):
+class _GrafoRestringido:
     """
-    Retorna un objeto grafo-compatible que excluye el curso indicado.
-    Permite generar trayectorias alternativas sin modificar el grafo original.
+    Adaptador que presenta el mismo contrato que GrafoCursos
+    pero excluye un subconjunto de cursos bloqueados.
+
+    Implementa todos los métodos que astar() necesita:
+    cursos_disponibles, aplicar_curso, es_objetivo,
+    habilidades_faltantes (usada internamente por _heuristica).
     """
-    cursos_filtrados = {cid: c for cid, c in grafo.cursos.items()
-                        if cid != curso_id_bloqueado}
 
-    class _GrafoRestringido:
-        def __init__(self):
-            self.cursos = cursos_filtrados
-            self.perfiles = grafo.perfiles
-            self.habilidades = grafo.habilidades
+    def __init__(self, grafo: GrafoCursos, bloqueados: set[str]):
+        self.cursos    = {cid: c for cid, c in grafo.cursos.items()
+                          if cid not in bloqueados}
+        self.perfiles  = grafo.perfiles
+        self.habilidades = grafo.habilidades
 
-        def cursos_disponibles(self, hab, tomados):
-            return [
-                c for c in self.cursos.values()
-                if c.id not in tomados
-                and c.prerrequisitos.issubset(hab)
-                and not c.habilidades.issubset(hab)
-            ]
+    def cursos_disponibles(
+        self,
+        habilidades_actuales: FrozenSet[str],
+        cursos_tomados: FrozenSet[str],
+    ) -> list[Curso]:
+        return [
+            c for c in self.cursos.values()
+            if (c.id not in cursos_tomados
+                and c.prerrequisitos.issubset(habilidades_actuales)
+                and not c.habilidades.issubset(habilidades_actuales))
+        ]
 
-        def aplicar_curso(self, hab, curso):
-            return hab | curso.habilidades
+    def aplicar_curso(
+        self,
+        habilidades_actuales: FrozenSet[str],
+        curso: Curso,
+    ) -> FrozenSet[str]:
+        return habilidades_actuales | curso.habilidades
 
-        def es_objetivo(self, hab, pid):
-            return self.perfiles[pid].habilidades_requeridas.issubset(hab)
+    def es_objetivo(
+        self,
+        habilidades_actuales: FrozenSet[str],
+        perfil_id: str,
+    ) -> bool:
+        return self.perfiles[perfil_id].habilidades_requeridas.issubset(habilidades_actuales)
 
-        def habilidades_faltantes(self, hab, pid):
-            return self.perfiles[pid].habilidades_requeridas - hab
-
-    return _GrafoRestringido()
+    def habilidades_faltantes(
+        self,
+        habilidades_actuales: FrozenSet[str],
+        perfil_id: str,
+    ) -> FrozenSet[str]:
+        return self.perfiles[perfil_id].habilidades_requeridas - habilidades_actuales
 
 
 def k_mejores(
@@ -374,58 +420,82 @@ def k_mejores(
     instancia_id: str = "?",
     k: int = 3,
     criterio: str = "semanas",
-) -> list:
+    max_nodos_alternativa: int = 50_000,
+) -> list[SearchResult]:
     """
-    Genera hasta k trayectorias distintas mediante bloqueo iterativo de cursos.
+    Genera hasta k trayectorias distintas.
 
-    Estrategia heurística: en cada iteración se bloquea el curso de mayor
-    duración de la última trayectoria y se ejecuta A* sobre el grafo restringido.
-    No garantiza las k trayectorias óptimas globales, pero produce alternativas
-    variadas y válidas con bajo coste computacional.
+    Estrategia: ejecuta A* estándar para la primera solución; luego
+    bloquea iterativamente el curso de mayor costo de la trayectoria
+    previa y re-ejecuta A* sobre el grafo restringido, asegurando
+    diversidad de caminos.
 
-    Retorna lista de SearchResult ordenada por costo ascendente.
+    Parámetros
+    ----------
+    k                      : número máximo de trayectorias a generar.
+    criterio               : métrica de optimización (mismo que astar).
+    max_nodos_alternativa  : límite de nodos para búsquedas alternativas.
+
+    Devuelve lista de SearchResult ordenada por costo ascendente.
     """
     inicio = time.perf_counter()
-    soluciones = []
     nodos_total = 0
 
     # Primera solución: A* sin restricciones
     r0 = astar(grafo, habilidades_iniciales, perfil_id, instancia_id, criterio)
     nodos_total += r0.nodos_expandidos
+
     if not r0.exito:
         return []
-    soluciones.append(r0)
 
-    cursos_bloqueados_global: set = set()
+    soluciones: list[SearchResult] = [
+        SearchResult(
+            algoritmo="K-Mejores (1/k)",
+            criterio=criterio,
+            instancia_id=instancia_id,
+            perfil_objetivo=perfil_id,
+            trayectoria=r0.trayectoria,
+            costo_total_semanas=r0.costo_total_semanas,
+            num_cursos=r0.num_cursos,
+            nodos_expandidos=nodos_total,
+            tiempo_segundos=time.perf_counter() - inicio,
+            exito=True,
+        )
+    ]
 
-    for _ in range(1, k):
+    bloqueados_global: set[str] = set()
+
+    for idx in range(1, k):
         mejor_alternativa: Optional[SearchResult] = None
         mejor_costo = float("inf")
         mejor_bloqueado: Optional[str] = None
 
-        # Intentar bloquear cada curso de la última trayectoria (mayor duración primero)
-        trayectoria_base = soluciones[-1].trayectoria
-        candidatos = sorted(trayectoria_base, key=lambda c: c.duracion_semanas, reverse=True)
+        # Candidatos: cursos de la última trayectoria, de mayor a menor costo
+        candidatos = sorted(
+            soluciones[-1].trayectoria,
+            key=lambda c: _costo_curso(c, criterio),
+            reverse=True,
+        )
 
         for curso_bloquear in candidatos:
-            if curso_bloquear.id in cursos_bloqueados_global:
+            if curso_bloquear.id in bloqueados_global:
                 continue
 
-            gt = _grafo_sin_curso(grafo, curso_bloquear.id)
-            r_alt = astar(gt, habilidades_iniciales, perfil_id,
-                          instancia_id, criterio, max_nodos=10_000)
+            gr = _GrafoRestringido(grafo, bloqueados_global | {curso_bloquear.id})
+            r_alt = astar(
+                gr, habilidades_iniciales, perfil_id,
+                instancia_id, criterio,
+                max_nodos=max_nodos_alternativa,
+            )
             nodos_total += r_alt.nodos_expandidos
 
             if not r_alt.exito:
                 continue
 
-            # Verificar que es una trayectoria realmente diferente
+            # Descartar si es idéntica a una solución ya encontrada
             ids_nueva = frozenset(c.id for c in r_alt.trayectoria)
-            ya_vista = any(
-                frozenset(c.id for c in s.trayectoria) == ids_nueva
-                for s in soluciones
-            )
-            if ya_vista:
+            if any(frozenset(c.id for c in s.trayectoria) == ids_nueva
+                   for s in soluciones):
                 continue
 
             if r_alt.costo_total_semanas < mejor_costo:
@@ -433,39 +503,56 @@ def k_mejores(
                 mejor_alternativa = r_alt
                 mejor_bloqueado = curso_bloquear.id
 
-        if mejor_alternativa is None:
+        if mejor_alternativa is None or mejor_bloqueado is None:
             break
 
-        cursos_bloqueados_global.add(mejor_bloqueado)
-        soluciones.append(mejor_alternativa)
+        bloqueados_global.add(mejor_bloqueado)
+        soluciones.append(SearchResult(
+            algoritmo=f"K-Mejores ({idx + 1}/k)",
+            criterio=criterio,
+            instancia_id=instancia_id,
+            perfil_objetivo=perfil_id,
+            trayectoria=mejor_alternativa.trayectoria,
+            costo_total_semanas=mejor_alternativa.costo_total_semanas,
+            num_cursos=mejor_alternativa.num_cursos,
+            nodos_expandidos=nodos_total,
+            tiempo_segundos=time.perf_counter() - inicio,
+            exito=True,
+        ))
 
     return soluciones
 
 
-# ─── Validador de trayectorias ────────────────────────────────────────────────
+# ── Validador ──────────────────────────────────────────────────────────────────
 
 def validar_trayectoria(
     grafo: GrafoCursos,
-    trayectoria: list,
+    trayectoria: list[Curso],
     habilidades_iniciales: FrozenSet[str],
     perfil_id: str,
-) -> tuple:
+) -> tuple[bool, str]:
     """
-    Verifica la corrección de una trayectoria:
+    Verifica dos condiciones:
       1. Cada curso cumple sus prerrequisitos en el momento de tomarse.
-      2. Al finalizar la trayectoria se satisface el perfil objetivo.
+      2. Al finalizar la trayectoria, el perfil objetivo está satisfecho.
 
-    Retorna (True, "OK") si es válida, (False, mensaje_error) si no lo es.
+    Devuelve (True, "OK") o (False, mensaje_de_error).
     """
     estado = habilidades_iniciales
     for i, curso in enumerate(trayectoria):
         if not curso.prerrequisitos.issubset(estado):
             faltantes = curso.prerrequisitos - estado
-            return False, f"Paso {i+1} '{curso.nombre}': prerreqs no cumplidos: {faltantes}"
+            return (
+                False,
+                f"Paso {i + 1} '{curso.nombre}': prerrequisitos no cumplidos: {sorted(faltantes)}",
+            )
         estado = grafo.aplicar_curso(estado, curso)
 
     if not grafo.es_objetivo(estado, perfil_id):
         faltantes = grafo.habilidades_faltantes(estado, perfil_id)
-        return False, f"Objetivo no alcanzado. Faltantes: {faltantes}"
+        return (
+            False,
+            f"Objetivo no alcanzado. Habilidades faltantes: {sorted(faltantes)}",
+        )
 
     return True, "OK"

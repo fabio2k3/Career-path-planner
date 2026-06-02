@@ -2,68 +2,89 @@
 graph.py
 
 Representa el grafo dirigido acíclico (DAG) de cursos y habilidades.
+
 Proporciona:
   - Carga del dataset desde JSON.
   - Consulta de cursos disponibles dado un estado (conjunto de habilidades).
   - Cálculo del estado resultante al tomar un curso.
   - Verificación de si un estado satisface un perfil objetivo.
+
+Correcciones v2:
+  - Validación de perfil_id con mensaje descriptivo.
+  - DATASET_PATH busca dataset_sintetico.json primero, cae a dataset.json si no existe.
+  - cargar_instancias() valida que el perfil_objetivo exista en el dataset.
 """
 
 import json
 from pathlib import Path
 from dataclasses import dataclass
-from typing import FrozenSet
+from typing import FrozenSet, Optional
 
 
-# ------ Rutas -----
+# ── Rutas ─────────────────────────────────────────────────────────────────────
+
 BASE_DIR = Path(__file__).resolve().parent.parent
-DATASET_PATH = BASE_DIR / "data" / "dataset_sintetico.json"
+_SYNTH   = BASE_DIR / "data" / "dataset_sintetico.json"
+_BASE    = BASE_DIR / "data" / "dataset.json"
+
+def _resolver_dataset() -> Path:
+    """Devuelve el dataset disponible (sintético preferido)."""
+    if _SYNTH.exists():
+        return _SYNTH
+    if _BASE.exists():
+        return _BASE
+    raise FileNotFoundError(
+        f"No se encontró ningún dataset en {BASE_DIR / 'data'}. "
+        "Genera primero dataset.json o dataset_sintetico.json."
+    )
+
+DATASET_PATH   = _resolver_dataset()
 INSTANCES_PATH = BASE_DIR / "data" / "instances" / "instances.json"
 
 
-# ------ Estructuras de datos -----
+# ── Estructuras de datos ──────────────────────────────────────────────────────
 
 @dataclass(frozen=True)
 class Curso:
-    """Representa un curso del catálogo."""
+    """Nodo del DAG: un curso del catálogo."""
     id: str
     nombre: str
     descripcion: str
-    prerrequisitos: FrozenSet[str]   # habilidades necesarias antes
+    prerrequisitos: FrozenSet[str]   # habilidades necesarias antes de tomarlo
     habilidades: FrozenSet[str]      # habilidades que enseña
     duracion_semanas: int
-    nivel: str
+    nivel: str                       # principiante | intermedio | avanzado
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"Curso({self.id}: {self.nombre})"
 
 
 @dataclass(frozen=True)
 class PerfilProfesional:
-    """Representa un perfil profesional objetivo."""
+    """Perfil objetivo: conjunto de habilidades que debe alcanzarse."""
     id: str
     nombre: str
     descripcion: str
     habilidades_requeridas: FrozenSet[str]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"Perfil({self.nombre})"
 
 
 @dataclass(frozen=True)
 class Instancia:
-    """Representa una instancia del problema de búsqueda."""
+    """Instancia de prueba: punto de partida + perfil objetivo."""
     id: str
     descripcion: str
     habilidades_iniciales: FrozenSet[str]
     perfil_objetivo: str
     objetivo_texto: str
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"Instancia({self.id}: {self.descripcion})"
 
 
-# ------- Grafo principal -------
+# ── Grafo principal ───────────────────────────────────────────────────────────
 
 class GrafoCursos:
     """
@@ -72,19 +93,21 @@ class GrafoCursos:
     Estado de búsqueda : frozenset de habilidades adquiridas.
     Acciones           : cursos cuyas precondiciones están satisfechas.
     Transición         : estado ∪ habilidades_del_curso.
+    Función objetivo   : H* ⊆ habilidades_actuales.
     """
 
-    def __init__(self):
-        self.cursos: dict[str, Curso] = {}
-        self.perfiles: dict[str, PerfilProfesional] = {}
-        self.habilidades: set[str] = set()
+    def __init__(self, dataset_path: Optional[Path] = None):
+        self.cursos:      dict[str, Curso]             = {}
+        self.perfiles:    dict[str, PerfilProfesional] = {}
+        self.habilidades: set[str]                     = set()
+        self._dataset_path = dataset_path or DATASET_PATH
         self._cargar_dataset()
 
-    # ------ Carga ------
+    # ── Carga ─────────────────────────────────────────────────────────────────
 
-    def _cargar_dataset(self):
-        """Carga el dataset desde el archivo JSON."""
-        with open(DATASET_PATH, encoding="utf-8") as f:
+    def _cargar_dataset(self) -> None:
+        """Carga el dataset desde JSON y construye el grafo en memoria."""
+        with open(self._dataset_path, encoding="utf-8") as f:
             data = json.load(f)
 
         self.habilidades = set(data["habilidades"])
@@ -110,19 +133,19 @@ class GrafoCursos:
             )
             self.perfiles[pid] = perfil
 
-    # ----- Lógica del espacio de estados ------
+    # ── Lógica del espacio de estados ─────────────────────────────────────────
 
     def cursos_disponibles(
         self,
         habilidades_actuales: FrozenSet[str],
         cursos_tomados: FrozenSet[str],
-    ) -> list:
+    ) -> list[Curso]:
         """
-        Devuelve los cursos aplicables en el estado actual.
+        Cursos aplicables en el estado actual.
         Un curso es disponible si:
-          1. Sus prerrequisitos están todos en habilidades_actuales.
-          2. No ha sido tomado anteriormente.
-          3. Aporta al menos una habilidad nueva (evita acciones inútiles).
+          1. Sus prerrequisitos están en habilidades_actuales.
+          2. No ha sido tomado ya (está en cursos_tomados).
+          3. Aporta al menos una habilidad nueva (acción no trivial).
         """
         return [
             curso for curso in self.cursos.values()
@@ -136,10 +159,7 @@ class GrafoCursos:
         habilidades_actuales: FrozenSet[str],
         curso: Curso,
     ) -> FrozenSet[str]:
-        """
-        Transición de estado al tomar un curso.
-        s' = habilidades_actuales ∪ skills(curso)
-        """
+        """Transición de estado: s' = habilidades_actuales ∪ habilidades(curso)."""
         return habilidades_actuales | curso.habilidades
 
     def es_objetivo(
@@ -147,11 +167,9 @@ class GrafoCursos:
         habilidades_actuales: FrozenSet[str],
         perfil_id: str,
     ) -> bool:
-        """
-        Verifica si el estado actual satisface el perfil objetivo.
-        Condición: H* ⊆ habilidades_actuales
-        """
-        return self.perfiles[perfil_id].habilidades_requeridas.issubset(habilidades_actuales)
+        """True si el estado satisface el perfil: H* ⊆ habilidades_actuales."""
+        perfil = self._get_perfil(perfil_id)
+        return perfil.habilidades_requeridas.issubset(habilidades_actuales)
 
     def habilidades_faltantes(
         self,
@@ -159,9 +177,10 @@ class GrafoCursos:
         perfil_id: str,
     ) -> FrozenSet[str]:
         """Habilidades del objetivo que aún no han sido adquiridas."""
-        return self.perfiles[perfil_id].habilidades_requeridas - habilidades_actuales
+        perfil = self._get_perfil(perfil_id)
+        return perfil.habilidades_requeridas - habilidades_actuales
 
-    # ----- Heurística ------
+    # ── Heurística ────────────────────────────────────────────────────────────
 
     def heuristica(
         self,
@@ -171,36 +190,56 @@ class GrafoCursos:
         """
         Heurística admisible para A*:
             h(s) = |H* \\ H_adq(s)|
+
         Cuenta las habilidades del objetivo que aún faltan.
         Admisible: cada habilidad faltante requiere al menos 1 curso (costo ≥ 1).
+        Consistente: al tomar un curso que cubre k habilidades faltantes,
+        g aumenta en 1 y h disminuye en ≤ k → f no decrece.
         """
         return len(self.habilidades_faltantes(habilidades_actuales, perfil_id))
 
-    # ----- Utilidades -----
+    # ── Utilidades ────────────────────────────────────────────────────────────
 
-    def cargar_instancias(self) -> list:
-        """Carga las instancias de prueba desde el archivo JSON."""
+    def _get_perfil(self, perfil_id: str) -> PerfilProfesional:
+        """Devuelve el perfil o lanza ValueError con mensaje claro."""
+        perfil = self.perfiles.get(perfil_id)
+        if perfil is None:
+            disponibles = sorted(self.perfiles.keys())
+            raise ValueError(
+                f"Perfil '{perfil_id}' no existe en el dataset. "
+                f"Perfiles disponibles: {disponibles}"
+            )
+        return perfil
+
+    def cargar_instancias(self) -> list[Instancia]:
+        """Carga las instancias de prueba desde instances.json."""
         with open(INSTANCES_PATH, encoding="utf-8") as f:
             data = json.load(f)
-        return [
-            Instancia(
+        instancias = []
+        for i in data:
+            perfil_id = i["perfil_objetivo"]
+            if perfil_id not in self.perfiles:
+                raise ValueError(
+                    f"Instancia '{i['id']}' referencia perfil '{perfil_id}' "
+                    f"que no existe en el dataset."
+                )
+            instancias.append(Instancia(
                 id=i["id"],
                 descripcion=i["descripcion"],
                 habilidades_iniciales=frozenset(i["habilidades_iniciales"]),
-                perfil_objetivo=i["perfil_objetivo"],
+                perfil_objetivo=perfil_id,
                 objetivo_texto=i["objetivo_texto"],
-            )
-            for i in data
-        ]
+            ))
+        return instancias
 
     def resumen_estado(
         self,
         habilidades_actuales: FrozenSet[str],
         perfil_id: str,
     ) -> str:
-        """Genera un resumen legible del estado actual vs el objetivo."""
+        """Resumen legible del progreso hacia el objetivo."""
         faltantes  = self.habilidades_faltantes(habilidades_actuales, perfil_id)
-        perfil     = self.perfiles[perfil_id]
+        perfil     = self._get_perfil(perfil_id)
         adquiridas = habilidades_actuales & perfil.habilidades_requeridas
         return (
             f"Habilidades objetivo adquiridas : {len(adquiridas)}"
