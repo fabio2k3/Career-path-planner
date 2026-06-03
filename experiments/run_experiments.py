@@ -4,11 +4,6 @@ run_experiments.py
 Diseño experimental del proyecto — ejecuta las 3 configuraciones
 sobre las instancias del dataset y guarda los resultados en CSV.
 
-Configuraciones:
-  (a) A*     sin LLM  (criterio=cursos)
-  (b) Greedy sin LLM
-  (c) A*     con evaluación LLM (criterio=cursos)
-
 Métricas registradas por instancia:
   - num_cursos, costo_total_semanas
   - nodos_expandidos, tiempo_segundos
@@ -162,7 +157,6 @@ def experimento_con_llm(grafo: GrafoCursos, instancias: list) -> list:
             inst.habilidades_iniciales, inst.perfil_objetivo,
         )
 
-        # Garantizar que objetivo_texto nunca sea vacío
         objetivo_texto = (inst.objetivo_texto.strip()
                           or f"Alcanzar el perfil: {inst.perfil_objetivo}")
 
@@ -226,7 +220,6 @@ def analisis_comparativo(filas_sin_llm: list, filas_con_llm: list) -> None:
     print(f"  ANÁLISIS COMPARATIVO")
     print(SEP)
 
-    # Emparejar por instancia_id para evitar desincronización si alguno falla
     astar_por_inst  = {
         r["instancia_id"]: r for r in filas_sin_llm
         if "A*" in r["algoritmo"] and r["exito"]
@@ -245,11 +238,13 @@ def analisis_comparativo(filas_sin_llm: list, filas_con_llm: list) -> None:
         for iid in ids_comunes:
             r_a   = astar_por_inst[iid]
             r_g   = greedy_por_inst[iid]
-            delta = r_g["costo_total_semanas"] - r_a["costo_total_semanas"]
+            # ── FIX: cast a int para operar con valores del CSV ──
+            delta = int(r_g["costo_total_semanas"]) - int(r_a["costo_total_semanas"])
             signo = "+" if delta > 0 else ""
             print(f"  {iid:<12} "
-                  f"{r_a['num_cursos']:>10} {r_g['num_cursos']:>10} "
-                  f"{r_a['costo_total_semanas']:>8} {r_g['costo_total_semanas']:>9} "
+                  f"{int(r_a['num_cursos']):>10} {int(r_g['num_cursos']):>10} "
+                  f"{int(r_a['costo_total_semanas']):>8} "
+                  f"{int(r_g['costo_total_semanas']):>9} "
                   f"{signo}{delta:>6}")
 
         print(f"\n  2. A* vs Greedy — Eficiencia computacional")
@@ -259,10 +254,15 @@ def analisis_comparativo(filas_sin_llm: list, filas_con_llm: list) -> None:
         for iid in ids_comunes:
             r_a   = astar_por_inst[iid]
             r_g   = greedy_por_inst[iid]
-            ratio = r_a["nodos_expandidos"] / max(r_g["nodos_expandidos"], 1)
+            # ── FIX: cast a int/float para operar con valores del CSV ──
+            nodos_a = int(r_a["nodos_expandidos"])
+            nodos_g = int(r_g["nodos_expandidos"])
+            tiempo_a = float(r_a["tiempo_segundos"])
+            tiempo_g = float(r_g["tiempo_segundos"])
+            ratio   = nodos_a / max(nodos_g, 1)
             print(f"  {iid:<12} "
-                  f"{r_a['nodos_expandidos']:>10} {r_g['nodos_expandidos']:>10} "
-                  f"{r_a['tiempo_segundos']:>10.4f} {r_g['tiempo_segundos']:>10.4f} "
+                  f"{nodos_a:>10} {nodos_g:>10} "
+                  f"{tiempo_a:>10.4f} {tiempo_g:>10.4f} "
                   f"{ratio:>7.1f}x")
 
     # Puntuaciones LLM
@@ -281,10 +281,10 @@ def analisis_comparativo(filas_sin_llm: list, filas_con_llm: list) -> None:
                     print(f"  {f['instancia_id']:<12} {f['perfil_objetivo']:<22} "
                           f"{str(f['puntuacion_llm']) + '/10':>12} "
                           f"{str(f.get('nivel_calidad_llm', '?')):<12}")
-            avg = sum(puntuaciones) / len(puntuaciones)
+            avg = sum(float(p) for p in puntuaciones) / len(puntuaciones)
             print(f"\n  Puntuación promedio LLM : {avg:.2f}/10")
-            print(f"  Puntuación mínima       : {min(puntuaciones)}/10")
-            print(f"  Puntuación máxima       : {max(puntuaciones)}/10")
+            print(f"  Puntuación mínima       : {min(float(p) for p in puntuaciones)}/10")
+            print(f"  Puntuación máxima       : {max(float(p) for p in puntuaciones)}/10")
 
     # Guardar JSON completo
     detalle = {"sin_llm": filas_sin_llm, "con_llm": filas_con_llm}

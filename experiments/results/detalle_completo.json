@@ -9,10 +9,10 @@
       "exito": true,
       "num_cursos": 11,
       "costo_total_semanas": 44,
-      "nodos_expandidos": 252,
-      "tiempo_segundos": 0.022147,
+      "nodos_expandidos": 298,
+      "tiempo_segundos": 0.011105,
       "trayectoria_valida": true,
-      "trayectoria_ids": "c01|c02|c03|c04|c61|c07|c08|c10|c11|c20|c24"
+      "trayectoria_ids": "c03|c08|c01|c02|c04|c57|c07|c10|c11|c20|c24"
     },
     {
       "instancia_id": "inst_01",
@@ -23,10 +23,10 @@
       "exito": true,
       "num_cursos": 11,
       "costo_total_semanas": 44,
-      "nodos_expandidos": 18,
-      "tiempo_segundos": 0.00196,
+      "nodos_expandidos": 16,
+      "tiempo_segundos": 0.000766,
       "trayectoria_valida": true,
-      "trayectoria_ids": "c03|c08|c04|c10|c11|c01|c02|c61|c07|c20|c24"
+      "trayectoria_ids": "c03|c08|c04|c10|c11|c01|c02|c57|c07|c20|c24"
     },
     {
       "instancia_id": "inst_02",
@@ -37,10 +37,10 @@
       "exito": true,
       "num_cursos": 8,
       "costo_total_semanas": 34,
-      "nodos_expandidos": 148,
-      "tiempo_segundos": 0.013718,
+      "nodos_expandidos": 90,
+      "tiempo_segundos": 0.005461,
       "trayectoria_valida": true,
-      "trayectoria_ids": "c02|c61|c07|c08|c10|c11|c20|c24"
+      "trayectoria_ids": "c08|c02|c57|c07|c10|c11|c20|c24"
     },
     {
       "instancia_id": "inst_02",
@@ -52,9 +52,9 @@
       "num_cursos": 8,
       "costo_total_semanas": 34,
       "nodos_expandidos": 9,
-      "tiempo_segundos": 0.001082,
+      "tiempo_segundos": 0.001915,
       "trayectoria_valida": true,
-      "trayectoria_ids": "c08|c10|c11|c02|c61|c07|c20|c24"
+      "trayectoria_ids": "c08|c10|c11|c02|c57|c07|c20|c24"
     },
     {
       "instancia_id": "inst_03",
@@ -65,10 +65,10 @@
       "exito": true,
       "num_cursos": 8,
       "costo_total_semanas": 34,
-      "nodos_expandidos": 160,
-      "tiempo_segundos": 0.013117,
+      "nodos_expandidos": 127,
+      "tiempo_segundos": 0.007298,
       "trayectoria_valida": true,
-      "trayectoria_ids": "c04|c61|c07|c08|c10|c11|c20|c24"
+      "trayectoria_ids": "c08|c04|c57|c07|c10|c11|c20|c24"
     },
     {
       "instancia_id": "inst_03",
@@ -79,10 +79,10 @@
       "exito": true,
       "num_cursos": 9,
       "costo_total_semanas": 38,
-      "nodos_expandidos": 11,
-      "tiempo_segundos": 0.001847,
+      "nodos_expandidos": 12,
+      "tiempo_segundos": 0.000996,
       "trayectoria_valida": true,
-      "trayectoria_ids": "c07|c08|c42|c20|c04|c10|c11|c61|c24"
+      "trayectoria_ids": "c07|c08|c42|c20|c04|c10|c11|c57|c24"
     },
     {
       "instancia_id": "inst_04",
@@ -93,8 +93,8 @@
       "exito": true,
       "num_cursos": 10,
       "costo_total_semanas": 39,
-      "nodos_expandidos": 248,
-      "tiempo_segundos": 0.012206,
+      "nodos_expandidos": 2363,
+      "tiempo_segundos": 0.100248,
       "trayectoria_valida": true,
       "trayectoria_ids": "c01|c02|c07|c15|c18|c21|c23|c30|c06|c12"
     },
@@ -106,11 +106,11 @@
       "algoritmo": "Greedy",
       "exito": true,
       "num_cursos": 10,
-      "costo_total_semanas": 39,
+      "costo_total_semanas": 35,
       "nodos_expandidos": 15,
-      "tiempo_segundos": 0.00131,
+      "tiempo_segundos": 0.001269,
       "trayectoria_valida": true,
-      "trayectoria_ids": "c01|c02|c07|c15|c18|c21|c23|c30|c06|c12"
+      "trayectoria_ids": "c01|c02|c07|c36|c18|c39|c23|c30|c38|c12"
     },
     {
       "instancia_id": "inst_05",
@@ -121,8 +121,8 @@
       "exito": true,
       "num_cursos": 9,
       "costo_total_semanas": 36,
-      "nodos_expandidos": 198,
-      "tiempo_segundos": 0.011312,
+      "nodos_expandidos": 2208,
+      "tiempo_segundos": 0.092895,
       "trayectoria_valida": true,
       "trayectoria_ids": "c02|c07|c15|c18|c21|c23|c30|c06|c12"
     },
@@ -134,11 +134,11 @@
       "algoritmo": "Greedy",
       "exito": true,
       "num_cursos": 9,
-      "costo_total_semanas": 36,
+      "costo_total_semanas": 32,
       "nodos_expandidos": 11,
-      "tiempo_segundos": 0.000886,
+      "tiempo_segundos": 0.000791,
       "trayectoria_valida": true,
-      "trayectoria_ids": "c02|c07|c15|c18|c21|c23|c30|c06|c12"
+      "trayectoria_ids": "c02|c07|c36|c18|c39|c23|c30|c38|c12"
     },
     {
       "instancia_id": "inst_06",
@@ -147,12 +147,12 @@
       "habs_iniciales": 4,
       "algoritmo": "A* (cursos)",
       "exito": true,
-      "num_cursos": 9,
-      "costo_total_semanas": 45,
-      "nodos_expandidos": 2035,
-      "tiempo_segundos": 0.150028,
+      "num_cursos": 10,
+      "costo_total_semanas": 50,
+      "nodos_expandidos": 89476,
+      "tiempo_segundos": 4.653052,
       "trayectoria_valida": true,
-      "trayectoria_ids": "c23|c29|c03|c04|c61|c24|c35|c09|c25"
+      "trayectoria_ids": "c23|c29|c03|c04|c08|c57|c24|c35|c09|c25"
     },
     {
       "instancia_id": "inst_06",
@@ -161,12 +161,12 @@
       "habs_iniciales": 4,
       "algoritmo": "Greedy",
       "exito": true,
-      "num_cursos": 9,
-      "costo_total_semanas": 43,
-      "nodos_expandidos": 25,
-      "tiempo_segundos": 0.002386,
+      "num_cursos": 10,
+      "costo_total_semanas": 50,
+      "nodos_expandidos": 1454,
+      "tiempo_segundos": 0.044805,
       "trayectoria_valida": true,
-      "trayectoria_ids": "c23|c46|c03|c04|c61|c24|c35|c09|c25"
+      "trayectoria_ids": "c23|c29|c03|c04|c08|c57|c24|c35|c09|c25"
     },
     {
       "instancia_id": "inst_07",
@@ -175,12 +175,12 @@
       "habs_iniciales": 11,
       "algoritmo": "A* (cursos)",
       "exito": true,
-      "num_cursos": 5,
-      "costo_total_semanas": 27,
-      "nodos_expandidos": 108,
-      "tiempo_segundos": 0.013362,
+      "num_cursos": 4,
+      "costo_total_semanas": 23,
+      "nodos_expandidos": 32,
+      "tiempo_segundos": 0.002357,
       "trayectoria_valida": true,
-      "trayectoria_ids": "c25|c46|c15|c23|c35"
+      "trayectoria_ids": "c25|c40|c46|c35"
     },
     {
       "instancia_id": "inst_07",
@@ -189,12 +189,12 @@
       "habs_iniciales": 11,
       "algoritmo": "Greedy",
       "exito": true,
-      "num_cursos": 5,
-      "costo_total_semanas": 21,
-      "nodos_expandidos": 10,
-      "tiempo_segundos": 0.001195,
+      "num_cursos": 4,
+      "costo_total_semanas": 23,
+      "nodos_expandidos": 5,
+      "tiempo_segundos": 0.000498,
       "trayectoria_valida": true,
-      "trayectoria_ids": "c51|c46|c15|c23|c35"
+      "trayectoria_ids": "c25|c40|c46|c35"
     },
     {
       "instancia_id": "inst_08",
@@ -204,11 +204,11 @@
       "algoritmo": "A* (cursos)",
       "exito": true,
       "num_cursos": 13,
-      "costo_total_semanas": 59,
-      "nodos_expandidos": 7887,
-      "tiempo_segundos": 0.537791,
+      "costo_total_semanas": 60,
+      "nodos_expandidos": 79149,
+      "tiempo_segundos": 3.753918,
       "trayectoria_valida": true,
-      "trayectoria_ids": "c01|c02|c07|c46|c03|c04|c61|c24|c15|c23|c35|c09|c25"
+      "trayectoria_ids": "c01|c02|c07|c40|c46|c03|c04|c08|c57|c24|c35|c09|c25"
     },
     {
       "instancia_id": "inst_08",
@@ -218,11 +218,11 @@
       "algoritmo": "Greedy",
       "exito": true,
       "num_cursos": 13,
-      "costo_total_semanas": 59,
-      "nodos_expandidos": 34,
-      "tiempo_segundos": 0.002427,
+      "costo_total_semanas": 60,
+      "nodos_expandidos": 638,
+      "tiempo_segundos": 0.0156,
       "trayectoria_valida": true,
-      "trayectoria_ids": "c01|c02|c07|c46|c15|c23|c03|c04|c61|c24|c35|c09|c25"
+      "trayectoria_ids": "c01|c02|c07|c40|c46|c03|c04|c08|c57|c24|c35|c09|c25"
     }
   ],
   "con_llm": [
@@ -235,14 +235,14 @@
       "exito": true,
       "num_cursos": 11,
       "costo_total_semanas": 44,
-      "nodos_expandidos": 252,
-      "tiempo_busqueda_s": 0.020902,
+      "nodos_expandidos": 298,
+      "tiempo_busqueda_s": 0.03953,
       "trayectoria_valida": true,
-      "puntuacion_llm": 6,
-      "nivel_calidad_llm": "aceptable",
-      "tiempo_llm_s": 10.757,
-      "resumen_llm": "La trayectoria es completa y cubre los fundamentos necesarios, pero es larga y poco eficiente en términos de tiempo y recursos. Se recomienda reducir la duración y agregar elementos prácticos para mejorar su calidad.",
-      "trayectoria_ids": "c01|c02|c03|c04|c61|c07|c08|c10|c11|c20|c24"
+      "puntuacion_llm": 8,
+      "nivel_calidad_llm": "bueno",
+      "tiempo_llm_s": 14.773,
+      "resumen_llm": "La trayectoria es sólida y bien estructurada, cubriendo todos los aspectos necesarios para convertirse en Data Scientist. Es concisa y coherente, aunque podría mejorarse eliminando posibles redundancias y añadiendo un proyecto final práctico.",
+      "trayectoria_ids": "c03|c08|c01|c02|c04|c57|c07|c10|c11|c20|c24"
     },
     {
       "instancia_id": "inst_02",
@@ -253,14 +253,14 @@
       "exito": true,
       "num_cursos": 8,
       "costo_total_semanas": 34,
-      "nodos_expandidos": 148,
-      "tiempo_busqueda_s": 0.010638,
+      "nodos_expandidos": 90,
+      "tiempo_busqueda_s": 0.004831,
       "trayectoria_valida": true,
-      "puntuacion_llm": 7,
-      "nivel_calidad_llm": "aceptable",
-      "tiempo_llm_s": 7.205,
-      "resumen_llm": "La trayectoria es adecuada y cubre las habilidades necesarias, pero es menos eficiente de lo deseable debido a su longitud. Se recomienda una revisión para hacerla más concisa.",
-      "trayectoria_ids": "c02|c61|c07|c08|c10|c11|c20|c24"
+      "puntuacion_llm": 9,
+      "nivel_calidad_llm": "excelente",
+      "tiempo_llm_s": 15.168,
+      "resumen_llm": "La trayectoria es muy adecuada para alcanzar el objetivo de convertirse en Data Scientist, con una secuencia pedagógica coherente y una duración eficiente. Se sugiere evaluar la necesidad del curso de Python Básico y considerar incluir un proyecto final para consolidar los aprendizajes.",
+      "trayectoria_ids": "c08|c02|c57|c07|c10|c11|c20|c24"
     },
     {
       "instancia_id": "inst_03",
@@ -271,14 +271,14 @@
       "exito": true,
       "num_cursos": 8,
       "costo_total_semanas": 34,
-      "nodos_expandidos": 160,
-      "tiempo_busqueda_s": 0.013135,
+      "nodos_expandidos": 127,
+      "tiempo_busqueda_s": 0.005467,
       "trayectoria_valida": true,
-      "puntuacion_llm": 7,
-      "nivel_calidad_llm": "aceptable",
-      "tiempo_llm_s": 8.962,
-      "resumen_llm": "La trayectoria es aceptable y cubre los fundamentos necesarios, pero es relativamente larga y podría ser más eficiente. Se recomienda una revisión para reducir la duración y mejorar la concisión.",
-      "trayectoria_ids": "c04|c61|c07|c08|c10|c11|c20|c24"
+      "puntuacion_llm": 8,
+      "nivel_calidad_llm": "bueno",
+      "tiempo_llm_s": 14.02,
+      "resumen_llm": "La trayectoria es eficiente y coherente, cubriendo las habilidades necesarias para especializarse en Data Science. Sin embargo, algunos cursos podrían ser ajustados según el nivel inicial del usuario.",
+      "trayectoria_ids": "c08|c04|c57|c07|c10|c11|c20|c24"
     },
     {
       "instancia_id": "inst_04",
@@ -289,13 +289,13 @@
       "exito": true,
       "num_cursos": 10,
       "costo_total_semanas": 39,
-      "nodos_expandidos": 248,
-      "tiempo_busqueda_s": 0.012714,
+      "nodos_expandidos": 2363,
+      "tiempo_busqueda_s": 0.099501,
       "trayectoria_valida": true,
-      "puntuacion_llm": 7,
-      "nivel_calidad_llm": "aceptable",
-      "tiempo_llm_s": 11.738,
-      "resumen_llm": "La trayectoria es completa y cubre los aspectos necesarios para convertirse en un desarrollador backend, pero es relativamente larga y puede ser optimizada para ser más concisa y eficiente.",
+      "puntuacion_llm": 8,
+      "nivel_calidad_llm": "bueno",
+      "tiempo_llm_s": 12.518,
+      "resumen_llm": "La trayectoria es buena y coherente, cubriendo las habilidades necesarias para un desarrollador backend. Sin embargo, podría ser más concisa y práctica.",
       "trayectoria_ids": "c01|c02|c07|c15|c18|c21|c23|c30|c06|c12"
     },
     {
@@ -307,13 +307,13 @@
       "exito": true,
       "num_cursos": 9,
       "costo_total_semanas": 36,
-      "nodos_expandidos": 198,
-      "tiempo_busqueda_s": 0.011786,
+      "nodos_expandidos": 2208,
+      "tiempo_busqueda_s": 0.123143,
       "trayectoria_valida": true,
-      "puntuacion_llm": 7,
-      "nivel_calidad_llm": "aceptable",
-      "tiempo_llm_s": 15.688,
-      "resumen_llm": "La trayectoria es adecuada para alcanzar el objetivo, pero su longitud y cantidad de cursos la hacen menos eficiente de lo deseable. Se recomienda una revisión para optimizarla.",
+      "puntuacion_llm": 8,
+      "nivel_calidad_llm": "bueno",
+      "tiempo_llm_s": 21.013,
+      "resumen_llm": "La trayectoria es buena y coherente, aunque un poco larga. Cubre las habilidades necesarias para la transición de frontend a backend con Python, pero podría ser más eficiente.",
       "trayectoria_ids": "c02|c07|c15|c18|c21|c23|c30|c06|c12"
     },
     {
@@ -323,16 +323,16 @@
       "habs_iniciales": 4,
       "algoritmo": "A* (cursos) + LLM",
       "exito": true,
-      "num_cursos": 9,
-      "costo_total_semanas": 45,
-      "nodos_expandidos": 2035,
-      "tiempo_busqueda_s": 0.175558,
+      "num_cursos": 10,
+      "costo_total_semanas": 50,
+      "nodos_expandidos": 89476,
+      "tiempo_busqueda_s": 4.774485,
       "trayectoria_valida": true,
-      "puntuacion_llm": 6,
+      "puntuacion_llm": 7,
       "nivel_calidad_llm": "aceptable",
-      "tiempo_llm_s": 9.633,
-      "resumen_llm": "La trayectoria cubre los aspectos necesarios para transicionar a ML Engineering, pero es excesivamente larga y contiene contenido básico que puede ser innecesario. Se recomienda una optimización para mejorar la eficiencia y reducir el tiempo de formación.",
-      "trayectoria_ids": "c23|c29|c03|c04|c61|c24|c35|c09|c25"
+      "tiempo_llm_s": 21.185,
+      "resumen_llm": "La trayectoria es adecuada pero excesivamente larga y podría ser más eficiente. Se recomienda reducir la cantidad de cursos y optimizar la secuencia pedagógica.",
+      "trayectoria_ids": "c23|c29|c03|c04|c08|c57|c24|c35|c09|c25"
     },
     {
       "instancia_id": "inst_07",
@@ -341,16 +341,16 @@
       "habs_iniciales": 11,
       "algoritmo": "A* (cursos) + LLM",
       "exito": true,
-      "num_cursos": 5,
-      "costo_total_semanas": 27,
-      "nodos_expandidos": 108,
-      "tiempo_busqueda_s": 0.01053,
+      "num_cursos": 4,
+      "costo_total_semanas": 23,
+      "nodos_expandidos": 32,
+      "tiempo_busqueda_s": 0.002301,
       "trayectoria_valida": true,
       "puntuacion_llm": 9,
-      "nivel_calidad_llm": "bueno",
-      "tiempo_llm_s": 10.666,
-      "resumen_llm": "La trayectoria es eficiente y bien orientada, logrando el objetivo con una duración adecuada. Sin embargo, se recomienda profundizar en infraestructura en la nube y gestión de datos para una formación más completa.",
-      "trayectoria_ids": "c25|c46|c15|c23|c35"
+      "nivel_calidad_llm": "excelente",
+      "tiempo_llm_s": 10.066,
+      "resumen_llm": "La trayectoria es muy adecuada para alcanzar el objetivo de convertirse en ML Engineer, con una secuencia pedagógica coherente y cursos relevantes. Se sugiere incluir un curso sobre bases de datos para complementar las habilidades.",
+      "trayectoria_ids": "c25|c40|c46|c35"
     },
     {
       "instancia_id": "inst_08",
@@ -360,15 +360,15 @@
       "algoritmo": "A* (cursos) + LLM",
       "exito": true,
       "num_cursos": 13,
-      "costo_total_semanas": 59,
-      "nodos_expandidos": 7887,
-      "tiempo_busqueda_s": 0.564092,
+      "costo_total_semanas": 60,
+      "nodos_expandidos": 79149,
+      "tiempo_busqueda_s": 3.790594,
       "trayectoria_valida": true,
-      "puntuacion_llm": 6,
+      "puntuacion_llm": 7,
       "nivel_calidad_llm": "aceptable",
-      "tiempo_llm_s": 13.105,
-      "resumen_llm": "La trayectoria es completa y cubre los aspectos necesarios para convertirse en un ML Engineer, pero es excesivamente larga y podría ser más eficiente. Se recomienda optimizar la duración y la estructura para mejorar la eficiencia del aprendizaje.",
-      "trayectoria_ids": "c01|c02|c07|c46|c03|c04|c61|c24|c15|c23|c35|c09|c25"
+      "tiempo_llm_s": 14.487,
+      "resumen_llm": "La trayectoria es coherente y cubre los fundamentos necesarios, pero es excesivamente larga y podría ser más eficiente y concisa.",
+      "trayectoria_ids": "c01|c02|c07|c40|c46|c03|c04|c08|c57|c24|c35|c09|c25"
     }
   ]
 }

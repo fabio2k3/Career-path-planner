@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "version": "1.0-synthetic",
+    "version": "1.0-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic-synthetic",
     "total_cursos": 150,
-    "total_habilidades": 140,
-    "descripcion": "Dataset ampliado procedimentalmente con apoyo de LLM para simulación de trayectorias profesionales"
+    "total_habilidades": 141,
+    "descripcion": "Dataset ampliado procedimentalmente con apoyo de LLM para simulación de trayectorias profesionales."
   },
   "habilidades": [
     "python_basico",
@@ -42,110 +42,111 @@
     "testing_python",
     "seguridad_apis",
     "big_data",
-    "backend_python_basico",
-    "diseno_apis_rest",
-    "iac_terraform",
-    "redes_neuronales_convolucionales",
-    "redes_neuronales_recurrentes",
-    "preprocesamiento_datos_deep_learning",
-    "optimizacion_modelos_deep_learning",
-    "redes_neuronales_artificiales",
-    "tensorflow",
-    "keras",
-    "visualizacion_datos_deep_learning",
-    "transfer_learning",
-    "generative_adversarial_networks",
-    "aprendizaje_supervisado",
-    "regresion_lineal",
-    "evaluacion_modelos",
-    "metricas_evaluacion",
-    "aprendizaje_no_supervisado",
-    "clustering",
-    "seleccion_caracteristicas",
-    "feature_selection",
-    "data_pipeline_basics",
-    "data_warehousing_basics",
-    "data_cleaning",
-    "data_transformation",
-    "etl_basics",
-    "data_visualization_in_engineering",
-    "optimizacion_modelos_machine_learning",
-    "tracking_experimentos",
-    "despliegue_modelos",
-    "servicios_web_ml",
-    "automatizacion_flujos_trabajo",
-    "orquestacion_tareas",
-    "gestion_datos_mlops",
-    "data_versioning",
-    "diseno_microservicios",
-    "comunicacion_asincrona",
-    "orquestacion_contenedores",
-    "gestion_clusters",
-    "tolerancia_a_fallos",
-    "replicacion_datos",
-    "gestion_carga",
-    "optimizacion_latencia",
-    "autenticacion_distribuida",
-    "proteccion_datos_transito",
-    "visualizacion_datos_avanzada",
-    "data_pipeline_management",
-    "fine_tuning_models",
-    "atencion_mecanismos",
-    "gan_variants",
-    "preprocesamiento_datos_avanzado",
-    "gestion_datos_microservicios",
-    "optimizacion_hiperparametros",
-    "validacion_cruzada_avanzada",
-    "orquestacion_flujos_trabajo_avanzada",
-    "integracion_continua_avanzada",
-    "arquitecturas_redes_avanzadas",
-    "feature_selection_avanzado",
-    "gestion_datos_big_data",
-    "data_transformation_avanzado",
-    "escalabilidad_modelos_ml",
-    "optimizacion_latencia_avanzada",
-    "optimizacion_modelos_production",
-    "monitoring_model_performance",
-    "arquitectura_datos_microservicios",
-    "data_integration_microservices",
-    "data_engineering_real_time",
-    "stream_processing",
-    "data_security",
-    "data_privacy",
-    "performance_optimization_pipelines",
-    "resource_management",
-    "data_engineering_kubernetes",
-    "arquitectura_sistemas_distribuidos",
-    "tolerancia_a_fallos_avanzada",
-    "seguridad_sistemas_distribuidos",
-    "proteccion_datos_distribuidos",
-    "gestion_carga_avanzada",
-    "comunicacion_asincrona_avanzada",
-    "orquestacion_tareas_avanzada",
-    "gestion_datos_tiempo_real",
-    "integracion_datos_microservicios_avanzada",
-    "aprendizaje_por_refuerzo",
-    "aplicaciones_avanzadas_aprendizaje_por_refuerzo",
-    "nlp_avanzado",
-    "computer_vision_avanzado",
-    "deteccion_objetos_avanzada",
-    "seguridad_redes_neuronales",
-    "proteccion_modelos_ml",
-    "seguridad_microservicios",
-    "proteccion_datos_microservicios",
-    "seguridad_pipelines_datos",
-    "proteccion_datos_mlops",
-    "seguridad_big_data",
-    "proteccion_datos_big_data",
-    "seguridad_apis_avanzado",
-    "proteccion_datos_transito_avanzado",
+    "despliegue_contenedores",
+    "preprocesamiento_datos",
     "gestion_recursos_cloud",
-    "optimizacion_costos_cloud",
-    "gestion_presupuestos_cloud",
+    "orquestacion_contenedores",
     "seguridad_cloud",
-    "compliance_cloud",
-    "automatizacion_infraestructura_cloud",
-    "iac_terraform_avanzado"
+    "gestion_identidades_accesos",
+    "redes_cloud",
+    "configuracion_redes_virtuales",
+    "automatizacion_infraestructura",
+    "terraform_basico",
+    "redes_neuronales",
+    "preprocesamiento_datos_dl",
+    "normalizacion_datos",
+    "redes_neuronales_convolucionales",
+    "deteccion_objetos",
+    "redes_neuronales_recurrentes",
+    "generacion_texto",
+    "optimizacion_dl",
+    "gradiente_descendente",
+    "fundamentos_redes_neuronales",
+    "aprendizaje_supervisado",
+    "modelos_lineales",
+    "evaluacion_modelos",
+    "metricas_desempeno",
+    "consumo_apis",
+    "documentacion_apis",
+    "modelos_django",
+    "containerizacion",
+    "autenticacion_apis",
+    "matplotlib_seaborn",
+    "flask",
+    "graphql",
+    "seguridad_backend",
+    "optimizacion_modelos",
+    "seleccion_hiperparametros",
+    "validacion_cruzada",
+    "despliegue_modelos",
+    "monitoreo_modelos",
+    "registro_experimentos",
+    "automatizacion_flujos",
+    "gestion_pods",
+    "gestion_servicios",
+    "preprocesamiento_dl",
+    "feature_engineering_dl",
+    "creacion_features",
+    "gestion_recursos_terraform",
+    "configuracion_redes_virtuales_terraform",
+    "gestion_identidades_accesos_terraform",
+    "gestion_estado_microservicios",
+    "comunicacion_asincrona",
+    "resiliencia_microservicios",
+    "optimizacion_rendimiento",
+    "gestion_recursos_distribuidos",
+    "seguridad_sistemas_distribuidos",
+    "proteccion_datos_transito",
+    "despliegue_microservicios_kubernetes",
+    "orquestacion_microservicios",
+    "automatizacion_infraestructura_terraform",
+    "integracion_terraform_kubernetes",
+    "manipulacion_datos_avanzada",
+    "limpieza_datos_avanzada",
+    "visualizacion_datos_avanzada",
+    "despliegue_modelos_cloud",
+    "monitoreo_modelos_cloud",
+    "arquitectura_microservicios_avanzada",
+    "gestion_recursos_kubernetes",
+    "seguridad_identidades_cloud",
+    "gestion_accesos_avanzada",
+    "optimizacion_apis_rest",
+    "seguridad_apis_avanzada",
+    "escalado_microservicios",
+    "automatizacion_pruebas",
+    "automatizacion_despliegues",
+    "gestion_datos_tiempo_real",
+    "procesamiento_datos_streaming",
+    "arquitectura_apis_graphql",
+    "optimizacion_apis_graphql",
+    "optimizacion_redes_neuronales",
+    "tecnicas_avanzadas_optimizacion",
+    "arquitecturas_redes_profundas",
+    "diseño_redes_neuronales",
+    "procesamiento_lenguaje_natural_dl",
+    "modelos_atencion",
+    "vision_computadora_avanzada",
+    "segmentacion_imagenes",
+    "despliegue_modelos_dl_cloud",
+    "monitoreo_modelos_dl_cloud",
+    "optimizacion_modelos_mlops",
+    "mejora_continua_modelos",
+    "despliegue_modelos_mlops_cloud",
+    "monitoreo_modelos_mlops_cloud",
+    "gestion_flujos_datos",
+    "integracion_kafka_bigdata",
+    "despliegue_modelos_dl_kubernetes",
+    "monitoreo_modelos_dl_kubernetes",
+    "ciberdefensa_avanzada",
+    "respuesta_incidentes",
+    "criptografia_avanzada",
+    "seguridad_datos_nube",
+    "seguridad_redes_virtuales",
+    "microsegmentacion_redes",
+    "seguridad_despliegue_microservicios",
+    "seguridad_orquestacion_microservicios",
+    "seguridad_procesamiento_datos_tiempo_real",
+    "optimizacion_modelos_avanzada"
   ],
   "cursos": [
     {
@@ -615,52 +616,24 @@
     },
     {
       "id": "c36",
-      "nombre": "Introducción a Backend con Python",
-      "descripcion": "Este curso proporciona una introducción al desarrollo de backend utilizando Python, cubriendo los conceptos básicos de la programación del lado del servidor.",
+      "nombre": "Introducción a APIs REST",
+      "descripcion": "Aprende los fundamentos de las APIs REST y cómo crear y consumir servicios web.",
       "prerrequisitos": [
         "python_basico",
         "logica_programacion"
       ],
       "habilidades": [
-        "backend_python_basico"
+        "apis_rest"
       ],
       "duracion_semanas": 3,
       "nivel": "principiante"
     },
     {
       "id": "c37",
-      "nombre": "Fundamentos de APIs REST",
-      "descripcion": "Aprende los fundamentos de las APIs REST, incluyendo cómo diseñar y consumir APIs, y cómo trabajar con diferentes métodos HTTP.",
+      "nombre": "Backend con Django",
+      "descripcion": "Introducción al desarrollo de aplicaciones web backend utilizando Django.",
       "prerrequisitos": [
-        "backend_python_basico",
-        "apis_rest"
-      ],
-      "habilidades": [
-        "diseno_apis_rest"
-      ],
-      "duracion_semanas": 4,
-      "nivel": "principiante"
-    },
-    {
-      "id": "c38",
-      "nombre": "Introducción a FastAPI",
-      "descripcion": "Este curso introduce FastAPI, un framework moderno para construir APIs rápidas y eficientes en Python.",
-      "prerrequisitos": [
-        "backend_python_basico",
-        "apis_rest"
-      ],
-      "habilidades": [
-        "fastapi"
-      ],
-      "duracion_semanas": 3,
-      "nivel": "principiante"
-    },
-    {
-      "id": "c39",
-      "nombre": "Introducción a Django",
-      "descripcion": "Aprende los conceptos básicos de Django, un framework de alto nivel para el desarrollo de aplicaciones web en Python.",
-      "prerrequisitos": [
-        "backend_python_basico",
+        "python_basico",
         "sql_basico"
       ],
       "habilidades": [
@@ -670,16 +643,45 @@
       "nivel": "principiante"
     },
     {
-      "id": "c40",
-      "nombre": "Introducción a SQL",
-      "descripcion": "Este curso proporciona una introducción a SQL, el lenguaje de consulta estructurado, para trabajar con bases de datos relacionales.",
+      "id": "c38",
+      "nombre": "Fundamentos de SQL",
+      "descripcion": "Aprende los conceptos básicos de SQL y cómo manipular bases de datos relacionales.",
       "prerrequisitos": [
-        "matematicas_basicas"
+        "logica_programacion"
       ],
       "habilidades": [
         "sql_basico"
       ],
       "duracion_semanas": 2,
+      "nivel": "principiante"
+    },
+    {
+      "id": "c39",
+      "nombre": "Introducción a FastAPI",
+      "descripcion": "Aprende a crear APIs modernas y eficientes utilizando FastAPI.",
+      "prerrequisitos": [
+        "python_basico",
+        "apis_rest"
+      ],
+      "habilidades": [
+        "fastapi"
+      ],
+      "duracion_semanas": 3,
+      "nivel": "principiante"
+    },
+    {
+      "id": "c40",
+      "nombre": "Docker para Desarrolladores",
+      "descripcion": "Introducción a Docker y cómo utilizar contenedores para el desarrollo de aplicaciones.",
+      "prerrequisitos": [
+        "python_basico",
+        "logica_programacion"
+      ],
+      "habilidades": [
+        "docker",
+        "despliegue_contenedores"
+      ],
+      "duracion_semanas": 4,
       "nivel": "principiante"
     },
     {
@@ -721,7 +723,7 @@
       "habilidades": [
         "estadistica_inferencial"
       ],
-      "duracion_semanas": 4,
+      "duracion_semanas": 3,
       "nivel": "principiante"
     },
     {
@@ -735,21 +737,22 @@
       "habilidades": [
         "estructuras_datos"
       ],
-      "duracion_semanas": 3,
+      "duracion_semanas": 4,
       "nivel": "principiante"
     },
     {
       "id": "c45",
-      "nombre": "Introducción a la Optimización y Cálculo",
-      "descripcion": "Curso de introducción a la optimización y cálculo con enfoque práctico y progresivo.",
+      "nombre": "Introducción a la Ingeniería de Características",
+      "descripcion": "Curso de introducción a la ingeniería de características con enfoque práctico y progresivo.",
       "prerrequisitos": [
-        "matematicas_basicas",
-        "algebra_lineal"
+        "pandas_numpy",
+        "estadistica_basica"
       ],
       "habilidades": [
-        "calculo_optimizacion"
+        "feature_engineering",
+        "preprocesamiento_datos"
       ],
-      "duracion_semanas": 4,
+      "duracion_semanas": 3,
       "nivel": "principiante"
     },
     {
@@ -761,146 +764,146 @@
         "logica_programacion"
       ],
       "habilidades": [
-        "cloud_aws"
+        "cloud_aws",
+        "gestion_recursos_cloud"
       ],
-      "duracion_semanas": 4,
+      "duracion_semanas": 3,
       "nivel": "principiante"
     },
     {
       "id": "c47",
-      "nombre": "Fundamentos de Docker",
-      "descripcion": "Curso de fundamentos de docker con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "backend_python_basico",
-        "estructuras_datos"
-      ],
-      "habilidades": [
-        "docker"
-      ],
-      "duracion_semanas": 3,
-      "nivel": "principiante"
-    },
-    {
-      "id": "c48",
-      "nombre": "Introducción a Kubernetes",
-      "descripcion": "Curso de introducción a kubernetes con enfoque práctico y progresivo.",
+      "nombre": "Fundamentos de Kubernetes",
+      "descripcion": "Curso de fundamentos de kubernetes con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "docker",
-        "microservicios"
+        "despliegue_contenedores"
       ],
       "habilidades": [
-        "kubernetes"
+        "kubernetes",
+        "orquestacion_contenedores"
       ],
       "duracion_semanas": 4,
       "nivel": "principiante"
     },
     {
-      "id": "c49",
-      "nombre": "Fundamentos de Microservicios",
-      "descripcion": "Curso de fundamentos de microservicios con enfoque práctico y progresivo.",
+      "id": "c48",
+      "nombre": "Introducción a la Seguridad en la Nube",
+      "descripcion": "Curso de introducción a la seguridad en la nube con enfoque práctico y progresivo.",
       "prerrequisitos": [
-        "backend_python_basico",
-        "apis_rest"
+        "cloud_aws",
+        "seguridad_apis"
       ],
       "habilidades": [
-        "microservicios"
+        "seguridad_cloud",
+        "gestion_identidades_accesos"
       ],
       "duracion_semanas": 3,
       "nivel": "principiante"
     },
     {
+      "id": "c49",
+      "nombre": "Fundamentos de Redes en la Nube",
+      "descripcion": "Curso de fundamentos de redes en la nube con enfoque práctico y progresivo.",
+      "prerrequisitos": [
+        "cloud_aws",
+        "logica_programacion"
+      ],
+      "habilidades": [
+        "redes_cloud",
+        "configuracion_redes_virtuales"
+      ],
+      "duracion_semanas": 4,
+      "nivel": "principiante"
+    },
+    {
       "id": "c50",
-      "nombre": "Introducción a la Gestión de Infraestructura como Código",
-      "descripcion": "Curso de introducción a la gestión de infraestructura como código con enfoque práctico y progresivo.",
+      "nombre": "Introducción a la Automatización de Infraestructura",
+      "descripcion": "Curso de introducción a la automatización de infraestructura con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "cloud_aws",
         "python_basico"
       ],
       "habilidades": [
-        "iac_terraform"
+        "automatizacion_infraestructura",
+        "terraform_basico"
       ],
-      "duracion_semanas": 4,
+      "duracion_semanas": 3,
       "nivel": "principiante"
     },
     {
       "id": "c51",
       "nombre": "Introducción a Deep Learning",
-      "descripcion": "Curso de introducción a deep learning con enfoque práctico y progresivo.",
+      "descripcion": "Curso que introduce los conceptos básicos de deep learning, incluyendo redes neuronales y sus aplicaciones.",
       "prerrequisitos": [
         "python_basico",
         "algebra_lineal",
-        "calculo_optimizacion",
-        "estadistica_basica"
+        "calculo_optimizacion"
       ],
       "habilidades": [
-        "deep_learning"
+        "deep_learning",
+        "redes_neuronales"
       ],
       "duracion_semanas": 4,
       "nivel": "principiante"
     },
     {
       "id": "c52",
-      "nombre": "Fundamentos de Redes Neuronales Convolucionales",
-      "descripcion": "Curso de fundamentos de redes neuronales convolucionales con enfoque práctico y progresivo.",
+      "nombre": "Fundamentos de Preprocesamiento de Datos para Deep Learning",
+      "descripcion": "Curso que enseña técnicas de preprocesamiento de datos específicas para modelos de deep learning.",
       "prerrequisitos": [
-        "python_basico",
-        "algebra_lineal",
-        "calculo_optimizacion",
-        "deep_learning"
+        "pandas_numpy",
+        "preprocesamiento_datos"
       ],
       "habilidades": [
-        "computer_vision",
-        "redes_neuronales_convolucionales"
-      ],
-      "duracion_semanas": 4,
-      "nivel": "principiante"
-    },
-    {
-      "id": "c53",
-      "nombre": "Introducción a las Redes Neuronales Recurrentes",
-      "descripcion": "Curso de introducción a las redes neuronales recurrentes con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_basico",
-        "algebra_lineal",
-        "calculo_optimizacion",
-        "deep_learning"
-      ],
-      "habilidades": [
-        "nlp",
-        "redes_neuronales_recurrentes"
+        "preprocesamiento_datos_dl",
+        "normalizacion_datos"
       ],
       "duracion_semanas": 3,
       "nivel": "principiante"
     },
     {
-      "id": "c54",
-      "nombre": "Fundamentos de Preprocesamiento de Datos para Deep Learning",
-      "descripcion": "Curso de fundamentos de preprocesamiento de datos para deep learning con enfoque práctico y progresivo.",
+      "id": "c53",
+      "nombre": "Introducción a las Redes Neuronales Convolucionales",
+      "descripcion": "Curso que introduce las redes neuronales convolucionales y sus aplicaciones en visión por computadora.",
       "prerrequisitos": [
-        "python_basico",
-        "pandas_numpy",
-        "estadistica_basica"
+        "deep_learning",
+        "computer_vision"
       ],
       "habilidades": [
-        "feature_engineering",
-        "preprocesamiento_datos_deep_learning"
+        "redes_neuronales_convolucionales",
+        "deteccion_objetos"
+      ],
+      "duracion_semanas": 4,
+      "nivel": "principiante"
+    },
+    {
+      "id": "c54",
+      "nombre": "Fundamentos de Redes Neuronales Recurrentes",
+      "descripcion": "Curso que introduce las redes neuronales recurrentes y sus aplicaciones en procesamiento de lenguaje natural.",
+      "prerrequisitos": [
+        "deep_learning",
+        "nlp"
+      ],
+      "habilidades": [
+        "redes_neuronales_recurrentes",
+        "generacion_texto"
       ],
       "duracion_semanas": 3,
       "nivel": "principiante"
     },
     {
       "id": "c55",
-      "nombre": "Introducción a la Optimización de Modelos de Deep Learning",
-      "descripcion": "Curso de introducción a la optimización de modelos de deep learning con enfoque práctico y progresivo.",
+      "nombre": "Introducción a la Optimización en Deep Learning",
+      "descripcion": "Curso que cubre los métodos de optimización utilizados en el entrenamiento de modelos de deep learning.",
       "prerrequisitos": [
-        "python_basico",
-        "calculo_optimizacion",
-        "deep_learning"
+        "deep_learning",
+        "calculo_optimizacion"
       ],
       "habilidades": [
-        "optimizacion_modelos_deep_learning"
+        "optimizacion_dl",
+        "gradiente_descendente"
       ],
-      "duracion_semanas": 4,
+      "duracion_semanas": 2,
       "nivel": "principiante"
     },
     {
@@ -910,85 +913,23 @@
       "prerrequisitos": [
         "python_basico",
         "algebra_lineal",
-        "calculo_optimizacion",
-        "estadistica_basica"
+        "calculo_optimizacion"
       ],
       "habilidades": [
-        "redes_neuronales_artificiales"
+        "redes_neuronales",
+        "fundamentos_redes_neuronales"
       ],
       "duracion_semanas": 3,
       "nivel": "principiante"
     },
     {
       "id": "c57",
-      "nombre": "Fundamentos de TensorFlow y Keras",
-      "descripcion": "Curso de fundamentos de tensorflow y keras con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_basico",
-        "algebra_lineal",
-        "calculo_optimizacion",
-        "deep_learning"
-      ],
-      "habilidades": [
-        "tensorflow",
-        "keras"
-      ],
-      "duracion_semanas": 4,
-      "nivel": "principiante"
-    },
-    {
-      "id": "c58",
-      "nombre": "Introducción a la Visualización de Datos en Deep Learning",
-      "descripcion": "Curso de introducción a la visualización de datos en deep learning con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_basico",
-        "visualizacion_datos",
-        "deep_learning"
-      ],
-      "habilidades": [
-        "visualizacion_datos_deep_learning"
-      ],
-      "duracion_semanas": 3,
-      "nivel": "principiante"
-    },
-    {
-      "id": "c59",
-      "nombre": "Fundamentos de Transfer Learning",
-      "descripcion": "Curso de fundamentos de transfer learning con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_basico",
-        "deep_learning",
-        "redes_neuronales_artificiales"
-      ],
-      "habilidades": [
-        "transfer_learning"
-      ],
-      "duracion_semanas": 4,
-      "nivel": "principiante"
-    },
-    {
-      "id": "c60",
-      "nombre": "Introducción a la Generación de Imágenes con GANs",
-      "descripcion": "Curso de introducción a la generación de imágenes con gans con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_basico",
-        "deep_learning",
-        "redes_neuronales_artificiales"
-      ],
-      "habilidades": [
-        "generative_adversarial_networks"
-      ],
-      "duracion_semanas": 4,
-      "nivel": "principiante"
-    },
-    {
-      "id": "c61",
       "nombre": "Introducción a Machine Learning con Python",
-      "descripcion": "Este curso proporciona una introducción a los conceptos básicos de Machine Learning utilizando Python.",
+      "descripcion": "Curso de introducción a machine learning con python con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_basico",
-        "matematicas_basicas",
-        "estadistica_basica"
+        "estadistica_basica",
+        "algebra_lineal"
       ],
       "habilidades": [
         "machine_learning",
@@ -998,189 +939,245 @@
       "nivel": "principiante"
     },
     {
-      "id": "c62",
+      "id": "c58",
+      "nombre": "Fundamentos de Visualización de Datos",
+      "descripcion": "Curso de fundamentos de visualización de datos con enfoque práctico y progresivo.",
+      "prerrequisitos": [
+        "python_basico",
+        "pandas_numpy"
+      ],
+      "habilidades": [
+        "visualizacion_datos",
+        "preprocesamiento_datos"
+      ],
+      "duracion_semanas": 3,
+      "nivel": "principiante"
+    },
+    {
+      "id": "c59",
       "nombre": "Fundamentos de Aprendizaje Supervisado",
-      "descripcion": "Este curso cubre los fundamentos del aprendizaje supervisado, incluyendo regresión y clasificación.",
+      "descripcion": "Curso de fundamentos de aprendizaje supervisado con enfoque práctico y progresivo.",
       "prerrequisitos": [
-        "python_basico",
         "machine_learning",
-        "estadistica_basica"
-      ],
-      "habilidades": [
-        "aprendizaje_supervisado",
-        "regresion_lineal"
-      ],
-      "duracion_semanas": 3,
-      "nivel": "principiante"
-    },
-    {
-      "id": "c63",
-      "nombre": "Introducción a la Evaluación de Modelos",
-      "descripcion": "Este curso enseña cómo evaluar y seleccionar modelos de Machine Learning utilizando métricas y técnicas de validación.",
-      "prerrequisitos": [
-        "python_basico",
-        "machine_learning",
-        "estadistica_inferencial"
-      ],
-      "habilidades": [
-        "evaluacion_modelos",
-        "metricas_evaluacion"
-      ],
-      "duracion_semanas": 3,
-      "nivel": "principiante"
-    },
-    {
-      "id": "c64",
-      "nombre": "Fundamentos de Aprendizaje No Supervisado",
-      "descripcion": "Este curso introduce los conceptos básicos del aprendizaje no supervisado, incluyendo clustering y reducción de dimensionalidad.",
-      "prerrequisitos": [
-        "python_basico",
-        "machine_learning",
+        "estadistica_basica",
         "algebra_lineal"
       ],
       "habilidades": [
-        "aprendizaje_no_supervisado",
-        "clustering"
+        "aprendizaje_supervisado",
+        "modelos_lineales"
       ],
       "duracion_semanas": 4,
       "nivel": "principiante"
     },
     {
-      "id": "c65",
-      "nombre": "Introducción a la Selección de Características",
-      "descripcion": "Este curso cubre técnicas básicas para la selección de características en Machine Learning, mejorando la eficiencia y precisión de los modelos.",
+      "id": "c60",
+      "nombre": "Introducción a la Evaluación de Modelos",
+      "descripcion": "Curso de introducción a la evaluación de modelos con enfoque práctico y progresivo.",
       "prerrequisitos": [
-        "python_basico",
         "machine_learning",
-        "estadistica_basica"
+        "estadistica_inferencial"
       ],
       "habilidades": [
-        "seleccion_caracteristicas",
-        "feature_selection"
+        "evaluacion_modelos",
+        "metricas_desempeno"
+      ],
+      "duracion_semanas": 3,
+      "nivel": "principiante"
+    },
+    {
+      "id": "c61",
+      "nombre": "Introducción a las APIs REST",
+      "descripcion": "Aprende los fundamentos de las APIs REST y cómo crear y consumir servicios web.",
+      "prerrequisitos": [
+        "python_basico",
+        "logica_programacion",
+        "sql_basico"
+      ],
+      "habilidades": [
+        "apis_rest",
+        "consumo_apis"
+      ],
+      "duracion_semanas": 3,
+      "nivel": "principiante"
+    },
+    {
+      "id": "c62",
+      "nombre": "Fundamentos de FastAPI",
+      "descripcion": "Descubre cómo construir APIs rápidas y eficientes utilizando FastAPI.",
+      "prerrequisitos": [
+        "python_basico",
+        "apis_rest"
+      ],
+      "habilidades": [
+        "fastapi",
+        "documentacion_apis"
+      ],
+      "duracion_semanas": 4,
+      "nivel": "principiante"
+    },
+    {
+      "id": "c63",
+      "nombre": "Introducción a Django",
+      "descripcion": "Aprende a crear aplicaciones web robustas y escalables con Django.",
+      "prerrequisitos": [
+        "python_basico",
+        "sql_basico",
+        "estructuras_datos"
+      ],
+      "habilidades": [
+        "django",
+        "modelos_django"
+      ],
+      "duracion_semanas": 4,
+      "nivel": "principiante"
+    },
+    {
+      "id": "c64",
+      "nombre": "Fundamentos de Docker",
+      "descripcion": "Aprende a containerizar aplicaciones con Docker para mejorar la portabilidad y el despliegue.",
+      "prerrequisitos": [
+        "python_basico",
+        "logica_programacion"
+      ],
+      "habilidades": [
+        "docker",
+        "containerizacion"
+      ],
+      "duracion_semanas": 3,
+      "nivel": "principiante"
+    },
+    {
+      "id": "c65",
+      "nombre": "Introducción a la Seguridad en APIs",
+      "descripcion": "Aprende a proteger tus APIs contra amenazas comunes y asegurar la integridad de los datos.",
+      "prerrequisitos": [
+        "python_basico",
+        "apis_rest"
+      ],
+      "habilidades": [
+        "seguridad_apis",
+        "autenticacion_apis"
       ],
       "duracion_semanas": 3,
       "nivel": "principiante"
     },
     {
       "id": "c66",
-      "nombre": "Fundamentos de Seguridad en APIs",
-      "descripcion": "Curso de fundamentos de seguridad en apis con enfoque práctico y progresivo.",
+      "nombre": "Introducción a la Gestión de Datos con SQL",
+      "descripcion": "Curso de introducción a la gestión de datos con sql con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_basico",
-        "apis_rest",
-        "backend_python_basico"
+        "logica_programacion"
       ],
       "habilidades": [
-        "seguridad_apis"
+        "sql_basico",
+        "gestion_recursos_cloud"
       ],
-      "duracion_semanas": 4,
+      "duracion_semanas": 3,
       "nivel": "principiante"
     },
     {
       "id": "c67",
-      "nombre": "Introducción a la Integración Continua y Entrega Continua",
-      "descripcion": "Curso de introducción a la integración continua y entrega continua con enfoque práctico y progresivo.",
+      "nombre": "Introducción a la Preprocesamiento de Datos",
+      "descripcion": "Curso de introducción a la preprocesamiento de datos con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_basico",
-        "backend_python_basico",
-        "docker"
+        "pandas_numpy"
       ],
       "habilidades": [
-        "cicd",
-        "iac_terraform"
+        "preprocesamiento_datos",
+        "normalizacion_datos"
       ],
-      "duracion_semanas": 4,
+      "duracion_semanas": 3,
       "nivel": "principiante"
     },
     {
       "id": "c68",
-      "nombre": "Introducción a la Ingeniería de Datos",
-      "descripcion": "Este curso proporciona una introducción a los conceptos fundamentales de la ingeniería de datos, incluyendo el manejo y procesamiento de datos a gran escala.",
+      "nombre": "Fundamentos de la Nube con AWS",
+      "descripcion": "Curso de fundamentos de la nube con aws con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_basico",
-        "sql_basico",
-        "matematicas_basicas"
+        "logica_programacion"
       ],
       "habilidades": [
-        "big_data",
-        "data_pipeline_basics"
+        "cloud_aws",
+        "gestion_identidades_accesos"
       ],
       "duracion_semanas": 4,
       "nivel": "principiante"
     },
     {
       "id": "c69",
-      "nombre": "Fundamentos de Almacenamiento de Datos",
-      "descripcion": "Aprende los conceptos básicos de almacenamiento de datos, incluyendo bases de datos relacionales y no relacionales.",
+      "nombre": "Introducción a la Visualización de Datos con Python",
+      "descripcion": "Curso de introducción a la visualización de datos con python con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_basico",
-        "sql_basico"
+        "pandas_numpy"
       ],
       "habilidades": [
-        "nosql",
-        "data_warehousing_basics"
+        "visualizacion_datos",
+        "matplotlib_seaborn"
       ],
       "duracion_semanas": 3,
       "nivel": "principiante"
     },
     {
       "id": "c70",
-      "nombre": "Introducción a la Transformación de Datos",
-      "descripcion": "Este curso cubre las técnicas básicas para transformar y limpiar datos, preparándolos para análisis y modelado.",
+      "nombre": "Introducción a Flask",
+      "descripcion": "Curso de introducción a flask con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_basico",
-        "pandas_numpy",
-        "sql_basico"
+        "logica_programacion"
       ],
       "habilidades": [
-        "data_cleaning",
-        "data_transformation"
+        "flask",
+        "apis_rest"
       ],
       "duracion_semanas": 3,
       "nivel": "principiante"
     },
     {
       "id": "c71",
-      "nombre": "Fundamentos de ETL (Extract, Transform, Load)",
-      "descripcion": "Aprende los conceptos y técnicas básicas de ETL, un proceso crucial en la ingeniería de datos para mover y transformar datos.",
+      "nombre": "Fundamentos de GraphQL",
+      "descripcion": "Curso de fundamentos de graphql con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_basico",
-        "sql_basico",
-        "data_pipeline_basics"
+        "apis_rest"
       ],
       "habilidades": [
-        "etl_basics"
+        "graphql",
+        "consumo_apis"
       ],
       "duracion_semanas": 4,
       "nivel": "principiante"
     },
     {
       "id": "c72",
-      "nombre": "Introducción a la Visualización de Datos en Ingeniería de Datos",
-      "descripcion": "Este curso introduce las técnicas de visualización de datos específicas para la ingeniería de datos, ayudando a comunicar insights de manera efectiva.",
+      "nombre": "Introducción a la Gestión de Bases de Datos NoSQL",
+      "descripcion": "Curso de introducción a la gestión de bases de datos nosql con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_basico",
-        "pandas_numpy",
-        "visualizacion_datos"
+        "logica_programacion"
       ],
       "habilidades": [
-        "data_visualization_in_engineering"
+        "nosql",
+        "gestion_recursos_cloud"
       ],
       "duracion_semanas": 3,
       "nivel": "principiante"
     },
     {
       "id": "c73",
-      "nombre": "Introducción al Diseño de APIs REST",
-      "descripcion": "Este curso proporciona una introducción al diseño de APIs REST, incluyendo los principios básicos, la estructura de las solicitudes y respuestas, y cómo crear APIs seguras y eficientes.",
+      "nombre": "Fundamentos de la Seguridad en Desarrollo Backend",
+      "descripcion": "Curso de fundamentos de la seguridad en desarrollo backend con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_basico",
-        "backend_python_basico",
-        "apis_rest"
+        "apis_rest",
+        "seguridad_apis"
       ],
       "habilidades": [
-        "diseno_apis_rest",
-        "seguridad_apis"
+        "seguridad_backend",
+        "autenticacion_apis"
       ],
       "duracion_semanas": 4,
       "nivel": "principiante"
@@ -1188,611 +1185,646 @@
     {
       "id": "c74",
       "nombre": "Optimización de Modelos de Machine Learning",
-      "descripcion": "Curso de optimización de modelos de machine learning con enfoque práctico y progresivo.",
+      "descripcion": "Aprende técnicas avanzadas para optimizar modelos de machine learning, incluyendo selección de hiperparámetros y validación cruzada.",
       "prerrequisitos": [
         "python_avanzado",
         "machine_learning",
-        "metricas_evaluacion"
+        "estadistica_inferencial"
       ],
       "habilidades": [
-        "optimizacion_modelos_machine_learning"
-      ],
-      "duracion_semanas": 5,
-      "nivel": "intermedio"
-    },
-    {
-      "id": "c75",
-      "nombre": "Introducción a MLflow para MLOps",
-      "descripcion": "Curso de introducción a mlflow para mlops con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "machine_learning",
-        "mlops"
-      ],
-      "habilidades": [
-        "mlflow",
-        "tracking_experimentos"
+        "optimizacion_modelos",
+        "seleccion_hiperparametros",
+        "validacion_cruzada"
       ],
       "duracion_semanas": 6,
       "nivel": "intermedio"
     },
     {
-      "id": "c76",
-      "nombre": "Despliegue de Modelos de Machine Learning",
-      "descripcion": "Curso de despliegue de modelos de machine learning con enfoque práctico y progresivo.",
+      "id": "c75",
+      "nombre": "Despliegue y Monitoreo de Modelos con MLflow",
+      "descripcion": "Aprende a desplegar y monitorear modelos de machine learning utilizando MLflow, incluyendo el registro de experimentos y la gestión de modelos.",
       "prerrequisitos": [
         "python_avanzado",
-        "machine_learning",
-        "docker",
-        "apis_rest"
+        "mlops",
+        "mlflow"
       ],
       "habilidades": [
         "despliegue_modelos",
-        "servicios_web_ml"
+        "monitoreo_modelos",
+        "registro_experimentos"
+      ],
+      "duracion_semanas": 5,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c76",
+      "nombre": "Automatización de Flujos de Trabajo con Kubernetes",
+      "descripcion": "Aprende a automatizar flujos de trabajo y despliegues de aplicaciones utilizando Kubernetes, incluyendo la gestión de pods y servicios.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "kubernetes",
+        "cicd"
+      ],
+      "habilidades": [
+        "automatizacion_flujos",
+        "gestion_pods",
+        "gestion_servicios"
       ],
       "duracion_semanas": 7,
       "nivel": "intermedio"
     },
     {
       "id": "c77",
-      "nombre": "Automatización de Flujos de Trabajo en MLOps",
-      "descripcion": "Curso de automatización de flujos de trabajo en mlops con enfoque práctico y progresivo.",
+      "nombre": "Preprocesamiento y Feature Engineering para Deep Learning",
+      "descripcion": "Aprende técnicas avanzadas de preprocesamiento y feature engineering específicas para modelos de deep learning, incluyendo la normalización y la creación de features.",
       "prerrequisitos": [
         "python_avanzado",
-        "mlops",
-        "cicd"
+        "deep_learning",
+        "preprocesamiento_datos"
       ],
       "habilidades": [
-        "automatizacion_flujos_trabajo",
-        "orquestacion_tareas"
+        "preprocesamiento_dl",
+        "feature_engineering_dl",
+        "creacion_features"
       ],
       "duracion_semanas": 6,
       "nivel": "intermedio"
     },
     {
       "id": "c78",
-      "nombre": "Gestión de Datos en MLOps",
-      "descripcion": "Curso de gestión de datos en mlops con enfoque práctico y progresivo.",
+      "nombre": "Gestión de Recursos en la Nube con Terraform",
+      "descripcion": "Aprende a gestionar recursos en la nube utilizando Terraform, incluyendo la configuración de redes virtuales y la gestión de identidades y accesos.",
       "prerrequisitos": [
         "python_avanzado",
-        "mlops",
-        "data_pipeline_basics"
+        "cloud_aws",
+        "terraform_basico"
       ],
       "habilidades": [
-        "gestion_datos_mlops",
-        "data_versioning"
+        "gestion_recursos_terraform",
+        "configuracion_redes_virtuales_terraform",
+        "gestion_identidades_accesos_terraform"
       ],
       "duracion_semanas": 5,
       "nivel": "intermedio"
     },
     {
       "id": "c79",
-      "nombre": "Arquitectura de Microservicios",
-      "descripcion": "Este curso cubre los principios y patrones de diseño de microservicios, incluyendo la gestión de estados, comunicación asincrónica y la implementación de APIs RESTful.",
+      "nombre": "Arquitectura de Microservicios Avanzada",
+      "descripcion": "Este curso profundiza en la arquitectura de microservicios, abordando temas avanzados como la gestión de estado, la comunicación asincrónica y la resiliencia.",
       "prerrequisitos": [
         "python_avanzado",
-        "backend_python_basico",
-        "apis_rest",
-        "microservicios"
-      ],
-      "habilidades": [
-        "diseno_microservicios",
-        "comunicacion_asincrona"
-      ],
-      "duracion_semanas": 6,
-      "nivel": "intermedio"
-    },
-    {
-      "id": "c80",
-      "nombre": "Implementación de Sistemas Distribuidos con Docker y Kubernetes",
-      "descripcion": "Aprende a desplegar y gestionar aplicaciones distribuidas utilizando Docker y Kubernetes, incluyendo la orquestación de contenedores y la gestión de clusters.",
-      "prerrequisitos": [
-        "python_avanzado",
+        "microservicios",
         "docker",
-        "kubernetes",
-        "cicd"
+        "kubernetes"
       ],
       "habilidades": [
-        "orquestacion_contenedores",
-        "gestion_clusters"
+        "gestion_estado_microservicios",
+        "comunicacion_asincrona",
+        "resiliencia_microservicios"
       ],
       "duracion_semanas": 7,
       "nivel": "intermedio"
     },
     {
-      "id": "c81",
-      "nombre": "Patrones de Diseño en Sistemas Distribuidos",
-      "descripcion": "Explora los patrones de diseño más comunes en sistemas distribuidos, como la tolerancia a fallos, la replicación de datos y la consistencia eventual.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "microservicios",
-        "algoritmos"
-      ],
-      "habilidades": [
-        "tolerancia_a_fallos",
-        "replicacion_datos"
-      ],
-      "duracion_semanas": 5,
-      "nivel": "intermedio"
-    },
-    {
-      "id": "c82",
+      "id": "c80",
       "nombre": "Optimización de Rendimiento en Sistemas Distribuidos",
-      "descripcion": "Aprende técnicas avanzadas para optimizar el rendimiento y la eficiencia de sistemas distribuidos, incluyendo la gestión de carga y la optimización de latencia.",
+      "descripcion": "Aprende técnicas avanzadas para optimizar el rendimiento de sistemas distribuidos, incluyendo la gestión de recursos y la reducción de latencia.",
       "prerrequisitos": [
         "python_avanzado",
-        "microservicios",
-        "calculo_optimizacion"
+        "algoritmos",
+        "estructuras_datos",
+        "cicd"
       ],
       "habilidades": [
-        "gestion_carga",
-        "optimizacion_latencia"
+        "optimizacion_rendimiento",
+        "gestion_recursos_distribuidos"
       ],
       "duracion_semanas": 6,
       "nivel": "intermedio"
     },
     {
-      "id": "c83",
+      "id": "c81",
       "nombre": "Seguridad en Sistemas Distribuidos",
-      "descripcion": "Este curso se centra en los aspectos de seguridad en sistemas distribuidos, incluyendo la autenticación, autorización y la protección de datos en tránsito.",
+      "descripcion": "Este curso cubre aspectos críticos de la seguridad en sistemas distribuidos, incluyendo la autenticación, la autorización y la protección de datos en tránsito.",
       "prerrequisitos": [
         "python_avanzado",
-        "microservicios",
-        "seguridad_apis"
+        "seguridad_apis",
+        "gestion_identidades_accesos",
+        "redes_cloud"
       ],
       "habilidades": [
-        "autenticacion_distribuida",
+        "seguridad_sistemas_distribuidos",
         "proteccion_datos_transito"
       ],
       "duracion_semanas": 5,
       "nivel": "intermedio"
     },
     {
-      "id": "c84",
-      "nombre": "Análisis Predictivo con Machine Learning",
-      "descripcion": "Curso de análisis predictivo con machine learning con enfoque práctico y progresivo.",
+      "id": "c82",
+      "nombre": "Despliegue y Orquestación de Microservicios con Kubernetes",
+      "descripcion": "Aprende a desplegar y orquestar microservicios utilizando Kubernetes, incluyendo la configuración de pods, servicios y volúmenes persistentes.",
       "prerrequisitos": [
         "python_avanzado",
-        "machine_learning",
-        "estadistica_inferencial"
+        "kubernetes",
+        "microservicios",
+        "cicd"
       ],
       "habilidades": [
-        "aprendizaje_supervisado",
-        "regresion_lineal",
-        "evaluacion_modelos"
+        "despliegue_microservicios_kubernetes",
+        "orquestacion_microservicios"
+      ],
+      "duracion_semanas": 7,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c83",
+      "nombre": "Automatización de Infraestructura con Terraform y Kubernetes",
+      "descripcion": "Este curso enseña cómo automatizar la configuración y gestión de infraestructura en la nube utilizando Terraform y Kubernetes.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "cloud_aws",
+        "terraform_basico",
+        "kubernetes"
+      ],
+      "habilidades": [
+        "automatizacion_infraestructura_terraform",
+        "integracion_terraform_kubernetes"
+      ],
+      "duracion_semanas": 6,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c84",
+      "nombre": "Análisis de Datos con Pandas y Numpy",
+      "descripcion": "Este curso se centra en el uso avanzado de Pandas y Numpy para el análisis de datos, incluyendo manipulación, limpieza y visualización de datos.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "pandas_numpy",
+        "preprocesamiento_datos"
+      ],
+      "habilidades": [
+        "manipulacion_datos_avanzada",
+        "limpieza_datos_avanzada",
+        "visualizacion_datos_avanzada"
       ],
       "duracion_semanas": 6,
       "nivel": "intermedio"
     },
     {
       "id": "c85",
-      "nombre": "Optimización de Modelos de Deep Learning",
-      "descripcion": "Curso de optimización de modelos de deep learning con enfoque práctico y progresivo.",
+      "nombre": "Despliegue y Monitoreo de Modelos en la Nube",
+      "descripcion": "Este curso cubre el despliegue y monitoreo de modelos de machine learning en la nube, utilizando servicios de AWS y otras plataformas cloud.",
       "prerrequisitos": [
         "python_avanzado",
-        "deep_learning",
-        "calculo_optimizacion"
+        "cloud_aws",
+        "despliegue_modelos"
       ],
       "habilidades": [
-        "optimizacion_modelos_deep_learning",
-        "transfer_learning"
-      ],
-      "duracion_semanas": 7,
-      "nivel": "intermedio"
-    },
-    {
-      "id": "c86",
-      "nombre": "Ingeniería de Características para Machine Learning",
-      "descripcion": "Curso de ingeniería de características para machine learning con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "machine_learning",
-        "pandas_numpy"
-      ],
-      "habilidades": [
-        "feature_engineering",
-        "seleccion_caracteristicas"
+        "despliegue_modelos_cloud",
+        "monitoreo_modelos_cloud"
       ],
       "duracion_semanas": 5,
       "nivel": "intermedio"
     },
     {
-      "id": "c87",
-      "nombre": "Visualización de Datos Avanzada",
-      "descripcion": "Curso de visualización de datos avanzada con enfoque práctico y progresivo.",
+      "id": "c86",
+      "nombre": "Arquitectura de Microservicios con Docker y Kubernetes",
+      "descripcion": "Aprende a diseñar y desplegar arquitecturas de microservicios utilizando Docker y Kubernetes, con enfoque en la gestión de recursos y la resiliencia.",
       "prerrequisitos": [
         "python_avanzado",
-        "visualizacion_datos",
-        "pandas_numpy"
+        "docker",
+        "kubernetes",
+        "microservicios"
       ],
       "habilidades": [
-        "visualizacion_datos_avanzada",
-        "data_visualization_in_engineering"
+        "arquitectura_microservicios_avanzada",
+        "gestion_recursos_kubernetes"
+      ],
+      "duracion_semanas": 7,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c87",
+      "nombre": "Seguridad y Gestión de Identidades en la Nube",
+      "descripcion": "Este curso se centra en la seguridad y la gestión de identidades y accesos en entornos cloud, utilizando herramientas como AWS IAM y Terraform.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "cloud_aws",
+        "gestion_identidades_accesos"
+      ],
+      "habilidades": [
+        "seguridad_identidades_cloud",
+        "gestion_accesos_avanzada"
       ],
       "duracion_semanas": 6,
       "nivel": "intermedio"
     },
     {
       "id": "c88",
-      "nombre": "Gestión de Pipelines de Datos",
-      "descripcion": "Curso de gestión de pipelines de datos con enfoque práctico y progresivo.",
+      "nombre": "Optimización de Modelos de Aprendizaje Profundo",
+      "descripcion": "Curso de optimización de modelos de aprendizaje profundo con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
-        "data_pipeline_basics",
-        "cicd"
+        "deep_learning",
+        "calculo_optimizacion",
+        "aprendizaje_supervisado"
       ],
       "habilidades": [
-        "data_pipeline_management",
-        "automatizacion_flujos_trabajo"
+        "optimizacion_dl",
+        "gradiente_descendente"
       ],
-      "duracion_semanas": 7,
+      "duracion_semanas": 6,
       "nivel": "intermedio"
     },
     {
       "id": "c89",
-      "nombre": "Análisis de Datos con Pandas y Numpy",
-      "descripcion": "Curso de análisis de datos con pandas y numpy con enfoque práctico y progresivo.",
+      "nombre": "Ingeniería de Características para Aprendizaje Profundo",
+      "descripcion": "Curso de ingeniería de características para aprendizaje profundo con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
-        "matematicas_basicas"
+        "pandas_numpy",
+        "preprocesamiento_datos",
+        "feature_engineering"
       ],
       "habilidades": [
-        "pandas_numpy",
-        "data_cleaning"
+        "feature_engineering_dl",
+        "preprocesamiento_dl"
       ],
       "duracion_semanas": 5,
       "nivel": "intermedio"
     },
     {
       "id": "c90",
-      "nombre": "Modelos de Clasificación con Machine Learning",
-      "descripcion": "Curso de modelos de clasificación con machine learning con enfoque práctico y progresivo.",
+      "nombre": "Despliegue y Monitoreo de Microservicios en la Nube",
+      "descripcion": "Curso de despliegue y monitoreo de microservicios en la nube con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
-        "machine_learning",
-        "estadistica_inferencial"
+        "kubernetes",
+        "microservicios",
+        "cloud_aws"
       ],
       "habilidades": [
-        "aprendizaje_supervisado",
-        "metricas_evaluacion"
-      ],
-      "duracion_semanas": 6,
-      "nivel": "intermedio"
-    },
-    {
-      "id": "c91",
-      "nombre": "Visualización de Datos con Python",
-      "descripcion": "Curso de visualización de datos con python con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "pandas_numpy"
-      ],
-      "habilidades": [
-        "visualizacion_datos",
-        "data_visualization_in_engineering"
-      ],
-      "duracion_semanas": 5,
-      "nivel": "intermedio"
-    },
-    {
-      "id": "c92",
-      "nombre": "Gestión de Pipelines de Datos con Python",
-      "descripcion": "Curso de gestión de pipelines de datos con python con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "data_pipeline_basics",
-        "cicd"
-      ],
-      "habilidades": [
-        "data_pipeline_management",
-        "automatizacion_flujos_trabajo"
-      ],
-      "duracion_semanas": 6,
-      "nivel": "intermedio"
-    },
-    {
-      "id": "c93",
-      "nombre": "Desarrollo de APIs con FastAPI",
-      "descripcion": "Curso de desarrollo de apis con fastapi con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "apis_rest",
-        "backend_python_basico"
-      ],
-      "habilidades": [
-        "fastapi",
-        "seguridad_apis"
-      ],
-      "duracion_semanas": 6,
-      "nivel": "intermedio"
-    },
-    {
-      "id": "c94",
-      "nombre": "Diseño y Despliegue de Microservicios",
-      "descripcion": "Curso de diseño y despliegue de microservicios con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "docker",
-        "kubernetes"
-      ],
-      "habilidades": [
-        "diseno_microservicios",
-        "orquestacion_contenedores"
+        "despliegue_microservicios_kubernetes",
+        "monitoreo_modelos_cloud"
       ],
       "duracion_semanas": 7,
       "nivel": "intermedio"
     },
     {
-      "id": "c95",
-      "nombre": "Optimización de Rendimiento en Backend",
-      "descripcion": "Curso de optimización de rendimiento en backend con enfoque práctico y progresivo.",
+      "id": "c91",
+      "nombre": "Automatización de Flujos de Trabajo con MLflow y Kubernetes",
+      "descripcion": "Curso de automatización de flujos de trabajo con mlflow y kubernetes con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
-        "backend_python_basico",
+        "mlflow",
+        "kubernetes",
         "cicd"
       ],
       "habilidades": [
-        "optimizacion_latencia",
-        "gestion_carga"
+        "automatizacion_flujos",
+        "gestion_pods"
+      ],
+      "duracion_semanas": 6,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c92",
+      "nombre": "Seguridad y Gestión de Identidades en Microservicios",
+      "descripcion": "Curso de seguridad y gestión de identidades en microservicios con enfoque práctico y progresivo.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "microservicios",
+        "gestion_identidades_accesos",
+        "seguridad_apis"
+      ],
+      "habilidades": [
+        "seguridad_identidades_cloud",
+        "gestion_accesos_avanzada"
+      ],
+      "duracion_semanas": 5,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c93",
+      "nombre": "Optimización de APIs REST con FastAPI",
+      "descripcion": "Aprende a optimizar el rendimiento y la seguridad de tus APIs REST utilizando FastAPI.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "apis_rest",
+        "fastapi",
+        "seguridad_apis"
+      ],
+      "habilidades": [
+        "optimizacion_apis_rest",
+        "seguridad_apis_avanzada"
+      ],
+      "duracion_semanas": 5,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c94",
+      "nombre": "Despliegue y Escalado de Microservicios con Kubernetes",
+      "descripcion": "Aprende a desplegar y escalar microservicios en Kubernetes para mejorar la eficiencia y la disponibilidad.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "kubernetes",
+        "microservicios",
+        "despliegue_contenedores"
+      ],
+      "habilidades": [
+        "despliegue_microservicios_kubernetes",
+        "escalado_microservicios"
+      ],
+      "duracion_semanas": 6,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c95",
+      "nombre": "Automatización de Pruebas y Despliegues con CI/CD",
+      "descripcion": "Aprende a automatizar pruebas y despliegues utilizando herramientas de CI/CD para mejorar la calidad y la velocidad de desarrollo.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "cicd",
+        "testing_python",
+        "despliegue_contenedores"
+      ],
+      "habilidades": [
+        "automatizacion_pruebas",
+        "automatizacion_despliegues"
       ],
       "duracion_semanas": 5,
       "nivel": "intermedio"
     },
     {
       "id": "c96",
-      "nombre": "Seguridad y Autenticación en APIs",
-      "descripcion": "Curso de seguridad y autenticación en apis con enfoque práctico y progresivo.",
+      "nombre": "Gestión de Datos en Tiempo Real con Microservicios",
+      "descripcion": "Aprende a gestionar y procesar datos en tiempo real utilizando microservicios y tecnologías de big data.",
       "prerrequisitos": [
         "python_avanzado",
-        "apis_rest",
-        "backend_python_basico"
+        "microservicios",
+        "big_data",
+        "gestion_recursos_distribuidos"
       ],
       "habilidades": [
-        "seguridad_apis",
-        "autenticacion_distribuida"
-      ],
-      "duracion_semanas": 6,
-      "nivel": "intermedio"
-    },
-    {
-      "id": "c97",
-      "nombre": "Gestión de Datos en Microservicios",
-      "descripcion": "Curso de gestión de datos en microservicios con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "diseno_microservicios",
-        "data_pipeline_basics"
-      ],
-      "habilidades": [
-        "gestion_datos_mlops",
-        "replicacion_datos"
-      ],
-      "duracion_semanas": 5,
-      "nivel": "intermedio"
-    },
-    {
-      "id": "c98",
-      "nombre": "Redes Neuronales Convolucionales Avanzadas",
-      "descripcion": "Curso de redes neuronales convolucionales avanzadas con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "deep_learning",
-        "computer_vision"
-      ],
-      "habilidades": [
-        "redes_neuronales_convolucionales",
-        "transfer_learning"
+        "gestion_datos_tiempo_real",
+        "procesamiento_datos_streaming"
       ],
       "duracion_semanas": 7,
       "nivel": "intermedio"
     },
     {
-      "id": "c99",
-      "nombre": "Redes Neuronales Recurrentes y Secuencias",
-      "descripcion": "Curso de redes neuronales recurrentes y secuencias con enfoque práctico y progresivo.",
+      "id": "c97",
+      "nombre": "Arquitectura de APIs GraphQL",
+      "descripcion": "Aprende a diseñar y implementar APIs GraphQL para mejorar la eficiencia y la flexibilidad de tus aplicaciones.",
       "prerrequisitos": [
         "python_avanzado",
-        "deep_learning",
-        "aprendizaje_supervisado"
+        "apis_rest",
+        "graphql",
+        "estructuras_datos"
       ],
       "habilidades": [
-        "redes_neuronales_recurrentes",
-        "nlp"
+        "arquitectura_apis_graphql",
+        "optimizacion_apis_graphql"
       ],
       "duracion_semanas": 6,
       "nivel": "intermedio"
     },
     {
-      "id": "c100",
-      "nombre": "Generative Adversarial Networks (GANs)",
-      "descripcion": "Curso de generative adversarial networks (gans) con enfoque práctico y progresivo.",
+      "id": "c98",
+      "nombre": "Optimización de Modelos de Deep Learning",
+      "descripcion": "Curso de optimización de modelos de deep learning con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
         "deep_learning",
-        "redes_neuronales_artificiales"
+        "optimizacion_dl",
+        "validacion_cruzada"
       ],
       "habilidades": [
-        "generative_adversarial_networks",
-        "visualizacion_datos_deep_learning"
+        "optimizacion_modelos",
+        "seleccion_hiperparametros"
+      ],
+      "duracion_semanas": 6,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c99",
+      "nombre": "Preprocesamiento Avanzado para Deep Learning",
+      "descripcion": "Curso de preprocesamiento avanzado para deep learning con enfoque práctico y progresivo.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "deep_learning",
+        "preprocesamiento_datos",
+        "feature_engineering"
+      ],
+      "habilidades": [
+        "preprocesamiento_datos_dl",
+        "feature_engineering_dl"
+      ],
+      "duracion_semanas": 5,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c100",
+      "nombre": "Redes Neuronales Recurrentes para Procesamiento de Lenguaje Natural",
+      "descripcion": "Curso de redes neuronales recurrentes para procesamiento de lenguaje natural con enfoque práctico y progresivo.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "deep_learning",
+        "nlp",
+        "redes_neuronales"
+      ],
+      "habilidades": [
+        "redes_neuronales_recurrentes",
+        "generacion_texto"
       ],
       "duracion_semanas": 7,
       "nivel": "intermedio"
     },
     {
       "id": "c101",
-      "nombre": "Preprocesamiento de Datos para Deep Learning",
-      "descripcion": "Curso de preprocesamiento de datos para deep learning con enfoque práctico y progresivo.",
+      "nombre": "Redes Neuronales Convolucionales para Visión por Computadora",
+      "descripcion": "Curso de redes neuronales convolucionales para visión por computadora con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
         "deep_learning",
-        "data_pipeline_basics"
+        "computer_vision",
+        "redes_neuronales"
       ],
       "habilidades": [
-        "preprocesamiento_datos_deep_learning",
-        "data_cleaning"
+        "redes_neuronales_convolucionales",
+        "deteccion_objetos"
+      ],
+      "duracion_semanas": 6,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c102",
+      "nombre": "Fundamentos de Aprendizaje Supervisado con Deep Learning",
+      "descripcion": "Curso de fundamentos de aprendizaje supervisado con deep learning con enfoque práctico y progresivo.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "deep_learning",
+        "fundamentos_redes_neuronales",
+        "evaluacion_modelos"
+      ],
+      "habilidades": [
+        "aprendizaje_supervisado",
+        "modelos_lineales"
       ],
       "duracion_semanas": 5,
       "nivel": "intermedio"
     },
     {
-      "id": "c102",
-      "nombre": "Transfer Learning y Fine-Tuning",
-      "descripcion": "Curso de transfer learning y fine-tuning con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "deep_learning",
-        "redes_neuronales_convolucionales"
-      ],
-      "habilidades": [
-        "transfer_learning",
-        "fine_tuning_models"
-      ],
-      "duracion_semanas": 7,
-      "nivel": "intermedio"
-    },
-    {
       "id": "c103",
-      "nombre": "Redes Neuronales Recurrentes Avanzadas",
-      "descripcion": "Curso de redes neuronales recurrentes avanzadas con enfoque práctico y progresivo.",
+      "nombre": "Optimización de Redes Neuronales con Técnicas Avanzadas",
+      "descripcion": "Curso de optimización de redes neuronales con técnicas avanzadas con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
         "deep_learning",
-        "nlp"
+        "optimizacion_dl",
+        "gradiente_descendente"
       ],
       "habilidades": [
-        "redes_neuronales_recurrentes",
-        "atencion_mecanismos"
+        "optimizacion_redes_neuronales",
+        "tecnicas_avanzadas_optimizacion"
       ],
       "duracion_semanas": 6,
       "nivel": "intermedio"
     },
     {
       "id": "c104",
-      "nombre": "Generative Adversarial Networks Avanzadas",
-      "descripcion": "Curso de generative adversarial networks avanzadas con enfoque práctico y progresivo.",
+      "nombre": "Arquitecturas de Redes Neuronales Profundas",
+      "descripcion": "Curso de arquitecturas de redes neuronales profundas con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
         "deep_learning",
-        "redes_neuronales_artificiales"
+        "redes_neuronales",
+        "fundamentos_redes_neuronales"
       ],
       "habilidades": [
-        "generative_adversarial_networks",
-        "gan_variants"
+        "arquitecturas_redes_profundas",
+        "diseño_redes_neuronales"
       ],
       "duracion_semanas": 7,
       "nivel": "intermedio"
     },
     {
       "id": "c105",
-      "nombre": "Visualización de Datos en Deep Learning",
-      "descripcion": "Curso de visualización de datos en deep learning con enfoque práctico y progresivo.",
+      "nombre": "Procesamiento de Lenguaje Natural con Deep Learning",
+      "descripcion": "Curso de procesamiento de lenguaje natural con deep learning con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
         "deep_learning",
-        "visualizacion_datos"
+        "nlp",
+        "redes_neuronales_recurrentes"
       ],
       "habilidades": [
-        "visualizacion_datos_deep_learning",
-        "data_visualization_in_engineering"
-      ],
-      "duracion_semanas": 5,
-      "nivel": "intermedio"
-    },
-    {
-      "id": "c106",
-      "nombre": "Diseño y Gestión de Pipelines de Datos",
-      "descripcion": "Curso de diseño y gestión de pipelines de datos con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "data_pipeline_basics",
-        "etl_basics"
-      ],
-      "habilidades": [
-        "data_pipeline_management",
-        "automatizacion_flujos_trabajo"
-      ],
-      "duracion_semanas": 5,
-      "nivel": "intermedio"
-    },
-    {
-      "id": "c107",
-      "nombre": "Técnicas Avanzadas de Preprocesamiento de Datos",
-      "descripcion": "Curso de técnicas avanzadas de preprocesamiento de datos con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "data_pipeline_basics",
-        "data_cleaning"
-      ],
-      "habilidades": [
-        "preprocesamiento_datos_avanzado"
-      ],
-      "duracion_semanas": 7,
-      "nivel": "intermedio"
-    },
-    {
-      "id": "c108",
-      "nombre": "Despliegue y Monitoreo de Modelos de Machine Learning",
-      "descripcion": "Curso de despliegue y monitoreo de modelos de machine learning con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "machine_learning",
-        "mlops"
-      ],
-      "habilidades": [
-        "despliegue_modelos",
-        "tracking_experimentos"
+        "procesamiento_lenguaje_natural_dl",
+        "modelos_atencion"
       ],
       "duracion_semanas": 6,
       "nivel": "intermedio"
     },
     {
-      "id": "c109",
-      "nombre": "Gestión de Datos en Entornos de Microservicios",
-      "descripcion": "Curso de gestión de datos en entornos de microservicios con enfoque práctico y progresivo.",
+      "id": "c106",
+      "nombre": "Visión por Computadora Avanzada con Deep Learning",
+      "descripcion": "Curso de visión por computadora avanzada con deep learning con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
-        "diseno_microservicios",
-        "data_pipeline_basics"
+        "deep_learning",
+        "computer_vision",
+        "redes_neuronales_convolucionales"
       ],
       "habilidades": [
-        "gestion_datos_microservicios",
-        "data_versioning"
+        "vision_computadora_avanzada",
+        "segmentacion_imagenes"
+      ],
+      "duracion_semanas": 7,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c107",
+      "nombre": "Despliegue y Monitoreo de Modelos de Deep Learning en la Nube",
+      "descripcion": "Curso de despliegue y monitoreo de modelos de deep learning en la nube con enfoque práctico y progresivo.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "deep_learning",
+        "despliegue_modelos",
+        "gestion_recursos_cloud"
+      ],
+      "habilidades": [
+        "despliegue_modelos_dl_cloud",
+        "monitoreo_modelos_dl_cloud"
+      ],
+      "duracion_semanas": 5,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c108",
+      "nombre": "Arquitectura de Microservicios con Kubernetes",
+      "descripcion": "Curso de arquitectura de microservicios con kubernetes con enfoque práctico y progresivo.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "kubernetes",
+        "microservicios",
+        "orquestacion_contenedores"
+      ],
+      "habilidades": [
+        "arquitectura_microservicios_avanzada",
+        "gestion_recursos_kubernetes"
+      ],
+      "duracion_semanas": 7,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c109",
+      "nombre": "Procesamiento de Datos en Tiempo Real",
+      "descripcion": "Curso de procesamiento de datos en tiempo real con enfoque práctico y progresivo.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "big_data",
+        "preprocesamiento_datos",
+        "estructuras_datos"
+      ],
+      "habilidades": [
+        "gestion_datos_tiempo_real",
+        "procesamiento_datos_streaming"
       ],
       "duracion_semanas": 5,
       "nivel": "intermedio"
     },
     {
       "id": "c110",
-      "nombre": "Optimización y Evaluación de Modelos en MLOps",
-      "descripcion": "Este curso se centra en las técnicas avanzadas de optimización y evaluación de modelos en entornos de MLOps, incluyendo la selección de métricas, la validación cruzada y la optimización de hiperparámetros.",
+      "nombre": "Optimización y Mejora de Modelos MLOps",
+      "descripcion": "Este curso se centra en técnicas avanzadas para la optimización y mejora continua de modelos de Machine Learning en entornos de producción.",
       "prerrequisitos": [
         "python_avanzado",
         "machine_learning",
         "mlops",
-        "metricas_evaluacion",
-        "optimizacion_modelos_machine_learning"
+        "optimizacion_modelos",
+        "validacion_cruzada"
       ],
       "habilidades": [
-        "optimizacion_hiperparametros",
-        "validacion_cruzada_avanzada"
+        "optimizacion_modelos_mlops",
+        "mejora_continua_modelos"
       ],
       "duracion_semanas": 6,
       "nivel": "intermedio"
     },
     {
       "id": "c111",
-      "nombre": "Automatización y Orquestación de Flujos de Trabajo en MLOps",
-      "descripcion": "Este curso aborda la automatización y orquestación de flujos de trabajo en MLOps, incluyendo la integración continua, la entrega continua y la gestión de pipelines de datos.",
+      "nombre": "Despliegue y Monitoreo de Modelos MLOps en la Nube",
+      "descripcion": "Aprende a desplegar y monitorear modelos de Machine Learning en la nube utilizando herramientas de MLOps y gestión de recursos en la nube.",
       "prerrequisitos": [
         "python_avanzado",
         "mlops",
-        "cicd",
-        "data_pipeline_basics",
-        "automatizacion_flujos_trabajo"
+        "despliegue_modelos",
+        "gestion_recursos_cloud",
+        "monitoreo_modelos"
       ],
       "habilidades": [
-        "orquestacion_flujos_trabajo_avanzada",
-        "integracion_continua_avanzada"
+        "despliegue_modelos_mlops_cloud",
+        "monitoreo_modelos_mlops_cloud"
       ],
       "duracion_semanas": 7,
       "nivel": "intermedio"
@@ -1800,662 +1832,691 @@
     {
       "id": "c112",
       "nombre": "Optimización Avanzada de Modelos de Deep Learning",
-      "descripcion": "Este curso se centra en técnicas avanzadas de optimización de modelos de deep learning, incluyendo ajuste de hiperparámetros y validación cruzada.",
+      "descripcion": "Este curso se centra en técnicas avanzadas de optimización para mejorar el rendimiento de modelos de deep learning, incluyendo métodos de regularización, técnicas de inicialización de pesos y estrategias de entrenamiento.",
       "prerrequisitos": [
         "python_avanzado",
         "deep_learning",
-        "optimizacion_modelos_deep_learning"
+        "optimizacion_modelos",
+        "redes_neuronales"
       ],
       "habilidades": [
-        "optimizacion_hiperparametros",
-        "validacion_cruzada_avanzada"
+        "tecnicas_avanzadas_optimizacion",
+        "optimizacion_rendimiento"
       ],
-      "duracion_semanas": 8,
+      "duracion_semanas": 9,
       "nivel": "avanzado"
     },
     {
       "id": "c113",
-      "nombre": "Arquitecturas de Redes Neuronales Avanzadas",
-      "descripcion": "Explora arquitecturas avanzadas de redes neuronales, incluyendo variantes de GANs y modelos de atención.",
+      "nombre": "Arquitecturas de Redes Neuronales Profundas para Visión por Computadora",
+      "descripcion": "Este curso explora arquitecturas avanzadas de redes neuronales para aplicaciones de visión por computadora, incluyendo redes convolucionales profundas y técnicas de segmentación de imágenes.",
       "prerrequisitos": [
         "python_avanzado",
         "deep_learning",
-        "redes_neuronales_artificiales",
-        "gan_variants"
+        "computer_vision",
+        "redes_neuronales_convolucionales"
       ],
       "habilidades": [
-        "arquitecturas_redes_avanzadas",
-        "atencion_mecanismos"
+        "arquitecturas_redes_profundas",
+        "segmentacion_imagenes"
       ],
       "duracion_semanas": 10,
       "nivel": "avanzado"
     },
     {
       "id": "c114",
-      "nombre": "Ingeniería de Características Avanzada",
-      "descripcion": "Profundiza en técnicas avanzadas de ingeniería de características, incluyendo selección de características y preprocesamiento avanzado.",
+      "nombre": "Procesamiento de Lenguaje Natural Avanzado con Deep Learning",
+      "descripcion": "Este curso se enfoca en técnicas avanzadas de procesamiento de lenguaje natural utilizando deep learning, incluyendo modelos de atención y generación de texto.",
       "prerrequisitos": [
         "python_avanzado",
-        "feature_engineering",
-        "preprocesamiento_datos_avanzado"
+        "deep_learning",
+        "nlp",
+        "redes_neuronales_recurrentes"
       ],
       "habilidades": [
-        "feature_selection_avanzado"
+        "procesamiento_lenguaje_natural_dl",
+        "modelos_atencion"
       ],
-      "duracion_semanas": 9,
+      "duracion_semanas": 8,
       "nivel": "avanzado"
     },
     {
       "id": "c115",
-      "nombre": "Gestión de Datos en Entornos de Big Data",
-      "descripcion": "Aprende a gestionar y procesar grandes volúmenes de datos en entornos de big data, incluyendo técnicas de limpieza y transformación.",
+      "nombre": "Despliegue y Monitoreo de Modelos de Deep Learning en la Nube con MLOps",
+      "descripcion": "Este curso aborda el despliegue y monitoreo de modelos de deep learning en la nube utilizando prácticas de MLOps, incluyendo la automatización de flujos de trabajo y la gestión de recursos en la nube.",
       "prerrequisitos": [
         "python_avanzado",
-        "big_data",
-        "data_pipeline_basics",
-        "data_cleaning"
+        "deep_learning",
+        "mlops",
+        "despliegue_modelos",
+        "gestion_recursos_cloud"
       ],
       "habilidades": [
-        "gestion_datos_big_data",
-        "data_transformation_avanzado"
+        "despliegue_modelos_dl_cloud",
+        "monitoreo_modelos_dl_cloud"
       ],
       "duracion_semanas": 11,
       "nivel": "avanzado"
     },
     {
       "id": "c116",
-      "nombre": "Despliegue y Escalabilidad de Modelos de Machine Learning",
-      "descripcion": "Este curso se centra en el despliegue y la escalabilidad de modelos de machine learning, incluyendo técnicas de gestión de clusters y optimización de latencia.",
+      "nombre": "Arquitectura de Microservicios con Kubernetes y Terraform",
+      "descripcion": "Este curso cubre la arquitectura avanzada de microservicios utilizando Kubernetes y Terraform, incluyendo la gestión de recursos, la orquestación de contenedores y la automatización de la infraestructura.",
       "prerrequisitos": [
         "python_avanzado",
-        "machine_learning",
-        "mlops",
-        "despliegue_modelos",
-        "gestion_clusters"
+        "kubernetes",
+        "microservicios",
+        "orquestacion_contenedores",
+        "terraform_basico"
       ],
       "habilidades": [
-        "escalabilidad_modelos_ml",
-        "optimizacion_latencia_avanzada"
+        "arquitectura_microservicios_avanzada",
+        "gestion_recursos_kubernetes",
+        "gestion_recursos_terraform"
       ],
       "duracion_semanas": 12,
       "nivel": "avanzado"
     },
     {
       "id": "c117",
-      "nombre": "Optimización de Modelos de Aprendizaje Automático en Entornos de Producción",
-      "descripcion": "Curso de optimización de modelos de aprendizaje automático en entornos de producción con enfoque práctico y progresivo.",
+      "nombre": "Arquitectura de Redes Neuronales Profundas para NLP",
+      "descripcion": "Curso de arquitectura de redes neuronales profundas para nlp con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
-        "machine_learning",
-        "mlops",
-        "optimizacion_modelos_machine_learning",
-        "despliegue_modelos"
+        "deep_learning",
+        "nlp",
+        "redes_neuronales_recurrentes"
       ],
       "habilidades": [
-        "optimizacion_modelos_production",
-        "monitoring_model_performance"
+        "arquitecturas_redes_profundas",
+        "modelos_atencion"
+      ],
+      "duracion_semanas": 10,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c118",
+      "nombre": "Procesamiento de Datos en Tiempo Real con Streaming",
+      "descripcion": "Curso de procesamiento de datos en tiempo real con streaming con enfoque práctico y progresivo.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "big_data",
+        "preprocesamiento_datos",
+        "estructuras_datos"
+      ],
+      "habilidades": [
+        "gestion_datos_tiempo_real",
+        "procesamiento_datos_streaming"
       ],
       "duracion_semanas": 8,
       "nivel": "avanzado"
     },
     {
-      "id": "c118",
-      "nombre": "Arquitectura de Datos en Entornos de Microservicios",
-      "descripcion": "Curso de arquitectura de datos en entornos de microservicios con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "diseno_microservicios",
-        "data_pipeline_basics",
-        "gestion_datos_microservicios"
-      ],
-      "habilidades": [
-        "arquitectura_datos_microservicios",
-        "data_integration_microservices"
-      ],
-      "duracion_semanas": 7,
-      "nivel": "avanzado"
-    },
-    {
       "id": "c119",
-      "nombre": "Ingeniería de Datos en Tiempo Real",
-      "descripcion": "Curso de ingeniería de datos en tiempo real con enfoque práctico y progresivo.",
+      "nombre": "Optimización Avanzada de Redes Neuronales Profundas",
+      "descripcion": "Este curso se centra en técnicas avanzadas de optimización para mejorar el rendimiento de las redes neuronales profundas, incluyendo métodos de regularización, técnicas de inicialización de pesos y estrategias de entrenamiento eficientes.",
       "prerrequisitos": [
         "python_avanzado",
-        "big_data",
-        "data_pipeline_basics",
-        "data_transformation_avanzado"
+        "deep_learning",
+        "optimizacion_modelos",
+        "redes_neuronales"
       ],
       "habilidades": [
-        "data_engineering_real_time",
-        "stream_processing"
+        "tecnicas_avanzadas_optimizacion",
+        "optimizacion_rendimiento"
       ],
       "duracion_semanas": 9,
       "nivel": "avanzado"
     },
     {
       "id": "c120",
-      "nombre": "Seguridad y Privacidad en Ingeniería de Datos",
-      "descripcion": "Curso de seguridad y privacidad en ingeniería de datos con enfoque práctico y progresivo.",
+      "nombre": "Arquitectura de Redes Neuronales para Procesamiento de Lenguaje Natural",
+      "descripcion": "En este curso, exploraremos las arquitecturas de redes neuronales más avanzadas para el procesamiento de lenguaje natural, incluyendo modelos de atención y transformers.",
       "prerrequisitos": [
         "python_avanzado",
-        "big_data",
-        "data_pipeline_basics",
-        "seguridad_apis"
+        "deep_learning",
+        "nlp",
+        "redes_neuronales_recurrentes"
       ],
       "habilidades": [
-        "data_security",
-        "data_privacy"
+        "arquitecturas_redes_profundas",
+        "modelos_atencion"
       ],
       "duracion_semanas": 10,
       "nivel": "avanzado"
     },
     {
       "id": "c121",
-      "nombre": "Optimización de Rendimiento en Pipelines de Datos",
-      "descripcion": "Curso de optimización de rendimiento en pipelines de datos con enfoque práctico y progresivo.",
+      "nombre": "Visión por Computadora Avanzada con Redes Neuronales Convolucionales",
+      "descripcion": "Este curso se enfoca en la aplicación de redes neuronales convolucionales para tareas avanzadas de visión por computadora, como segmentación de imágenes y detección de objetos.",
       "prerrequisitos": [
         "python_avanzado",
-        "big_data",
-        "data_pipeline_basics",
-        "data_pipeline_management"
+        "deep_learning",
+        "computer_vision",
+        "redes_neuronales_convolucionales"
       ],
       "habilidades": [
-        "performance_optimization_pipelines",
-        "resource_management"
+        "vision_computadora_avanzada",
+        "segmentacion_imagenes"
       ],
       "duracion_semanas": 11,
       "nivel": "avanzado"
     },
     {
       "id": "c122",
-      "nombre": "Redes Neuronales Avanzadas para Visión por Computador",
-      "descripcion": "Curso de redes neuronales avanzadas para visión por computador con enfoque práctico y progresivo.",
+      "nombre": "Técnicas Avanzadas de Preprocesamiento y Feature Engineering para Deep Learning",
+      "descripcion": "Este curso cubre técnicas avanzadas de preprocesamiento y feature engineering específicas para deep learning, incluyendo la normalización de datos y la creación de features efectivas.",
       "prerrequisitos": [
         "python_avanzado",
-        "computer_vision",
-        "redes_neuronales_convolucionales",
-        "optimizacion_modelos_deep_learning"
+        "deep_learning",
+        "preprocesamiento_datos",
+        "feature_engineering"
       ],
       "habilidades": [
-        "arquitecturas_redes_avanzadas",
-        "optimizacion_modelos_production"
+        "preprocesamiento_dl",
+        "feature_engineering_dl"
       ],
-      "duracion_semanas": 10,
+      "duracion_semanas": 8,
       "nivel": "avanzado"
     },
     {
       "id": "c123",
-      "nombre": "Optimización de Hiperparámetros en Modelos de Deep Learning",
-      "descripcion": "Curso de optimización de hiperparámetros en modelos de deep learning con enfoque práctico y progresivo.",
+      "nombre": "Optimización de Modelos de Machine Learning con Técnicas Avanzadas",
+      "descripcion": "Este curso se centra en las técnicas avanzadas de optimización de modelos de machine learning, incluyendo la selección de hiperparámetros, validación cruzada y métodos de regularización.",
       "prerrequisitos": [
         "python_avanzado",
-        "deep_learning",
-        "optimizacion_modelos_deep_learning",
-        "validacion_cruzada_avanzada"
+        "machine_learning",
+        "optimizacion_modelos",
+        "seleccion_hiperparametros",
+        "validacion_cruzada"
       ],
       "habilidades": [
-        "optimizacion_hiperparametros"
+        "tecnicas_avanzadas_optimizacion",
+        "optimizacion_rendimiento"
       ],
-      "duracion_semanas": 8,
+      "duracion_semanas": 10,
       "nivel": "avanzado"
     },
     {
       "id": "c124",
-      "nombre": "Transfer Learning y Fine-Tuning en Modelos Pre-entrenados",
-      "descripcion": "Curso de transfer learning y fine-tuning en modelos pre-entrenados con enfoque práctico y progresivo.",
+      "nombre": "Arquitectura de Microservicios con Resiliencia y Seguridad",
+      "descripcion": "Este curso explora la arquitectura de microservicios con un enfoque en la resiliencia y la seguridad, incluyendo la gestión de identidades y accesos, y la protección de datos en tránsito.",
       "prerrequisitos": [
         "python_avanzado",
-        "deep_learning",
-        "preprocesamiento_datos_deep_learning",
-        "optimizacion_modelos_deep_learning"
+        "microservicios",
+        "resiliencia_microservicios",
+        "seguridad_sistemas_distribuidos",
+        "gestion_identidades_accesos"
       ],
       "habilidades": [
-        "fine_tuning_models",
-        "transfer_learning"
-      ],
-      "duracion_semanas": 9,
-      "nivel": "avanzado"
-    },
-    {
-      "id": "c125",
-      "nombre": "Mecanismos de Atención en Modelos de Deep Learning",
-      "descripcion": "Curso de mecanismos de atención en modelos de deep learning con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "deep_learning",
-        "redes_neuronales_recurrentes",
-        "optimizacion_modelos_deep_learning"
-      ],
-      "habilidades": [
-        "atencion_mecanismos"
-      ],
-      "duracion_semanas": 7,
-      "nivel": "avanzado"
-    },
-    {
-      "id": "c126",
-      "nombre": "Ingeniería de Datos en Entornos de Kubernetes",
-      "descripcion": "Curso de ingeniería de datos en entornos de kubernetes con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "kubernetes",
-        "data_pipeline_basics",
-        "gestion_datos_mlops"
-      ],
-      "habilidades": [
-        "data_engineering_kubernetes",
-        "orquestacion_contenedores"
-      ],
-      "duracion_semanas": 10,
-      "nivel": "avanzado"
-    },
-    {
-      "id": "c127",
-      "nombre": "Optimización de Modelos de Aprendizaje Automático en Producción",
-      "descripcion": "Curso de optimización de modelos de aprendizaje automático en producción con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "machine_learning",
-        "optimizacion_modelos_machine_learning",
-        "despliegue_modelos"
-      ],
-      "habilidades": [
-        "optimizacion_modelos_production",
-        "monitoring_model_performance"
+        "arquitectura_microservicios_avanzada",
+        "seguridad_identidades_cloud"
       ],
       "duracion_semanas": 12,
       "nivel": "avanzado"
     },
     {
-      "id": "c128",
-      "nombre": "Arquitectura de Datos en Tiempo Real con Stream Processing",
-      "descripcion": "Curso de arquitectura de datos en tiempo real con stream processing con enfoque práctico y progresivo.",
+      "id": "c125",
+      "nombre": "Procesamiento de Datos en Tiempo Real con Apache Kafka",
+      "descripcion": "Este curso se centra en el procesamiento de datos en tiempo real utilizando Apache Kafka, incluyendo la gestión de flujos de datos y la integración con sistemas de big data.",
       "prerrequisitos": [
         "python_avanzado",
         "big_data",
-        "data_pipeline_basics",
-        "data_transformation_avanzado"
+        "gestion_datos_tiempo_real",
+        "procesamiento_datos_streaming"
       ],
       "habilidades": [
-        "data_engineering_real_time",
-        "stream_processing"
+        "gestion_flujos_datos",
+        "integracion_kafka_bigdata"
       ],
       "duracion_semanas": 9,
       "nivel": "avanzado"
     },
     {
-      "id": "c129",
-      "nombre": "Arquitectura de Sistemas Distribuidos con Microservicios",
-      "descripcion": "Este curso se centra en el diseño y la implementación de arquitecturas de microservicios en sistemas distribuidos, incluyendo la gestión de clusters y la tolerancia a fallos.",
+      "id": "c126",
+      "nombre": "Despliegue y Monitoreo de Modelos de Deep Learning con Kubernetes",
+      "descripcion": "Este curso aborda el despliegue y monitoreo de modelos de deep learning en entornos de Kubernetes, incluyendo la gestión de recursos y la optimización del rendimiento.",
       "prerrequisitos": [
         "python_avanzado",
-        "microservicios",
-        "diseno_microservicios",
-        "orquestacion_contenedores",
-        "gestion_clusters"
+        "deep_learning",
+        "kubernetes",
+        "despliegue_modelos",
+        "gestion_recursos_kubernetes"
       ],
       "habilidades": [
-        "arquitectura_sistemas_distribuidos",
-        "tolerancia_a_fallos_avanzada"
+        "despliegue_modelos_dl_kubernetes",
+        "monitoreo_modelos_dl_kubernetes"
+      ],
+      "duracion_semanas": 11,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c127",
+      "nombre": "Optimización de Redes Neuronales Profundas para Tareas Específicas",
+      "descripcion": "Este curso se enfoca en la optimización de redes neuronales profundas para tareas específicas, como la generación de texto y la detección de objetos, utilizando técnicas avanzadas de regularización y ajuste de hiperparámetros.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "deep_learning",
+        "redes_neuronales_recurrentes",
+        "redes_neuronales_convolucionales",
+        "optimizacion_modelos"
+      ],
+      "habilidades": [
+        "optimizacion_redes_neuronales",
+        "tecnicas_avanzadas_optimizacion"
       ],
       "duracion_semanas": 10,
       "nivel": "avanzado"
     },
     {
-      "id": "c130",
-      "nombre": "Seguridad y Protección de Datos en Sistemas Distribuidos",
-      "descripcion": "Este curso aborda los aspectos de seguridad y protección de datos en sistemas distribuidos, incluyendo autenticación distribuida y protección de datos en tránsito.",
+      "id": "c128",
+      "nombre": "Arquitectura de Sistemas Distribuidos con Kubernetes y Terraform",
+      "descripcion": "Curso de arquitectura de sistemas distribuidos con kubernetes y terraform con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
-        "seguridad_apis",
-        "autenticacion_distribuida",
-        "proteccion_datos_transito"
+        "kubernetes",
+        "terraform_basico",
+        "orquestacion_contenedores",
+        "gestion_recursos_distribuidos"
       ],
       "habilidades": [
+        "integracion_terraform_kubernetes",
+        "gestion_estado_microservicios"
+      ],
+      "duracion_semanas": 10,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c129",
+      "nombre": "Seguridad y Gestión de Identidades en Sistemas Distribuidos",
+      "descripcion": "Curso de seguridad y gestión de identidades en sistemas distribuidos con enfoque práctico y progresivo.",
+      "prerrequisitos": [
+        "python_avanzado",
         "seguridad_sistemas_distribuidos",
-        "proteccion_datos_distribuidos"
+        "gestion_identidades_accesos",
+        "gestion_recursos_distribuidos"
+      ],
+      "habilidades": [
+        "seguridad_identidades_cloud",
+        "gestion_accesos_avanzada"
+      ],
+      "duracion_semanas": 12,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c130",
+      "nombre": "Optimización y Rendimiento de Microservicios en la Nube",
+      "descripcion": "Curso de optimización y rendimiento de microservicios en la nube con enfoque práctico y progresivo.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "microservicios",
+        "gestion_recursos_kubernetes",
+        "optimizacion_modelos",
+        "gestion_recursos_cloud"
+      ],
+      "habilidades": [
+        "optimizacion_rendimiento",
+        "gestion_recursos_distribuidos"
+      ],
+      "duracion_semanas": 9,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c131",
+      "nombre": "Comunicación Asincrónica y Resiliencia en Microservicios",
+      "descripcion": "Curso de comunicación asincrónica y resiliencia en microservicios con enfoque práctico y progresivo.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "microservicios",
+        "gestion_recursos_distribuidos",
+        "optimizacion_rendimiento"
+      ],
+      "habilidades": [
+        "comunicacion_asincrona",
+        "resiliencia_microservicios"
       ],
       "duracion_semanas": 8,
       "nivel": "avanzado"
     },
     {
-      "id": "c131",
-      "nombre": "Optimización de Latencia y Gestión de Carga en Sistemas Distribuidos",
-      "descripcion": "Este curso se enfoca en técnicas avanzadas para optimizar la latencia y gestionar la carga en sistemas distribuidos, incluyendo estrategias de replicación de datos y balanceo de carga.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "optimizacion_latencia",
-        "gestion_carga",
-        "replicacion_datos"
-      ],
-      "habilidades": [
-        "optimizacion_latencia_avanzada",
-        "gestion_carga_avanzada"
-      ],
-      "duracion_semanas": 12,
-      "nivel": "avanzado"
-    },
-    {
       "id": "c132",
-      "nombre": "Comunicación Asincrónica y Orquestación de Tareas en Sistemas Distribuidos",
-      "descripcion": "Este curso explora la comunicación asincrónica y la orquestación de tareas en sistemas distribuidos, incluyendo patrones de diseño y herramientas de orquestación.",
+      "nombre": "Despliegue y Monitoreo de Modelos de Machine Learning en la Nube",
+      "descripcion": "Curso de despliegue y monitoreo de modelos de machine learning en la nube con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
-        "comunicacion_asincrona",
-        "orquestacion_tareas",
-        "orquestacion_flujos_trabajo_avanzada"
+        "machine_learning",
+        "mlops",
+        "despliegue_modelos",
+        "gestion_recursos_cloud"
       ],
       "habilidades": [
-        "comunicacion_asincrona_avanzada",
-        "orquestacion_tareas_avanzada"
+        "despliegue_modelos_mlops_cloud",
+        "monitoreo_modelos_mlops_cloud"
       ],
-      "duracion_semanas": 9,
+      "duracion_semanas": 11,
       "nivel": "avanzado"
     },
     {
       "id": "c133",
-      "nombre": "Gestión de Datos en Tiempo Real con Microservicios",
-      "descripcion": "Este curso se centra en la gestión de datos en tiempo real utilizando microservicios, incluyendo el procesamiento de streams y la integración de datos en tiempo real.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "data_engineering_real_time",
-        "stream_processing",
-        "data_integration_microservices"
-      ],
-      "habilidades": [
-        "gestion_datos_tiempo_real",
-        "integracion_datos_microservicios_avanzada"
-      ],
-      "duracion_semanas": 11,
-      "nivel": "avanzado"
-    },
-    {
-      "id": "c134",
-      "nombre": "Redes Neuronales Generativas y Variantes",
-      "descripcion": "Curso de redes neuronales generativas y variantes con enfoque práctico y progresivo.",
+      "nombre": "Arquitectura de Redes Neuronales Profundas para Tareas Específicas",
+      "descripcion": "Curso de arquitectura de redes neuronales profundas para tareas específicas con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
         "deep_learning",
-        "redes_neuronales_artificiales",
-        "transfer_learning"
+        "redes_neuronales_convolucionales",
+        "redes_neuronales_recurrentes"
       ],
       "habilidades": [
-        "generative_adversarial_networks",
-        "gan_variants"
+        "arquitecturas_redes_profundas",
+        "diseño_redes_neuronales"
       ],
       "duracion_semanas": 12,
       "nivel": "avanzado"
     },
     {
-      "id": "c135",
-      "nombre": "Aprendizaje por Refuerzo y Aplicaciones Avanzadas",
-      "descripcion": "Curso de aprendizaje por refuerzo y aplicaciones avanzadas con enfoque práctico y progresivo.",
+      "id": "c134",
+      "nombre": "Vision Computacional Avanzada con Deep Learning",
+      "descripcion": "Curso de vision computacional avanzada con deep learning con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
         "deep_learning",
-        "aprendizaje_supervisado",
-        "aprendizaje_no_supervisado"
+        "computer_vision",
+        "redes_neuronales_convolucionales"
       ],
       "habilidades": [
-        "aprendizaje_por_refuerzo",
-        "aplicaciones_avanzadas_aprendizaje_por_refuerzo"
+        "vision_computadora_avanzada",
+        "segmentacion_imagenes"
       ],
-      "duracion_semanas": 11,
+      "duracion_semanas": 10,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c135",
+      "nombre": "Ciberdefensa Avanzada y Respuesta a Incidentes",
+      "descripcion": "Curso de ciberdefensa avanzada y respuesta a incidentes con enfoque práctico y progresivo.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "seguridad_backend",
+        "seguridad_apis_avanzada",
+        "gestion_identidades_accesos",
+        "seguridad_sistemas_distribuidos"
+      ],
+      "habilidades": [
+        "ciberdefensa_avanzada",
+        "respuesta_incidentes"
+      ],
+      "duracion_semanas": 10,
       "nivel": "avanzado"
     },
     {
       "id": "c136",
-      "nombre": "Procesamiento de Lenguaje Natural Avanzado",
-      "descripcion": "Curso de procesamiento de lenguaje natural avanzado con enfoque práctico y progresivo.",
+      "nombre": "Criptografía y Seguridad de Datos en la Nube",
+      "descripcion": "Curso de criptografía y seguridad de datos en la nube con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
-        "nlp",
-        "redes_neuronales_recurrentes",
-        "preprocesamiento_datos_avanzado"
+        "seguridad_cloud",
+        "gestion_recursos_cloud",
+        "gestion_identidades_accesos",
+        "gestion_accesos_avanzada"
       ],
       "habilidades": [
-        "nlp_avanzado",
-        "atencion_mecanismos"
+        "criptografia_avanzada",
+        "seguridad_datos_nube"
+      ],
+      "duracion_semanas": 12,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c137",
+      "nombre": "Seguridad en Redes Virtuales y Microsegmentación",
+      "descripcion": "Curso de seguridad en redes virtuales y microsegmentación con enfoque práctico y progresivo.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "redes_cloud",
+        "configuracion_redes_virtuales",
+        "gestion_identidades_accesos",
+        "seguridad_sistemas_distribuidos"
+      ],
+      "habilidades": [
+        "seguridad_redes_virtuales",
+        "microsegmentacion_redes"
       ],
       "duracion_semanas": 9,
       "nivel": "avanzado"
     },
     {
-      "id": "c137",
-      "nombre": "Visión por Computadora Avanzada",
-      "descripcion": "Curso de visión por computadora avanzada con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "computer_vision",
-        "redes_neuronales_convolucionales",
-        "preprocesamiento_datos_avanzado"
-      ],
-      "habilidades": [
-        "computer_vision_avanzado",
-        "deteccion_objetos_avanzada"
-      ],
-      "duracion_semanas": 10,
-      "nivel": "avanzado"
-    },
-    {
       "id": "c138",
-      "nombre": "Ciberseguridad en Redes Neuronales Profundas",
-      "descripcion": "Curso de ciberseguridad en redes neuronales profundas con enfoque práctico y progresivo.",
+      "nombre": "Seguridad en Despliegue y Orquestación de Microservicios",
+      "descripcion": "Curso de seguridad en despliegue y orquestación de microservicios con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
-        "deep_learning",
-        "seguridad_sistemas_distribuidos",
-        "optimizacion_modelos_production"
+        "microservicios",
+        "despliegue_microservicios_kubernetes",
+        "orquestacion_microservicios",
+        "seguridad_sistemas_distribuidos"
       ],
       "habilidades": [
-        "seguridad_redes_neuronales",
-        "proteccion_modelos_ml"
-      ],
-      "duracion_semanas": 10,
-      "nivel": "avanzado"
-    },
-    {
-      "id": "c139",
-      "nombre": "Ciberseguridad en Microservicios y Sistemas Distribuidos",
-      "descripcion": "Curso de ciberseguridad en microservicios y sistemas distribuidos con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "diseno_microservicios",
-        "seguridad_sistemas_distribuidos",
-        "proteccion_datos_distribuidos"
-      ],
-      "habilidades": [
-        "seguridad_microservicios",
-        "proteccion_datos_microservicios"
+        "seguridad_despliegue_microservicios",
+        "seguridad_orquestacion_microservicios"
       ],
       "duracion_semanas": 11,
       "nivel": "avanzado"
     },
     {
-      "id": "c140",
-      "nombre": "Ciberseguridad en Pipelines de Datos y MLOps",
-      "descripcion": "Curso de ciberseguridad en pipelines de datos y mlops con enfoque práctico y progresivo.",
+      "id": "c139",
+      "nombre": "Seguridad en Procesamiento de Datos en Tiempo Real",
+      "descripcion": "Curso de seguridad en procesamiento de datos en tiempo real con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
-        "data_pipeline_management",
-        "mlops",
-        "data_security"
+        "gestion_datos_tiempo_real",
+        "procesamiento_datos_streaming",
+        "seguridad_sistemas_distribuidos",
+        "gestion_identidades_accesos"
       ],
       "habilidades": [
-        "seguridad_pipelines_datos",
-        "proteccion_datos_mlops"
+        "seguridad_procesamiento_datos_tiempo_real",
+        "proteccion_datos_transito"
+      ],
+      "duracion_semanas": 8,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c140",
+      "nombre": "Arquitectura y Diseño de Modelos de Aprendizaje Profundo",
+      "descripcion": "Curso de arquitectura y diseño de modelos de aprendizaje profundo con enfoque práctico y progresivo.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "deep_learning",
+        "redes_neuronales_convolucionales",
+        "redes_neuronales_recurrentes",
+        "aprendizaje_supervisado"
+      ],
+      "habilidades": [
+        "arquitecturas_redes_profundas",
+        "diseño_redes_neuronales"
       ],
       "duracion_semanas": 12,
       "nivel": "avanzado"
     },
     {
       "id": "c141",
-      "nombre": "Ciberseguridad en Sistemas de Big Data",
-      "descripcion": "Curso de ciberseguridad en sistemas de big data con enfoque práctico y progresivo.",
+      "nombre": "Despliegue y Monitoreo de Modelos de Deep Learning en Kubernetes",
+      "descripcion": "Curso de despliegue y monitoreo de modelos de deep learning en kubernetes con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
-        "big_data",
-        "data_privacy",
-        "gestion_datos_big_data"
+        "deep_learning",
+        "kubernetes",
+        "despliegue_modelos",
+        "monitoreo_modelos"
       ],
       "habilidades": [
-        "seguridad_big_data",
-        "proteccion_datos_big_data"
+        "despliegue_modelos_dl_kubernetes",
+        "monitoreo_modelos_dl_kubernetes"
       ],
-      "duracion_semanas": 9,
+      "duracion_semanas": 10,
       "nivel": "avanzado"
     },
     {
       "id": "c142",
-      "nombre": "Ciberseguridad en APIs y Servicios Web",
-      "descripcion": "Curso de ciberseguridad en apis y servicios web con enfoque práctico y progresivo.",
+      "nombre": "Gestión de Flujos de Datos y Integración con Kafka y Big Data",
+      "descripcion": "Curso de gestión de flujos de datos y integración con kafka y big data con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
-        "seguridad_apis",
-        "apis_rest",
-        "proteccion_datos_transito"
+        "big_data",
+        "procesamiento_datos_streaming",
+        "gestion_datos_tiempo_real",
+        "despliegue_modelos"
       ],
       "habilidades": [
-        "seguridad_apis_avanzado",
-        "proteccion_datos_transito_avanzado"
+        "gestion_flujos_datos",
+        "integracion_kafka_bigdata"
       ],
-      "duracion_semanas": 8,
+      "duracion_semanas": 12,
       "nivel": "avanzado"
     },
     {
       "id": "c143",
-      "nombre": "Optimización de Modelos en Producción",
-      "descripcion": "Curso de optimización de modelos en producción con enfoque práctico y progresivo.",
+      "nombre": "Optimización y Técnicas Avanzadas de Redes Neuronales",
+      "descripcion": "Curso de optimización y técnicas avanzadas de redes neuronales con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
-        "machine_learning",
-        "optimizacion_modelos_machine_learning",
-        "tracking_experimentos"
+        "deep_learning",
+        "redes_neuronales_convolucionales",
+        "redes_neuronales_recurrentes",
+        "optimizacion_dl"
       ],
       "habilidades": [
-        "optimizacion_modelos_production",
-        "monitoring_model_performance"
+        "tecnicas_avanzadas_optimizacion",
+        "optimizacion_redes_neuronales"
       ],
       "duracion_semanas": 10,
       "nivel": "avanzado"
     },
     {
       "id": "c144",
-      "nombre": "Arquitectura de Datos en Microservicios",
-      "descripcion": "Curso de arquitectura de datos en microservicios con enfoque práctico y progresivo.",
+      "nombre": "Arquitectura y Diseño de APIs GraphQL",
+      "descripcion": "Curso de arquitectura y diseño de apis graphql con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
-        "diseno_microservicios",
-        "data_warehousing_basics",
-        "data_pipeline_management"
+        "graphql",
+        "apis_rest",
+        "consumo_apis",
+        "optimizacion_apis_rest"
       ],
       "habilidades": [
-        "arquitectura_datos_microservicios",
-        "data_integration_microservices"
-      ],
-      "duracion_semanas": 11,
-      "nivel": "avanzado"
-    },
-    {
-      "id": "c145",
-      "nombre": "Gestión de Recursos en Kubernetes",
-      "descripcion": "Curso de gestión de recursos en kubernetes con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "kubernetes",
-        "orquestacion_contenedores",
-        "gestion_clusters"
-      ],
-      "habilidades": [
-        "resource_management",
-        "data_engineering_kubernetes"
-      ],
-      "duracion_semanas": 9,
-      "nivel": "avanzado"
-    },
-    {
-      "id": "c146",
-      "nombre": "Optimización de Latencia en Sistemas Distribuidos",
-      "descripcion": "Curso de optimización de latencia en sistemas distribuidos con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "arquitectura_sistemas_distribuidos",
-        "optimizacion_latencia",
-        "gestion_carga"
-      ],
-      "habilidades": [
-        "optimizacion_latencia_avanzada",
-        "gestion_carga_avanzada"
-      ],
-      "duracion_semanas": 10,
-      "nivel": "avanzado"
-    },
-    {
-      "id": "c147",
-      "nombre": "Arquitectura de Infraestructura en la Nube",
-      "descripcion": "Curso de arquitectura de infraestructura en la nube con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "cloud_aws",
-        "kubernetes",
-        "orquestacion_contenedores"
-      ],
-      "habilidades": [
-        "arquitectura_sistemas_distribuidos",
-        "gestion_recursos_cloud"
-      ],
-      "duracion_semanas": 10,
-      "nivel": "avanzado"
-    },
-    {
-      "id": "c148",
-      "nombre": "Optimización de Costos en la Nube",
-      "descripcion": "Curso de optimización de costos en la nube con enfoque práctico y progresivo.",
-      "prerrequisitos": [
-        "python_avanzado",
-        "cloud_aws",
-        "gestion_carga",
-        "tolerancia_a_fallos"
-      ],
-      "habilidades": [
-        "optimizacion_costos_cloud",
-        "gestion_presupuestos_cloud"
+        "arquitectura_apis_graphql",
+        "optimizacion_apis_graphql"
       ],
       "duracion_semanas": 8,
       "nivel": "avanzado"
     },
     {
-      "id": "c149",
-      "nombre": "Seguridad y Compliance en la Nube",
-      "descripcion": "Curso de seguridad y compliance en la nube con enfoque práctico y progresivo.",
+      "id": "c145",
+      "nombre": "Automatización y Gestión de Infraestructura con Terraform y Kubernetes",
+      "descripcion": "Curso de automatización y gestión de infraestructura con terraform y kubernetes con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
-        "cloud_aws",
-        "data_security",
-        "proteccion_datos_transito"
+        "terraform_basico",
+        "kubernetes",
+        "automatizacion_infraestructura",
+        "gestion_recursos_terraform"
       ],
       "habilidades": [
-        "seguridad_cloud",
-        "compliance_cloud"
+        "automatizacion_infraestructura_terraform",
+        "integracion_terraform_kubernetes"
       ],
       "duracion_semanas": 12,
       "nivel": "avanzado"
     },
     {
-      "id": "c150",
-      "nombre": "Automatización de Infraestructura en la Nube",
-      "descripcion": "Curso de automatización de infraestructura en la nube con enfoque práctico y progresivo.",
+      "id": "c146",
+      "nombre": "Monitoreo y Mejora Continua de Modelos MLOps en la Nube",
+      "descripcion": "Curso de monitoreo y mejora continua de modelos mlops en la nube con enfoque práctico y progresivo.",
       "prerrequisitos": [
         "python_avanzado",
-        "iac_terraform",
-        "cicd",
-        "orquestacion_tareas"
+        "mlops",
+        "monitoreo_modelos",
+        "despliegue_modelos_mlops_cloud",
+        "optimizacion_modelos_mlops"
       ],
       "habilidades": [
-        "automatizacion_infraestructura_cloud",
-        "iac_terraform_avanzado"
+        "monitoreo_modelos_mlops_cloud",
+        "mejora_continua_modelos"
+      ],
+      "duracion_semanas": 9,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c147",
+      "nombre": "Arquitectura y Diseño de Microservicios en la Nube",
+      "descripcion": "En este curso, los estudiantes aprenderán a diseñar y desplegar arquitecturas de microservicios en la nube, con énfasis en la seguridad, escalabilidad y resiliencia.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "microservicios",
+        "cloud_aws",
+        "kubernetes",
+        "seguridad_cloud",
+        "gestion_identidades_accesos"
+      ],
+      "habilidades": [
+        "arquitectura_microservicios_avanzada",
+        "seguridad_despliegue_microservicios"
+      ],
+      "duracion_semanas": 12,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c148",
+      "nombre": "Procesamiento y Análisis de Datos en Tiempo Real",
+      "descripcion": "Este curso cubre técnicas avanzadas para el procesamiento y análisis de datos en tiempo real, incluyendo el uso de tecnologías de streaming y la integración con sistemas de big data.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "big_data",
+        "procesamiento_datos_streaming",
+        "gestion_datos_tiempo_real",
+        "preprocesamiento_datos"
+      ],
+      "habilidades": [
+        "gestion_flujos_datos",
+        "integracion_kafka_bigdata"
       ],
       "duracion_semanas": 11,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c149",
+      "nombre": "Monitoreo y Mejora Continua de Modelos MLOps",
+      "descripcion": "Este curso se enfoca en el monitoreo y la mejora continua de modelos de machine learning en producción, utilizando herramientas y prácticas de MLOps.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "mlops",
+        "monitoreo_modelos",
+        "despliegue_modelos",
+        "optimizacion_modelos"
+      ],
+      "habilidades": [
+        "monitoreo_modelos_mlops_cloud",
+        "mejora_continua_modelos"
+      ],
+      "duracion_semanas": 9,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c150",
+      "nombre": "Optimización Avanzada de Modelos de Aprendizaje Profundo",
+      "descripcion": "Este curso se centra en técnicas avanzadas de optimización para mejorar el rendimiento de modelos de aprendizaje profundo, incluyendo métodos de regularización, técnicas de inicialización de pesos y estrategias de ajuste de hiperparámetros.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "deep_learning",
+        "redes_neuronales_convolucionales",
+        "redes_neuronales_recurrentes",
+        "optimizacion_dl"
+      ],
+      "habilidades": [
+        "tecnicas_avanzadas_optimizacion",
+        "optimizacion_modelos_avanzada"
+      ],
+      "duracion_semanas": 10,
       "nivel": "avanzado"
     }
   ],
@@ -2500,81 +2561,123 @@
         "feature_engineering"
       ]
     },
-    "2": {
-      "nombre": "Data Engineer",
-      "descripcion": "Ingeniero que se encarga de diseñar, construir y mantener la infraestructura de datos, asegurando que los datos estén disponibles y accesibles para el análisis.",
+    "1": {
+      "nombre": "Frontend Developer",
+      "descripcion": "Desarrollador especializado en la interfaz de usuario, utilizando tecnologías web para crear experiencias interactivas.",
       "habilidades_requeridas": [
+        "html_css",
+        "javascript",
+        "logica_programacion",
+        "estructuras_datos",
+        "apis_rest",
+        "consumo_apis"
+      ]
+    },
+    "2": {
+      "nombre": "Full Stack Developer",
+      "descripcion": "Desarrollador capaz de trabajar tanto en el frontend como en el backend, construyendo aplicaciones completas.",
+      "habilidades_requeridas": [
+        "python_avanzado",
+        "html_css",
+        "javascript",
         "sql_avanzado",
-        "big_data",
-        "data_pipeline_basics",
-        "data_warehousing_basics",
-        "etl_basics",
-        "data_cleaning",
-        "data_transformation",
-        "optimizacion_modelos_production"
+        "apis_rest",
+        "django",
+        "fastapi",
+        "docker",
+        "testing_python"
       ]
     },
     "3": {
       "nombre": "DevOps Engineer",
-      "descripcion": "Ingeniero que combina desarrollo de software y operaciones para mejorar la eficiencia y la velocidad del ciclo de desarrollo y despliegue.",
+      "descripcion": "Ingeniero que se encarga de la automatización de procesos de desarrollo y operaciones, asegurando la eficiencia y la calidad.",
       "habilidades_requeridas": [
-        "cicd",
         "docker",
         "kubernetes",
-        "iac_terraform",
-        "gestion_clusters",
+        "cicd",
+        "cloud_aws",
+        "gestion_recursos_cloud",
         "orquestacion_contenedores",
-        "automatizacion_flujos_trabajo",
-        "gestion_carga"
+        "automatizacion_infraestructura",
+        "terraform_basico",
+        "gestion_identidades_accesos",
+        "configuracion_redes_virtuales"
       ]
     },
-    "6": {
+    "4": {
+      "nombre": "Data Engineer",
+      "descripcion": "Profesional que se encarga de la gestión y procesamiento de datos, construyendo pipelines robustos y escalables.",
+      "habilidades_requeridas": [
+        "python_avanzado",
+        "sql_avanzado",
+        "big_data",
+        "preprocesamiento_datos",
+        "gestion_recursos_cloud",
+        "despliegue_contenedores",
+        "orquestacion_contenedores",
+        "gestion_datos_tiempo_real",
+        "procesamiento_datos_streaming",
+        "integracion_kafka_bigdata"
+      ]
+    },
+    "5": {
       "nombre": "Cloud Architect",
-      "descripcion": "Arquitecto que diseña y gestiona la infraestructura en la nube, asegurando la escalabilidad, seguridad y eficiencia de los sistemas en la nube.",
+      "descripcion": "Arquitecto especializado en diseño y gestión de infraestructuras en la nube, optimizando costos y rendimiento.",
       "habilidades_requeridas": [
         "cloud_aws",
-        "arquitectura_sistemas_distribuidos",
         "gestion_recursos_cloud",
-        "optimizacion_costos_cloud",
-        "gestion_presupuestos_cloud",
         "seguridad_cloud",
-        "compliance_cloud"
+        "gestion_identidades_accesos",
+        "redes_cloud",
+        "configuracion_redes_virtuales",
+        "automatizacion_infraestructura",
+        "terraform_basico",
+        "gestion_estado_microservicios",
+        "gestion_accesos_avanzada"
+      ]
+    },
+    "8": {
+      "nombre": "Cybersecurity Analyst",
+      "descripcion": "Analista especializado en la seguridad de sistemas y redes, identificando y mitigando amenazas cibernéticas.",
+      "habilidades_requeridas": [
+        "ciberdefensa_avanzada",
+        "respuesta_incidentes",
+        "criptografia_avanzada",
+        "seguridad_datos_nube",
+        "seguridad_redes_virtuales",
+        "microsegmentacion_redes",
+        "seguridad_despliegue_microservicios",
+        "seguridad_orquestacion_microservicios",
+        "seguridad_procesamiento_datos_tiempo_real",
+        "seguridad_sistemas_distribuidos"
       ]
     },
     "9": {
-      "nombre": "AI Research Scientist",
-      "descripcion": "Investigador que se especializa en el desarrollo de nuevas técnicas y algoritmos de inteligencia artificial, contribuyendo a la avanzada en el campo de la IA.",
+      "nombre": "AI Researcher",
+      "descripcion": "Investigador especializado en la investigación y desarrollo de nuevas técnicas y algoritmos de inteligencia artificial.",
       "habilidades_requeridas": [
+        "python_avanzado",
+        "algebra_lineal",
+        "calculo_optimizacion",
+        "estadistica_inferencial",
+        "probabilidad",
+        "machine_learning",
         "deep_learning",
         "nlp",
         "computer_vision",
-        "aprendizaje_por_refuerzo",
-        "aprendizaje_supervisado",
-        "aprendizaje_no_supervisado"
-      ]
-    },
-    "10": {
-      "nombre": "Full Stack Developer",
-      "descripcion": "Desarrollador que tiene habilidades tanto en el frontend como en el backend, capaz de manejar todo el stack de desarrollo de una aplicación.",
-      "habilidades_requeridas": [
-        "python_avanzado",
-        "javascript",
-        "html_css",
-        "apis_rest",
-        "sql_avanzado",
-        "backend_python_basico"
+        "redes_neuronales"
       ]
     },
     "11": {
-      "nombre": "Data Analyst",
-      "descripcion": "Analista que se especializa en la limpieza, transformación y análisis de datos para generar insights y respaldar la toma de decisiones.",
+      "nombre": "Mobile Developer",
+      "descripcion": "Desarrollador especializado en la creación de aplicaciones móviles para plataformas como iOS y Android.",
       "habilidades_requeridas": [
-        "sql_avanzado",
-        "pandas_numpy",
-        "estadistica_inferencial",
-        "visualizacion_datos",
-        "data_cleaning",
-        "data_transformation"
+        "logica_programacion",
+        "estructuras_datos",
+        "algoritmos",
+        "apis_rest",
+        "consumo_apis",
+        "seguridad_apis"
       ]
     }
   }
