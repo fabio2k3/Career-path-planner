@@ -11,26 +11,30 @@ Uso:
     python src/main.py --objetivo "..." --habilidades python_basico,estadistica
 
 Modos:
-    Interactivo (sin --objetivo) : solicita el objetivo por teclado.
-    Automático  (con --objetivo) : ejecuta directamente con el texto dado.
+- Interactivo (sin --objetivo): solicita el objetivo por teclado.
+- Automático (con --objetivo): ejecuta directamente con el texto dado.
 """
 
 import argparse
 import sys
 from pathlib import Path
 
+# Se agrega la carpeta src al path para poder importar módulos del proyecto.
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from graph import GrafoCursos
 from search import astar, greedy, validar_trayectoria
 from llm_integration import pipeline_completo
 
-
-SEP  = "═" * 62
+# Separadores visuales para organizar la salida por consola.
+SEP = "═" * 62
 SEP2 = "─" * 62
 
 
 def imprimir_bienvenida() -> None:
+    """
+    Muestra el encabezado principal del sistema.
+    """
     print(f"\n{SEP}")
     print("  CAREER PATH PLANNER")
     print("  Sistema de Planificación de Trayectoria Profesional")
@@ -39,22 +43,33 @@ def imprimir_bienvenida() -> None:
 
 
 def imprimir_trayectoria(result, titulo: str = "Trayectoria generada") -> None:
+    """
+    Imprime una trayectoria de forma legible, junto con sus métricas principales.
+    """
     print(f"\n  {titulo}:")
     print(f"  {SEP2}")
     for i, c in enumerate(result.trayectoria, 1):
-        print(f"    {i:>2}. [{c.nivel[:3].upper()}] {c.nombre} ({c.duracion_semanas} semanas)")
+        print(
+            f"    {i:>2}. [{c.nivel[:3].upper()}] "
+            f"{c.nombre} ({c.duracion_semanas} semanas)"
+        )
     print(f"  {SEP2}")
-    print(f"  Total : {result.num_cursos} cursos | "
-          f"{result.costo_total_semanas} semanas | "
-          f"{result.nodos_expandidos} nodos expandidos | "
-          f"{result.tiempo_segundos:.3f}s")
+    print(
+        f"  Total : {result.num_cursos} cursos | "
+        f"{result.costo_total_semanas} semanas | "
+        f"{result.nodos_expandidos} nodos expandidos | "
+        f"{result.tiempo_segundos:.3f}s"
+    )
 
 
 def imprimir_evaluacion(evaluacion: dict) -> None:
+    """
+    Imprime la evaluación generada por el LLM o por el evaluador simulado.
+    """
     puntuacion = evaluacion.get("puntuacion", "?")
-    calidad    = str(evaluacion.get("nivel_calidad", "?")).upper()
-    modo       = evaluacion.get("modo", "llm_real")
-    sufijo     = " [simulado]" if modo == "simulado" else ""
+    calidad = str(evaluacion.get("nivel_calidad", "?")).upper()
+    modo = evaluacion.get("modo", "llm_real")
+    sufijo = " [simulado]" if modo == "simulado" else ""
 
     if isinstance(puntuacion, (int, float)):
         barra = "█" * int(puntuacion) + "░" * (10 - int(puntuacion))
@@ -65,35 +80,42 @@ def imprimir_evaluacion(evaluacion: dict) -> None:
     print(f"\n  Fortalezas:")
     for f in evaluacion.get("fortalezas", []):
         print(f"    ✓ {f}")
+
     print(f"\n  Debilidades:")
     for d in evaluacion.get("debilidades", []):
         print(f"    ✗ {d}")
+
     print(f"\n  Sugerencias:")
     for s in evaluacion.get("sugerencias", []):
         print(f"    → {s}")
-    print(f"\n  Resumen: \"{evaluacion.get('resumen', '?')}\"")
+
+    print(f'\n  Resumen: "{evaluacion.get("resumen", "?")}"')
 
 
 def _parsear_habilidades(texto: str, grafo: GrafoCursos) -> frozenset:
-    """Convierte 'hab1,hab2,hab3' en frozenset filtrando contra el catálogo."""
+    """
+    Convierte una cadena tipo 'hab1,hab2,hab3' en un frozenset filtrado
+    contra el catálogo del grafo.
+    """
     if not texto:
         return frozenset()
-    partes    = [h.strip() for h in texto.split(",") if h.strip()]
-    validas   = [h for h in partes if h in grafo.habilidades]
+
+    partes = [h.strip() for h in texto.split(",") if h.strip()]
+    validas = [h for h in partes if h in grafo.habilidades]
     invalidas = [h for h in partes if h not in grafo.habilidades]
+
     if invalidas:
         print(f"  ⚠ Habilidades no encontradas en el catálogo: {invalidas}")
+
     return frozenset(validas)
 
 
-def modo_con_llm(
-    objetivo_texto: str,
-    algoritmo: str,
-    grafo: GrafoCursos,
-    habilidades_iniciales: frozenset,
-) -> None:
-    """Pipeline completo: LN → LLM parseador → A*/Greedy → LLM evaluador."""
-    print(f"\n  Objetivo  : \"{objetivo_texto}\"")
+def modo_con_llm(objetivo_texto: str, algoritmo: str, grafo: GrafoCursos, habilidades_iniciales: frozenset,) -> None:
+    """
+    Ejecuta el pipeline completo:
+    objetivo en lenguaje natural → parseo LLM → búsqueda → evaluación LLM.
+    """
+    print(f'\n  Objetivo  : "{objetivo_texto}"')
     print(f"  Algoritmo : {algoritmo.upper()} | Modo: con LLM")
     if habilidades_iniciales:
         print(f"  Habilidades iniciales: {sorted(habilidades_iniciales)}")
@@ -114,8 +136,10 @@ def modo_con_llm(
 
     busqueda = resultado["paso2_busqueda"]
     print(f"\n{SEP2}")
-    print(f"  TRAYECTORIA ÓPTIMA — {busqueda['num_cursos']} cursos, "
-          f"{busqueda['costo_total_semanas']} semanas")
+    print(
+        f"  TRAYECTORIA ÓPTIMA — {busqueda['num_cursos']} cursos, "
+        f"{busqueda['costo_total_semanas']} semanas"
+    )
     print(SEP2)
     for i, nombre in enumerate(busqueda["trayectoria_nombres"], 1):
         print(f"    {i:>2}. {nombre}")
@@ -123,14 +147,14 @@ def modo_con_llm(
     imprimir_evaluacion(resultado["paso3_evaluacion"])
 
 
-def modo_sin_llm(
-    objetivo_texto: str,
-    algoritmo: str,
-    grafo: GrafoCursos,
-    habilidades_iniciales: frozenset,
-) -> None:
-    """Búsqueda directa sin LLM: el usuario elige el perfil del catálogo."""
-    print(f"\n  Objetivo  : \"{objetivo_texto}\"")
+def modo_sin_llm(objetivo_texto: str, algoritmo: str, grafo: GrafoCursos, habilidades_iniciales: frozenset,) -> None:
+    """
+    Ejecuta búsqueda directa sin LLM.
+
+    El usuario selecciona manualmente un perfil del catálogo y el sistema
+    calcula una trayectoria con A* o Greedy.
+    """
+    print(f'\n  Objetivo  : "{objetivo_texto}"')
     print(f"  Algoritmo : {algoritmo.upper()} | Modo: sin LLM")
 
     print("\n  Perfiles disponibles:")
@@ -140,48 +164,68 @@ def modo_sin_llm(
 
     print()
     try:
-        opcion    = int(input("  Selecciona un perfil (número): ").strip())
+        opcion = int(input("  Selecciona un perfil (número): ").strip())
         perfil_id = perfiles[opcion - 1]
     except (ValueError, IndexError):
         print("  ✗ Opción inválida.")
         return
 
     algoritmo_fn = astar if algoritmo == "astar" else greedy
-    result       = algoritmo_fn(
-        grafo, habilidades_iniciales, perfil_id,
-        "main", criterio="cursos",
+    result = algoritmo_fn(
+        grafo,
+        habilidades_iniciales,
+        perfil_id,
+        "main",
+        criterio="cursos",
     )
 
     if not result.exito:
         print("  ✗ No se encontró trayectoria.")
         return
 
-    imprimir_trayectoria(result, f"Trayectoria hacia {grafo.perfiles[perfil_id].nombre}")
+    imprimir_trayectoria(
+        result,
+        f"Trayectoria hacia {grafo.perfiles[perfil_id].nombre}",
+    )
+
     ok, msg = validar_trayectoria(
-        grafo, result.trayectoria, habilidades_iniciales, perfil_id
+        grafo,
+        result.trayectoria,
+        habilidades_iniciales,
+        perfil_id,
     )
     print(f"\n  Validación: {'✓ Trayectoria válida' if ok else f'✗ {msg}'}")
 
 
 def main() -> None:
+    """
+    Punto de entrada del sistema principal.
+    """
     parser = argparse.ArgumentParser(
         description="Career Path Planner — Planificación de trayectoria profesional"
     )
     parser.add_argument(
-        "--objetivo", type=str, default=None,
+        "--objetivo",
+        type=str,
+        default=None,
         help="Objetivo profesional en lenguaje natural",
     )
     parser.add_argument(
-        "--algoritmo", type=str, default="astar",
+        "--algoritmo",
+        type=str,
+        default="astar",
         choices=["astar", "greedy"],
         help="Algoritmo de búsqueda (default: astar)",
     )
     parser.add_argument(
-        "--sin-llm", action="store_true",
+        "--sin-llm",
+        action="store_true",
         help="Ejecutar sin usar el LLM",
     )
     parser.add_argument(
-        "--habilidades", type=str, default="",
+        "--habilidades",
+        type=str,
+        default="",
         help="Habilidades iniciales separadas por comas (ej: python_basico,estadistica)",
     )
     args = parser.parse_args()
@@ -194,13 +238,15 @@ def main() -> None:
         print(f"\n  ✗ {e}")
         sys.exit(1)
 
-    print(f"\n  Sistema cargado: {len(grafo.cursos)} cursos | "
-          f"{len(grafo.habilidades)} habilidades | "
-          f"{len(grafo.perfiles)} perfiles\n")
+    print(
+        f"\n  Sistema cargado: {len(grafo.cursos)} cursos | "
+        f"{len(grafo.habilidades)} habilidades | "
+        f"{len(grafo.perfiles)} perfiles\n"
+    )
 
     habilidades_iniciales = _parsear_habilidades(args.habilidades, grafo)
 
-    # Obtener objetivo
+    # Obtener objetivo: desde argumento o por teclado.
     if args.objetivo:
         objetivo_texto = args.objetivo.strip()
     else:
@@ -214,7 +260,7 @@ def main() -> None:
         print("  ✗ Objetivo vacío.")
         return
 
-    # Ejecutar pipeline
+    # Ejecutar el modo seleccionado.
     try:
         if args.sin_llm:
             modo_sin_llm(objetivo_texto, args.algoritmo, grafo, habilidades_iniciales)

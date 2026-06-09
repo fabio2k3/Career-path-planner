@@ -2,37 +2,44 @@
 test_multicriterio.py
 
 Prueba las funcionalidades avanzadas de search.py:
-  1. Comparación de los 3 criterios de A* + Greedy en inst_01 e inst_05.
-  2. K-mejores trayectorias (k=3) en inst_03.
-  3. Rendimiento en inst_08 (caso más difícil) con timeout de seguridad.
+
+1. Comparación de los 3 criterios de A* + Greedy en inst_01 e inst_05.
+2. K-mejores trayectorias (k=3) en inst_03.
+3. Rendimiento en inst_08 (caso más difícil) con timeout de seguridad.
 """
 
 import sys
 import time
 from pathlib import Path
 
+# Se agrega la carpeta src al path para poder importar los módulos del proyecto.
 ROOT = Path(__file__).resolve().parent.parent
-SRC  = ROOT / "src"
+SRC = ROOT / "src"
 sys.path.insert(0, str(SRC))
 
 from graph import GrafoCursos
 from search import astar, greedy, k_mejores, validar_trayectoria
 
-
-SEP  = "═" * 62
+# Separadores visuales para organizar la salida por consola.
+SEP = "═" * 62
 SEP2 = "─" * 62
 
 
-# ── Helpers ───────────────────────────────────────────────────────────────────
+# *** Helpers ********
 
 def seccion(titulo: str) -> None:
+    """Imprime un encabezado visual para separar bloques del reporte."""
     print(f"\n{SEP}")
     print(f"  {titulo}")
     print(SEP)
 
 
 def _get_instancia(instancias: list, inst_id: str, fallback_idx: int = 0):
-    """Devuelve la instancia por ID o la del índice fallback si no existe."""
+    """
+    Devuelve la instancia por ID o la del índice fallback si no existe.
+
+    Esto evita que una ausencia puntual de una instancia corte toda la prueba.
+    """
     match = next((i for i in instancias if i.id == inst_id), None)
     if match is None:
         print(f"  ⚠ Instancia '{inst_id}' no encontrada. "
@@ -41,15 +48,20 @@ def _get_instancia(instancias: list, inst_id: str, fallback_idx: int = 0):
     return match
 
 
-# ── Test 1: Comparación de criterios ─────────────────────────────────────────
+# *** Test 1: Comparación de criterios ***
 
 def comparar_criterios(grafo: GrafoCursos, instancia) -> None:
+    """
+    Compara A* bajo distintos criterios y lo contrasta con Greedy
+    sobre una misma instancia.
+    """
     seccion(f"COMPARACIÓN DE CRITERIOS — {instancia.id}")
     print(f"  {instancia.descripcion}")
     print(f"  Objetivo: {instancia.objetivo_texto}\n")
 
     resultados = {}
 
+    # Se evalúan los tres criterios de A* definidos en search.py.
     for criterio in ["semanas", "cursos", "balance"]:
         r = astar(
             grafo,
@@ -61,6 +73,7 @@ def comparar_criterios(grafo: GrafoCursos, instancia) -> None:
         )
         resultados[f"A* ({criterio})"] = r
 
+    # Se agrega Greedy como referencia no óptima pero usualmente más rápida.
     r_gre = greedy(
         grafo,
         instancia.habilidades_iniciales,
@@ -69,7 +82,7 @@ def comparar_criterios(grafo: GrafoCursos, instancia) -> None:
     )
     resultados["Greedy"] = r_gre
 
-    # Tabla comparativa
+    # Tabla comparativa de métricas principales.
     print(f"  {'Algoritmo':<22} {'Cursos':>7} {'Semanas':>8} "
           f"{'Nodos':>8} {'Tiempo(s)':>10}")
     print(f"  {SEP2}")
@@ -82,7 +95,7 @@ def comparar_criterios(grafo: GrafoCursos, instancia) -> None:
         else:
             print(f"  {nombre:<22} {'—':>7} {'—':>8} {'—':>8} {'—':>10}")
 
-    # Análisis diferencias
+    # Análisis de diferencias entre criterios.
     r_sem = resultados["A* (semanas)"]
     r_cur = resultados["A* (cursos)"]
     r_bal = resultados["A* (balance)"]
@@ -109,7 +122,7 @@ def comparar_criterios(grafo: GrafoCursos, instancia) -> None:
         else:
             print(f"  → Greedy encontró {-diff} semana(s) menos (caso inusual).")
 
-    # Validación
+    # Validación formal de todas las trayectorias encontradas.
     print(f"\n  Validación:")
     for nombre, r in resultados.items():
         if r.exito:
@@ -121,11 +134,12 @@ def comparar_criterios(grafo: GrafoCursos, instancia) -> None:
             print(f"    {nombre:<22}: {'✓ VÁLIDA' if ok else f'✗ {msg}'}")
 
 
-# ── Test 2: K mejores trayectorias ────────────────────────────────────────────
+# *** Test 2: K mejores trayectorias ***
 
-def probar_k_mejores(
-    grafo: GrafoCursos, instancia, k: int = 3, criterio: str = "cursos"
-) -> None:
+def probar_k_mejores(grafo: GrafoCursos, instancia, k: int = 3, criterio: str = "cursos",) -> None:
+    """
+    Genera y muestra las k mejores trayectorias alternativas para una instancia.
+    """
     seccion(f"K-MEJORES TRAYECTORIAS (k={k}) — {instancia.id}")
     print(f"  {instancia.descripcion}")
     print(f"  Objetivo: {instancia.objetivo_texto}\n")
@@ -158,9 +172,10 @@ def probar_k_mejores(
         )
         print(f"       Validación: {'✓ VÁLIDA' if ok else f'✗ {msg}'}\n")
 
+    # Intersección de cursos presentes en todas las soluciones para medir solapamiento.
     if len(soluciones) > 1:
         ids_listas = [frozenset(c.id for c in s.trayectoria) for s in soluciones]
-        comunes    = ids_listas[0]
+        comunes = ids_listas[0]
         for ids in ids_listas[1:]:
             comunes &= ids
         print(f"  Cursos comunes en todas las trayectorias: {len(comunes)}")
@@ -170,26 +185,30 @@ def probar_k_mejores(
                 print(f"    · {n}")
 
 
-# ── Test 3: Rendimiento en instancia difícil ──────────────────────────────────
+# *** Test 3: Rendimiento en instancia difícil ***
 
 def probar_rendimiento(grafo: GrafoCursos, instancia) -> None:
+    """
+    Evalúa el comportamiento de A* y Greedy sobre la instancia más difícil,
+    limitando la expansión para evitar costes excesivos.
+    """
     seccion(f"PRUEBA DE RENDIMIENTO — {instancia.id}")
     print(f"  {instancia.descripcion}")
     print(f"  Habilidades iniciales: {len(instancia.habilidades_iniciales)}\n")
 
-    # Criterio "semanas" con max_nodos reducido como salvaguarda
-    # (en datasets grandes puede ser costoso; se limita para reproducibilidad)
+    # Criterio "semanas" con max_nodos reducido como salvaguarda.
+    # En datasets grandes puede ser costoso; se limita para reproducibilidad.
     MAX_NODOS_SEMANAS = 50_000
 
     for criterio, max_nodos in [
         ("semanas", MAX_NODOS_SEMANAS),
-        ("cursos",  500_000),
+        ("cursos", 500_000),
         ("balance", 500_000),
     ]:
         limite_txt = f" (max_nodos={max_nodos:,})" if max_nodos < 500_000 else ""
         print(f"  Ejecutando A* criterio='{criterio}'{limite_txt}...")
         t0 = time.perf_counter()
-        r  = astar(
+        r = astar(
             grafo,
             instancia.habilidades_iniciales,
             instancia.perfil_objetivo,
@@ -218,7 +237,7 @@ def probar_rendimiento(grafo: GrafoCursos, instancia) -> None:
                 print(f"  ✗ Sin solución en {elapsed:.4f}s.")
         print()
 
-    # Greedy como referencia de velocidad
+    # Greedy se usa como referencia de velocidad y como contraste con A*.
     print(f"  Ejecutando Greedy (sin límite)...")
     r_gre = greedy(
         grafo,
@@ -241,32 +260,35 @@ def probar_rendimiento(grafo: GrafoCursos, instancia) -> None:
         print(f"  ✗ Greedy: sin solución.")
 
 
-# ── Main ──────────────────────────────────────────────────────────────────────
+# *** Main ***
 
 def main() -> None:
+    """
+    Ejecuta la batería completa de pruebas multicriterio.
+    """
     print(SEP)
     print("  TEST MULTICRITERIO Y K-MEJORES — Career Path Planner")
     print(SEP)
 
-    grafo      = GrafoCursos()
+    grafo = GrafoCursos()
     instancias = grafo.cargar_instancias()
 
     print(f"\n  Grafo: {len(grafo.cursos)} cursos | "
           f"{len(grafo.habilidades)} habilidades | "
           f"{len(grafo.perfiles)} perfiles")
 
-    # Test 1: comparación de criterios en 2 instancias
+    # Test 1: comparación de criterios en dos instancias representativas.
     for inst_id, fallback in [("inst_01", 0), ("inst_05", 4)]:
         inst = _get_instancia(instancias, inst_id, fallback)
         if inst:
             comparar_criterios(grafo, inst)
 
-    # Test 2: k-mejores en inst_03
+    # Test 2: generación de k-mejores trayectorias.
     inst = _get_instancia(instancias, "inst_03", 2)
     if inst:
         probar_k_mejores(grafo, inst, k=3, criterio="cursos")
 
-    # Test 3: rendimiento en inst_08
+    # Test 3: rendimiento en la instancia más exigente.
     inst = _get_instancia(instancias, "inst_08", 7)
     if inst:
         probar_rendimiento(grafo, inst)
