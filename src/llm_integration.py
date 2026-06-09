@@ -30,6 +30,7 @@ from huggingface_hub import InferenceClient
 from dotenv import load_dotenv
 
 from graph import GrafoCursos, Curso
+from search import astar as _astar
 
 # ── Configuración ─────────────────────────────────────────────────────────────
 
@@ -462,10 +463,16 @@ def pipeline_completo(
 
     # Paso 2: búsqueda
     print(f"\n  [2/3] Buscando trayectoria con {algoritmo_fn.__name__}...")
-    r = algoritmo_fn(
-        grafo, habilidades_iniciales, perfil_id,
-        instancia_id, criterio="cursos",
-    )
+    if algoritmo_fn is _astar:
+        r = algoritmo_fn(
+            grafo, habilidades_iniciales, perfil_id,
+            instancia_id, criterio="cursos",
+        )
+    else:
+        r = algoritmo_fn(
+            grafo, habilidades_iniciales, perfil_id,
+            instancia_id,
+        )
     resultado["paso2_busqueda"] = r.to_dict()
 
     if not r.exito:
