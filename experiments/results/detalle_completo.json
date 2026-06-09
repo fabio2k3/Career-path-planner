@@ -10,7 +10,7 @@
       "num_cursos": 11,
       "costo_total_semanas": 44,
       "nodos_expandidos": 298,
-      "tiempo_segundos": 0.011105,
+      "tiempo_segundos": 0.018304,
       "trayectoria_valida": true,
       "trayectoria_ids": "c03|c08|c01|c02|c04|c57|c07|c10|c11|c20|c24"
     },
@@ -24,7 +24,7 @@
       "num_cursos": 11,
       "costo_total_semanas": 44,
       "nodos_expandidos": 16,
-      "tiempo_segundos": 0.000766,
+      "tiempo_segundos": 0.001131,
       "trayectoria_valida": true,
       "trayectoria_ids": "c03|c08|c04|c10|c11|c01|c02|c57|c07|c20|c24"
     },
@@ -38,7 +38,7 @@
       "num_cursos": 8,
       "costo_total_semanas": 34,
       "nodos_expandidos": 90,
-      "tiempo_segundos": 0.005461,
+      "tiempo_segundos": 0.005301,
       "trayectoria_valida": true,
       "trayectoria_ids": "c08|c02|c57|c07|c10|c11|c20|c24"
     },
@@ -52,7 +52,7 @@
       "num_cursos": 8,
       "costo_total_semanas": 34,
       "nodos_expandidos": 9,
-      "tiempo_segundos": 0.001915,
+      "tiempo_segundos": 0.00057,
       "trayectoria_valida": true,
       "trayectoria_ids": "c08|c10|c11|c02|c57|c07|c20|c24"
     },
@@ -66,7 +66,7 @@
       "num_cursos": 8,
       "costo_total_semanas": 34,
       "nodos_expandidos": 127,
-      "tiempo_segundos": 0.007298,
+      "tiempo_segundos": 0.008117,
       "trayectoria_valida": true,
       "trayectoria_ids": "c08|c04|c57|c07|c10|c11|c20|c24"
     },
@@ -80,7 +80,7 @@
       "num_cursos": 9,
       "costo_total_semanas": 38,
       "nodos_expandidos": 12,
-      "tiempo_segundos": 0.000996,
+      "tiempo_segundos": 0.00125,
       "trayectoria_valida": true,
       "trayectoria_ids": "c07|c08|c42|c20|c04|c10|c11|c57|c24"
     },
@@ -94,7 +94,7 @@
       "num_cursos": 10,
       "costo_total_semanas": 39,
       "nodos_expandidos": 2363,
-      "tiempo_segundos": 0.100248,
+      "tiempo_segundos": 0.151413,
       "trayectoria_valida": true,
       "trayectoria_ids": "c01|c02|c07|c15|c18|c21|c23|c30|c06|c12"
     },
@@ -108,7 +108,7 @@
       "num_cursos": 10,
       "costo_total_semanas": 35,
       "nodos_expandidos": 15,
-      "tiempo_segundos": 0.001269,
+      "tiempo_segundos": 0.00113,
       "trayectoria_valida": true,
       "trayectoria_ids": "c01|c02|c07|c36|c18|c39|c23|c30|c38|c12"
     },
@@ -122,7 +122,7 @@
       "num_cursos": 9,
       "costo_total_semanas": 36,
       "nodos_expandidos": 2208,
-      "tiempo_segundos": 0.092895,
+      "tiempo_segundos": 0.119513,
       "trayectoria_valida": true,
       "trayectoria_ids": "c02|c07|c15|c18|c21|c23|c30|c06|c12"
     },
@@ -136,7 +136,7 @@
       "num_cursos": 9,
       "costo_total_semanas": 32,
       "nodos_expandidos": 11,
-      "tiempo_segundos": 0.000791,
+      "tiempo_segundos": 0.001534,
       "trayectoria_valida": true,
       "trayectoria_ids": "c02|c07|c36|c18|c39|c23|c30|c38|c12"
     },
@@ -150,7 +150,7 @@
       "num_cursos": 10,
       "costo_total_semanas": 50,
       "nodos_expandidos": 89476,
-      "tiempo_segundos": 4.653052,
+      "tiempo_segundos": 8.056531,
       "trayectoria_valida": true,
       "trayectoria_ids": "c23|c29|c03|c04|c08|c57|c24|c35|c09|c25"
     },
@@ -164,7 +164,7 @@
       "num_cursos": 10,
       "costo_total_semanas": 50,
       "nodos_expandidos": 1454,
-      "tiempo_segundos": 0.044805,
+      "tiempo_segundos": 0.10982,
       "trayectoria_valida": true,
       "trayectoria_ids": "c23|c29|c03|c04|c08|c57|c24|c35|c09|c25"
     },
@@ -178,7 +178,7 @@
       "num_cursos": 4,
       "costo_total_semanas": 23,
       "nodos_expandidos": 32,
-      "tiempo_segundos": 0.002357,
+      "tiempo_segundos": 0.005795,
       "trayectoria_valida": true,
       "trayectoria_ids": "c25|c40|c46|c35"
     },
@@ -192,7 +192,7 @@
       "num_cursos": 4,
       "costo_total_semanas": 23,
       "nodos_expandidos": 5,
-      "tiempo_segundos": 0.000498,
+      "tiempo_segundos": 0.001497,
       "trayectoria_valida": true,
       "trayectoria_ids": "c25|c40|c46|c35"
     },
@@ -206,7 +206,7 @@
       "num_cursos": 13,
       "costo_total_semanas": 60,
       "nodos_expandidos": 79149,
-      "tiempo_segundos": 3.753918,
+      "tiempo_segundos": 7.998178,
       "trayectoria_valida": true,
       "trayectoria_ids": "c01|c02|c07|c40|c46|c03|c04|c08|c57|c24|c35|c09|c25"
     },
@@ -220,7 +220,7 @@
       "num_cursos": 13,
       "costo_total_semanas": 60,
       "nodos_expandidos": 638,
-      "tiempo_segundos": 0.0156,
+      "tiempo_segundos": 0.047323,
       "trayectoria_valida": true,
       "trayectoria_ids": "c01|c02|c07|c40|c46|c03|c04|c08|c57|c24|c35|c09|c25"
     }
@@ -236,12 +236,12 @@
       "num_cursos": 11,
       "costo_total_semanas": 44,
       "nodos_expandidos": 298,
-      "tiempo_busqueda_s": 0.03953,
+      "tiempo_busqueda_s": 0.048995,
       "trayectoria_valida": true,
       "puntuacion_llm": 8,
       "nivel_calidad_llm": "bueno",
-      "tiempo_llm_s": 14.773,
-      "resumen_llm": "La trayectoria es sólida y bien estructurada, cubriendo todos los aspectos necesarios para convertirse en Data Scientist. Es concisa y coherente, aunque podría mejorarse eliminando posibles redundancias y añadiendo un proyecto final práctico.",
+      "tiempo_llm_s": 10.283,
+      "resumen_llm": "La trayectoria es coherente y eficiente, cubriendo todas las habilidades necesarias para convertirse en Data Scientist. Sin embargo, podría ser un poco más concisa para optimizar el tiempo de aprendizaje.",
       "trayectoria_ids": "c03|c08|c01|c02|c04|c57|c07|c10|c11|c20|c24"
     },
     {
@@ -254,12 +254,12 @@
       "num_cursos": 8,
       "costo_total_semanas": 34,
       "nodos_expandidos": 90,
-      "tiempo_busqueda_s": 0.004831,
+      "tiempo_busqueda_s": 0.008966,
       "trayectoria_valida": true,
       "puntuacion_llm": 9,
       "nivel_calidad_llm": "excelente",
-      "tiempo_llm_s": 15.168,
-      "resumen_llm": "La trayectoria es muy adecuada para alcanzar el objetivo de convertirse en Data Scientist, con una secuencia pedagógica coherente y una duración eficiente. Se sugiere evaluar la necesidad del curso de Python Básico y considerar incluir un proyecto final para consolidar los aprendizajes.",
+      "tiempo_llm_s": 8.63,
+      "resumen_llm": "La trayectoria es excelente y bien estructurada, cubriendo todas las habilidades necesarias para convertirse en Data Scientist de manera eficiente y concisa. Se sugiere evaluar la necesidad del curso de Python Básico si el usuario ya tiene experiencia en programación.",
       "trayectoria_ids": "c08|c02|c57|c07|c10|c11|c20|c24"
     },
     {
@@ -272,12 +272,12 @@
       "num_cursos": 8,
       "costo_total_semanas": 34,
       "nodos_expandidos": 127,
-      "tiempo_busqueda_s": 0.005467,
+      "tiempo_busqueda_s": 0.007505,
       "trayectoria_valida": true,
-      "puntuacion_llm": 8,
-      "nivel_calidad_llm": "bueno",
-      "tiempo_llm_s": 14.02,
-      "resumen_llm": "La trayectoria es eficiente y coherente, cubriendo las habilidades necesarias para especializarse en Data Science. Sin embargo, algunos cursos podrían ser ajustados según el nivel inicial del usuario.",
+      "puntuacion_llm": 9,
+      "nivel_calidad_llm": "excelente",
+      "tiempo_llm_s": 10.066,
+      "resumen_llm": "La trayectoria es excelente y bien estructurada, cubriendo todos los aspectos necesarios para especializarse en Data Science de manera eficiente y concisa. Aunque el curso de Álgebra Lineal podría ser desafiante al inicio, es relevante para el objetivo.",
       "trayectoria_ids": "c08|c04|c57|c07|c10|c11|c20|c24"
     },
     {
@@ -290,12 +290,12 @@
       "num_cursos": 10,
       "costo_total_semanas": 39,
       "nodos_expandidos": 2363,
-      "tiempo_busqueda_s": 0.099501,
+      "tiempo_busqueda_s": 0.128082,
       "trayectoria_valida": true,
       "puntuacion_llm": 8,
       "nivel_calidad_llm": "bueno",
-      "tiempo_llm_s": 12.518,
-      "resumen_llm": "La trayectoria es buena y coherente, cubriendo las habilidades necesarias para un desarrollador backend. Sin embargo, podría ser más concisa y práctica.",
+      "tiempo_llm_s": 10.586,
+      "resumen_llm": "La trayectoria es buena y coherente, cubriendo todas las habilidades necesarias para ser un desarrollador backend. Es eficiente en términos de duración, aunque podría ser un poco más concisa.",
       "trayectoria_ids": "c01|c02|c07|c15|c18|c21|c23|c30|c06|c12"
     },
     {
@@ -308,12 +308,12 @@
       "num_cursos": 9,
       "costo_total_semanas": 36,
       "nodos_expandidos": 2208,
-      "tiempo_busqueda_s": 0.123143,
+      "tiempo_busqueda_s": 0.13566,
       "trayectoria_valida": true,
       "puntuacion_llm": 8,
       "nivel_calidad_llm": "bueno",
-      "tiempo_llm_s": 21.013,
-      "resumen_llm": "La trayectoria es buena y coherente, aunque un poco larga. Cubre las habilidades necesarias para la transición de frontend a backend con Python, pero podría ser más eficiente.",
+      "tiempo_llm_s": 10.899,
+      "resumen_llm": "La trayectoria es buena y coherente, cubriendo las habilidades necesarias para pasar de frontend a backend con Python. Es eficiente en términos de tiempo y cursos, aunque podría ser ligeramente más concisa.",
       "trayectoria_ids": "c02|c07|c15|c18|c21|c23|c30|c06|c12"
     },
     {
@@ -326,12 +326,12 @@
       "num_cursos": 10,
       "costo_total_semanas": 50,
       "nodos_expandidos": 89476,
-      "tiempo_busqueda_s": 4.774485,
+      "tiempo_busqueda_s": 5.887523,
       "trayectoria_valida": true,
-      "puntuacion_llm": 7,
-      "nivel_calidad_llm": "aceptable",
-      "tiempo_llm_s": 21.185,
-      "resumen_llm": "La trayectoria es adecuada pero excesivamente larga y podría ser más eficiente. Se recomienda reducir la cantidad de cursos y optimizar la secuencia pedagógica.",
+      "puntuacion_llm": null,
+      "nivel_calidad_llm": null,
+      "tiempo_llm_s": null,
+      "resumen_llm": null,
       "trayectoria_ids": "c23|c29|c03|c04|c08|c57|c24|c35|c09|c25"
     },
     {
@@ -344,12 +344,12 @@
       "num_cursos": 4,
       "costo_total_semanas": 23,
       "nodos_expandidos": 32,
-      "tiempo_busqueda_s": 0.002301,
+      "tiempo_busqueda_s": 0.002635,
       "trayectoria_valida": true,
-      "puntuacion_llm": 9,
-      "nivel_calidad_llm": "excelente",
-      "tiempo_llm_s": 10.066,
-      "resumen_llm": "La trayectoria es muy adecuada para alcanzar el objetivo de convertirse en ML Engineer, con una secuencia pedagógica coherente y cursos relevantes. Se sugiere incluir un curso sobre bases de datos para complementar las habilidades.",
+      "puntuacion_llm": null,
+      "nivel_calidad_llm": null,
+      "tiempo_llm_s": null,
+      "resumen_llm": null,
       "trayectoria_ids": "c25|c40|c46|c35"
     },
     {
@@ -362,12 +362,12 @@
       "num_cursos": 13,
       "costo_total_semanas": 60,
       "nodos_expandidos": 79149,
-      "tiempo_busqueda_s": 3.790594,
+      "tiempo_busqueda_s": 4.719393,
       "trayectoria_valida": true,
-      "puntuacion_llm": 7,
-      "nivel_calidad_llm": "aceptable",
-      "tiempo_llm_s": 14.487,
-      "resumen_llm": "La trayectoria es coherente y cubre los fundamentos necesarios, pero es excesivamente larga y podría ser más eficiente y concisa.",
+      "puntuacion_llm": null,
+      "nivel_calidad_llm": null,
+      "tiempo_llm_s": null,
+      "resumen_llm": null,
       "trayectoria_ids": "c01|c02|c07|c40|c46|c03|c04|c08|c57|c24|c35|c09|c25"
     }
   ]

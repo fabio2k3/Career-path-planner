@@ -678,12 +678,18 @@ def main() -> None:
 
         # Input + botón
         col_inp, col_btn = st.columns([6, 1], gap="small")
+
         with col_inp:
-            objetivo = st.text_input(
-                label="objetivo",
-                placeholder="Describe tu objetivo profesional...",
-                label_visibility="collapsed",
-            )
+            if usar_llm:
+                objetivo = st.text_input(
+                    label="objetivo",
+                    placeholder="Describe tu objetivo profesional...",
+                    label_visibility="collapsed",
+                )
+            else:
+                st.info("Escoge un Perfil Objetivo para continuar.")
+                objetivo = ""
+
         with col_btn:
             ejecutar = st.button("Planificar", use_container_width=True)
 
@@ -703,7 +709,7 @@ def main() -> None:
             )
             return
 
-        if not objetivo.strip():
+        if usar_llm and not objetivo.strip():
             st.warning("Escribe un objetivo profesional antes de continuar.")
             return
 

@@ -4,11 +4,11 @@ main.py
 Pipeline principal del sistema Career Path Planner.
 
 Uso:
-    python src/main.py
-    python src/main.py --objetivo "Quiero ser Data Scientist"
-    python src/main.py --objetivo "Quiero ser ML Engineer" --algoritmo greedy
-    python src/main.py --objetivo "..." --sin-llm
-    python src/main.py --objetivo "..." --habilidades python_basico,estadistica
+    python main.py
+    python main.py --objetivo "Quiero ser Data Scientist"
+    python main.py --objetivo "Quiero ser ML Engineer" --algoritmo greedy
+    python main.py --sin-llm
+    python main.py --objetivo "Quiero ser Data Scientist" --habilidades python_basico,estadistica_basica
 
 Modos:
 - Interactivo (sin --objetivo): solicita el objetivo por teclado.
