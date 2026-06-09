@@ -1,22 +1,13 @@
 """
 llm_integration.py
 
-Integración LLM via Hugging Face Inference API (gratuito).
+Integración con LLM mediante Hugging Face Inference API.
 
-Configuración:
-  1. Crea cuenta en https://huggingface.co
-  2. Settings → Access Tokens → New token (tipo Read)
-  3. En .env: HF_API_KEY=hf_xxxxxxxxxxxxxxxx
-
-Expone:
-  parsear_objetivo(texto, grafo, habilidades_iniciales)
-      → dict con habilidades requeridas del dataset
-  evaluar_trayectoria(...)
-      → dict con puntuación 0-10 + análisis narrativo
-  evaluar_trayectoria_con_fallback(...)
-      → igual, pero cae al evaluador simulado si la API falla
-  pipeline_completo(...)
-      → flujo end-to-end: LN → búsqueda → evaluación
+Este módulo ofrece tres piezas principales:
+- parsear_objetivo(): transforma texto libre en habilidades del catálogo.
+- evaluar_trayectoria(): puntúa una ruta de aprendizaje con ayuda del LLM.
+- evaluar_trayectoria_con_fallback(): usa un evaluador simulado si la API falla.
+- pipeline_completo(): une parseo, búsqueda y evaluación en un flujo end-to-end.
 """
 
 import json
@@ -26,18 +17,19 @@ import time
 from pathlib import Path
 from typing import FrozenSet
 
-from huggingface_hub import InferenceClient
 from dotenv import load_dotenv
+from huggingface_hub import InferenceClient
 
-from graph import GrafoCursos, Curso
+from graph import Curso, GrafoCursos
 from search import astar as _astar
 
-# ── Configuración ─────────────────────────────────────────────────────────────
+# *** Configuración *******
 
+# Se carga el archivo .env desde la raíz del proyecto para tomar credenciales.
 _ENV_PATH = Path(__file__).resolve().parent.parent / ".env"
 load_dotenv(dotenv_path=_ENV_PATH)
 
-# Lista de modelos con fallback automático si el principal falla
+# Modelos que se intentan en orden si el primero falla.
 _MODELOS_PREFERIDOS = [
     os.getenv("HF_MODEL", "Qwen/Qwen2.5-72B-Instruct"),
     "mistralai/Mistral-7B-Instruct-v0.3",
@@ -46,6 +38,14 @@ _MODELOS_PREFERIDOS = [
 
 
 def _get_client() -> InferenceClient:
+    """
+    Construye el cliente de Hugging Face usando la API key configurada.
+
+    Raises
+    ------
+    EnvironmentError
+        Si la variable HF_API_KEY no está definida.
+    """
     api_key = os.getenv("HF_API_KEY")
     if not api_key:
         raise EnvironmentError(
@@ -61,8 +61,10 @@ def _get_client() -> InferenceClient:
 
 def _llamar_llm(prompt: str, system: str, reintentos: int = 4) -> str:
     """
-    Llama a HuggingFace Inference API con reintentos automáticos.
-    Prueba los modelos en _MODELOS_PREFERIDOS en orden hasta obtener respuesta.
+    Llama a Hugging Face Inference API con reintentos automáticos.
+
+    Si un modelo falla por rate limit, carga lenta o error transitorio,
+    se prueba de nuevo y, si es necesario, se pasa al siguiente modelo.
     """
     client = _get_client()
 
@@ -75,7 +77,7 @@ def _llamar_llm(prompt: str, system: str, reintentos: int = 4) -> str:
                     temperature=0.1,
                     messages=[
                         {"role": "system", "content": system},
-                        {"role": "user",   "content": prompt},
+                        {"role": "user", "content": prompt},
                     ],
                 )
                 return response.choices[0].message.content.strip()
@@ -83,24 +85,22 @@ def _llamar_llm(prompt: str, system: str, reintentos: int = 4) -> str:
             except Exception as e:
                 err_str = str(e)
 
-                # Rate limit → esperar y reintentar
-                if ("429" in err_str or "rate" in err_str.lower() or
-                        "too many" in err_str.lower()) and intento < reintentos - 1:
-                    match  = re.search(r"(\d+)\s*second", err_str)
+                # Rate limit: esperar y reintentar.
+                if (
+                    ("429" in err_str or "rate" in err_str.lower() or "too many" in err_str.lower())
+                    and intento < reintentos - 1
+                ):
+                    match = re.search(r"(\d+)\s*second", err_str)
                     espera = int(match.group(1)) + 5 if match else 30
-                    print(f"    ⏳ Rate limit [{modelo}] intento {intento+1}/{reintentos}. "
-                          f"Esperando {espera}s...")
                     time.sleep(espera)
                     continue
 
-                # Modelo cargando → esperar y reintentar
+                # Modelo cargando: esperar y reintentar.
                 if ("503" in err_str or "loading" in err_str.lower()) and intento < reintentos - 1:
-                    print(f"    ⏳ Modelo cargando [{modelo}]. Esperando 20s...")
                     time.sleep(20)
                     continue
 
-                # Error no recuperable en este modelo → probar el siguiente
-                print(f"    ⚠ Modelo [{modelo}] falló: {err_str[:80]}. Probando siguiente...")
+                # Error no recuperable para este modelo: probar el siguiente.
                 break
 
     raise RuntimeError(
@@ -108,40 +108,52 @@ def _llamar_llm(prompt: str, system: str, reintentos: int = 4) -> str:
     )
 
 
-# ── Parser JSON robusto ───────────────────────────────────────────────────────
+# *** Parser JSON robusto *******
 
 def _parsear_json_respuesta(texto: str) -> dict:
-    """Extrae JSON válido de la respuesta del LLM de forma robusta."""
+    """
+    Extrae un JSON válido de la respuesta del LLM de forma robusta.
+
+    Se contemplan varios casos habituales:
+    - respuesta envuelta en bloque markdown;
+    - comillas tipográficas;
+    - JSON embebido dentro de texto extra;
+    - pequeñas inconsistencias en comillas internas.
+    """
     texto = texto.strip()
 
-    # 1. Eliminar bloques markdown ```json ... ```
+    # 1-) Eliminar bloques markdown tipo ```json ... ```
     if texto.startswith("```"):
         lineas = texto.split("\n")
-        fin    = len(lineas) - 1 if lineas[-1].strip() == "```" else len(lineas)
-        texto  = "\n".join(lineas[1:fin]).strip()
+        fin = len(lineas) - 1 if lineas[-1].strip() == "```" else len(lineas)
+        texto = "\n".join(lineas[1:fin]).strip()
 
-    # 2. Normalizar comillas tipográficas
-    texto = (texto
-             .replace("\u201c", '"').replace("\u201d", '"')
-             .replace("\u2018", "'").replace("\u2019", "'"))
+    # 2-) Normalizar comillas tipográficas.
+    texto = (
+        texto.replace("\u201c", '"').replace("\u201d", '"')
+        .replace("\u2018", "'").replace("\u2019", "'")
+    )
 
-    # 3. Parseo directo
+    # 3-) Intento directo.
     try:
         return json.loads(texto, strict=False)
     except json.JSONDecodeError:
         pass
 
-    # 4. Extraer primer bloque { ... }
-    match = re.search(r'\{.*\}', texto, re.DOTALL)
+    # 4-) Extraer el primer bloque {...} que aparezca.
+    match = re.search(r"\{.*\}", texto, re.DOTALL)
     if match:
-        bloque = (match.group(0)
-                  .replace("\u201c", '"').replace("\u201d", '"'))
+        bloque = (
+            match.group(0)
+            .replace("\u201c", '"')
+            .replace("\u201d", '"')
+        )
         try:
             return json.loads(bloque, strict=False)
         except json.JSONDecodeError:
             pass
 
-    # 5. Sanitizar comillas internas en valores de string
+    # 5-) Sanitizar comillas internas en valores tipo string.
     try:
         sanitizado = re.sub(
             r'(:\s*")((?:[^"\\]|\\.)*?)(")',
@@ -157,16 +169,18 @@ def _parsear_json_respuesta(texto: str) -> dict:
     )
 
 
-# ── FUNCIÓN 1: Parseador de objetivos ─────────────────────────────────────────
+# *** FUNCIÓN 1: Parseador de objetivos ******
 
-def _construir_prompt_parseador(
-    objetivo_texto: str,
-    habilidades: list[str],
-    habilidades_iniciales: FrozenSet[str],
-) -> str:
+def _construir_prompt_parseador(objetivo_texto: str, habilidades: list[str], habilidades_iniciales: FrozenSet[str],) -> str:
+    """
+    Construye el prompt que se envía al modelo para interpretar el objetivo.
+
+    Se incluye el catálogo completo y las habilidades ya adquiridas para que
+    el LLM devuelva solo las habilidades nuevas y relevantes.
+    """
     habs_str = ", ".join(sorted(habilidades))
-    ini_str  = (", ".join(sorted(habilidades_iniciales))
-                if habilidades_iniciales else "ninguna")
+    ini_str = ", ".join(sorted(habilidades_iniciales)) if habilidades_iniciales else "ninguna"
+
     return f"""Analiza este objetivo profesional e identifica las habilidades necesarias del catalogo.
 
 OBJETIVO: "{objetivo_texto}"
@@ -191,32 +205,20 @@ Habilidades ya adquiridas: python_basico
 """
 
 
-def parsear_objetivo(
-    objetivo_texto: str,
-    grafo: GrafoCursos,
-    habilidades_iniciales: FrozenSet[str] = frozenset(),
-) -> dict:
+def parsear_objetivo(objetivo_texto: str, grafo: GrafoCursos, habilidades_iniciales: FrozenSet[str] = frozenset(),) -> dict:
     """
-    Transforma un objetivo profesional en lenguaje natural
-    en habilidades estructuradas del dataset.
+    Convierte un objetivo en lenguaje natural en habilidades estructuradas.
 
-    Parámetros:
-      objetivo_texto       : texto libre del usuario
-      grafo                : grafo del proyecto (para acceder al catálogo)
-      habilidades_iniciales: habilidades que el usuario ya posee (se excluyen)
-
-    Retorna dict con:
-      habilidades_requeridas : lista original del LLM
-      habilidades_validas    : filtradas contra el catálogo
-      habilidades_invalidas  : las que no existen en el catálogo
-      perfil_detectado       : nombre del perfil según el LLM
-      confianza              : alta | media | baja
-      razon                  : justificación del LLM
-      tiempo_segundos        : latencia de la llamada
+    El resultado del LLM se filtra contra el catálogo del grafo para separar:
+    - habilidades válidas;
+    - habilidades inválidas;
+    - habilidades que el usuario ya poseía.
     """
     inicio = time.perf_counter()
     prompt = _construir_prompt_parseador(
-        objetivo_texto, sorted(grafo.habilidades), habilidades_iniciales
+        objetivo_texto,
+        sorted(grafo.habilidades),
+        habilidades_iniciales,
     )
     system = (
         "Eres experto en carreras tecnologicas. "
@@ -229,37 +231,37 @@ def parsear_objetivo(
     except Exception as e:
         raise ValueError(f"Error parseando respuesta LLM: {e}\nRespuesta: {texto}")
 
-    # Filtrar contra el catálogo y excluir las ya adquiridas
-    requeridas     = resultado.get("habilidades_requeridas", [])
-    habs_validas   = [
+    # Filtrar contra el catálogo y excluir habilidades ya adquiridas.
+    requeridas = resultado.get("habilidades_requeridas", [])
+    habs_validas = [
         h for h in requeridas
         if h in grafo.habilidades and h not in habilidades_iniciales
     ]
     habs_invalidas = [h for h in requeridas if h not in grafo.habilidades]
 
-    resultado["habilidades_validas"]   = habs_validas
+    resultado["habilidades_validas"] = habs_validas
     resultado["habilidades_invalidas"] = habs_invalidas
-    resultado["tiempo_segundos"]       = round(time.perf_counter() - inicio, 3)
+    resultado["tiempo_segundos"] = round(time.perf_counter() - inicio, 3)
     return resultado
 
 
-# ── FUNCIÓN 2: Evaluador de trayectorias ──────────────────────────────────────
+# *** FUNCIÓN 2: Evaluador de trayectorias *******
 
-def _construir_prompt_evaluador(
-    objetivo_texto: str,
-    perfil_id: str,
-    trayectoria: list[Curso],
-    habilidades_iniciales: FrozenSet[str],
-) -> str:
+def _construir_prompt_evaluador(objetivo_texto: str, perfil_id: str, trayectoria: list[Curso], habilidades_iniciales: FrozenSet[str],) -> str:
+    """
+    Construye el prompt que pide al LLM valorar la trayectoria encontrada.
+
+    La evaluación se enfoca en calidad pedagógica, longitud, coherencia y
+    relación con las habilidades iniciales del usuario.
+    """
     tray_str = "\n".join(
-        f"  {i+1}. {c.nombre} ({c.duracion_semanas}s, {c.nivel})"
+        f"  {i + 1}. {c.nombre} ({c.duracion_semanas}s, {c.nivel})"
         f" — ensena: {', '.join(sorted(c.habilidades))}"
         for i, c in enumerate(trayectoria)
     )
-    habs_ini  = (", ".join(sorted(habilidades_iniciales))
-                 if habilidades_iniciales else "ninguna")
-    total     = sum(c.duracion_semanas for c in trayectoria)
-    n_cursos  = len(trayectoria)
+    habs_ini = ", ".join(sorted(habilidades_iniciales)) if habilidades_iniciales else "ninguna"
+    total = sum(c.duracion_semanas for c in trayectoria)
+    n_cursos = len(trayectoria)
 
     return f"""Evalua esta trayectoria de aprendizaje de forma CRITICA y DISCRIMINANTE.
 
@@ -281,27 +283,26 @@ REGLAS DE JUSTIFICACION:
 - Menciona explicitamente en "fortalezas" si la trayectoria es eficiente y concisa.
 
 Responde UNICAMENTE con este JSON (sin markdown ni texto extra):
-{{"puntuacion": <0-10>, "nivel_calidad": <"excelente"|"bueno"|"aceptable"|"deficiente">, "fortalezas": ["..."], "debilidades": ["..."], "sugerencias": ["..."], "resumen": "..."}}"""
+{{"puntuacion": <0-10>, "nivel_calidad": <"excelente"|"bueno"|"aceptable"|"deficiente">, "fortalezas": ["..."], "debilidades": ["..."], "sugerencias": ["..."], "resumen": "..."}}
+"""
 
 
-def evaluar_trayectoria(
-    objetivo_texto: str,
-    perfil_id: str,
-    trayectoria: list[Curso],
-    habilidades_iniciales: FrozenSet[str],
-) -> dict:
+def evaluar_trayectoria(objetivo_texto: str, perfil_id: str, trayectoria: list[Curso], habilidades_iniciales: FrozenSet[str],) -> dict:
     """
-    Evalúa semánticamente la calidad de una trayectoria con el LLM.
+    Evalúa semánticamente la trayectoria encontrada usando el LLM.
 
-    Retorna dict con: puntuacion, nivel_calidad, fortalezas,
-    debilidades, sugerencias, resumen, tiempo_segundos.
+    Devuelve un diccionario con la puntuación, el nivel de calidad y una
+    explicación textual de fortalezas, debilidades y sugerencias.
     """
     if not objetivo_texto:
         objetivo_texto = f"Alcanzar el perfil: {perfil_id.replace('_', ' ')}"
 
     inicio = time.perf_counter()
     prompt = _construir_prompt_evaluador(
-        objetivo_texto, perfil_id, trayectoria, habilidades_iniciales
+        objetivo_texto,
+        perfil_id,
+        trayectoria,
+        habilidades_iniciales,
     )
     system = (
         "Eres experto en educacion tecnologica. "
@@ -319,20 +320,19 @@ def evaluar_trayectoria(
     return resultado
 
 
-# ── Evaluador simulado (fallback sin API) ─────────────────────────────────────
 
-def _evaluar_simulado(
-    perfil_id: str,
-    trayectoria: list[Curso],
-    habilidades_iniciales: FrozenSet[str],
-) -> dict:
+# *** Evaluador simulado (fallback sin API) ******
+
+def _evaluar_simulado(perfil_id: str, trayectoria: list[Curso], habilidades_iniciales: FrozenSet[str],) -> dict:
     """
-    Evaluador determinista sin LLM basado en métricas calculadas.
-    Se activa automáticamente si la API no está disponible.
+    Evaluador determinista sin LLM basado en métricas simples.
+
+    Se usa como alternativa cuando la API no está disponible, preservando una
+    salida estructurada para no romper el flujo principal.
     """
-    n_cursos      = len(trayectoria)
+    n_cursos = len(trayectoria)
     total_semanas = sum(c.duracion_semanas for c in trayectoria)
-    n_avanzado    = sum(1 for c in trayectoria if c.nivel == "avanzado")
+    n_avanzado = sum(1 for c in trayectoria if c.nivel == "avanzado")
 
     puntuacion = 7.0
     if n_cursos <= 7 and total_semanas <= 35:
@@ -341,17 +341,22 @@ def _evaluar_simulado(
         puntuacion += 1.0
     elif n_cursos > 12 or total_semanas > 50:
         puntuacion -= 1.0
+
     if n_cursos > 16 or total_semanas > 70:
         puntuacion -= 1.0
 
     puntuacion = round(max(4.0, min(10.0, puntuacion)))
 
-    if puntuacion >= 9:    nivel = "excelente"
-    elif puntuacion >= 7:  nivel = "bueno"
-    elif puntuacion >= 5:  nivel = "aceptable"
-    else:                  nivel = "deficiente"
+    if puntuacion >= 9:
+        nivel = "excelente"
+    elif puntuacion >= 7:
+        nivel = "bueno"
+    elif puntuacion >= 5:
+        nivel = "aceptable"
+    else:
+        nivel = "deficiente"
 
-    fortalezas  = [f"Trayectoria de {n_cursos} cursos con progresión coherente."]
+    fortalezas = [f"Trayectoria de {n_cursos} cursos con progresión coherente."]
     debilidades = []
 
     if n_cursos > 12 or total_semanas > 50:
@@ -363,17 +368,18 @@ def _evaluar_simulado(
         fortalezas.append(
             f"Ruta eficiente: {n_cursos} cursos completados en {total_semanas} semanas."
         )
+
     if n_avanzado > 0:
         fortalezas.append(
             f"Incluye {n_avanzado} curso(s) avanzado(s) para especialización."
         )
 
     return {
-        "puntuacion":    puntuacion,
+        "puntuacion": puntuacion,
         "nivel_calidad": nivel,
-        "fortalezas":    fortalezas,
-        "debilidades":   debilidades or ["Podría complementarse con proyectos prácticos."],
-        "sugerencias":   ["Complementar con proyectos reales para aplicar lo aprendido."],
+        "fortalezas": fortalezas,
+        "debilidades": debilidades or ["Podría complementarse con proyectos prácticos."],
+        "sugerencias": ["Complementar con proyectos reales para aplicar lo aprendido."],
         "resumen": (
             f"Trayectoria {nivel} de {n_cursos} cursos y {total_semanas} "
             f"semanas para {perfil_id.replace('_', ' ')}. [Evaluación simulada]"
@@ -382,113 +388,112 @@ def _evaluar_simulado(
     }
 
 
-def evaluar_trayectoria_con_fallback(
-    objetivo_texto: str,
-    perfil_id: str,
-    trayectoria: list[Curso],
-    habilidades_iniciales: FrozenSet[str],
-) -> dict:
+def evaluar_trayectoria_con_fallback(objetivo_texto: str, perfil_id: str, trayectoria: list[Curso], habilidades_iniciales: FrozenSet[str],) -> dict:
     """
-    Intenta evaluar con el LLM real.
-    Si falla por cuota, rate limit o falta de API key,
-    cae automáticamente al evaluador simulado.
+    Intenta evaluar con el LLM real y, si falla, usa el evaluador simulado.
+
+    El fallback se activa ante errores típicos de autenticación, cuota o
+    disponibilidad del servicio.
     """
     try:
         resultado = evaluar_trayectoria(
-            objetivo_texto, perfil_id, trayectoria, habilidades_iniciales
+            objetivo_texto,
+            perfil_id,
+            trayectoria,
+            habilidades_iniciales,
         )
         resultado["modo"] = "llm_real"
         return resultado
     except Exception as e:
         err_str = str(e)
-        if any(c in err_str for c in
-               ["402", "429", "quota", "rate", "403", "401", "EnvironmentError"]):
-            print(f"    ⚠ API no disponible ({err_str[:60]}). Usando evaluador simulado.")
+        if any(
+            c in err_str
+            for c in ["402", "429", "quota", "rate", "403", "401", "EnvironmentError"]
+        ):
             r = _evaluar_simulado(perfil_id, trayectoria, habilidades_iniciales)
             r["tiempo_segundos"] = 0.0
             return r
         raise
 
 
-# ── Pipeline completo ─────────────────────────────────────────────────────────
+# *** Pipeline completo ********
 
 def _detectar_perfil_cercano(habs: FrozenSet[str], grafo: GrafoCursos) -> str:
-    """Selecciona el perfil del catálogo con mayor solapamiento de habilidades."""
+    """
+    Selecciona el perfil del catálogo con mayor solapamiento de habilidades.
+
+    Se usa como asignación práctica cuando el LLM detecta una intención, pero
+    el sistema necesita mapearla a un perfil real del dataset.
+    """
     return max(
         grafo.perfiles.keys(),
         key=lambda pid: len(habs & grafo.perfiles[pid].habilidades_requeridas),
     )
 
 
-def pipeline_completo(
-    objetivo_texto: str,
-    grafo: GrafoCursos,
-    algoritmo_fn,
-    habilidades_iniciales: FrozenSet[str] = frozenset(),
-    instancia_id: str = "llm_pipeline",
+def pipeline_completo(objetivo_texto: str, grafo: GrafoCursos, algoritmo_fn,
+    habilidades_iniciales: FrozenSet[str] = frozenset(), instancia_id: str = "llm_pipeline",
 ) -> dict:
     """
-    Pipeline end-to-end:
-      [1] Parsear objetivo en lenguaje natural → habilidades estructuradas
-      [2] Buscar trayectoria óptima con A* o Greedy
-      [3] Evaluar trayectoria con LLM
+    Ejecuta el flujo completo:
+    1. Interpretar el objetivo en lenguaje natural.
+    2. Buscar una trayectoria con A* o Greedy.
+    3. Evaluar la trayectoria con el LLM o con fallback.
 
-    Retorna dict con los tres pasos y flag exito_total.
+    Returns
+    -------
+    dict
+        Resultado estructurado de los tres pasos y una bandera final de éxito.
     """
     resultado = {
-        "objetivo_texto":   objetivo_texto,
-        "instancia_id":     instancia_id,
-        "paso1_parseo":     None,
-        "paso2_busqueda":   None,
+        "objetivo_texto": objetivo_texto,
+        "instancia_id": instancia_id,
+        "paso1_parseo": None,
+        "paso2_busqueda": None,
         "paso3_evaluacion": None,
-        "exito_total":      False,
+        "exito_total": False,
     }
 
-    # Paso 1: parseo
-    print(f"\n  [1/3] Parseando objetivo con LLM...")
+    # Paso 1: parseo del objetivo.
     parseo = parsear_objetivo(objetivo_texto, grafo, habilidades_iniciales)
     resultado["paso1_parseo"] = parseo
 
     habs_req = frozenset(parseo["habilidades_validas"])
     if not habs_req:
-        print("  ✗ No se identificaron habilidades válidas en el catálogo.")
         return resultado
 
-    print(f"  ✓ Habilidades identificadas: {sorted(habs_req)}")
-    print(f"  ✓ Perfil detectado: {parseo.get('perfil_detectado')} "
-          f"(confianza: {parseo.get('confianza')})")
-
     perfil_id = _detectar_perfil_cercano(habs_req, grafo)
-    print(f"  ✓ Perfil del catálogo asignado: {perfil_id}")
 
-    # Paso 2: búsqueda
-    print(f"\n  [2/3] Buscando trayectoria con {algoritmo_fn.__name__}...")
+    # Paso 2: búsqueda de trayectoria.
     if algoritmo_fn is _astar:
         r = algoritmo_fn(
-            grafo, habilidades_iniciales, perfil_id,
-            instancia_id, criterio="cursos",
+            grafo,
+            habilidades_iniciales,
+            perfil_id,
+            instancia_id,
+            criterio="cursos",
         )
     else:
         r = algoritmo_fn(
-            grafo, habilidades_iniciales, perfil_id,
+            grafo,
+            habilidades_iniciales,
+            perfil_id,
             instancia_id,
         )
+
     resultado["paso2_busqueda"] = r.to_dict()
 
     if not r.exito:
-        print("  ✗ No se encontró trayectoria válida.")
         return resultado
 
-    print(f"  ✓ Trayectoria: {r.num_cursos} cursos, {r.costo_total_semanas} semanas")
-
-    # Paso 3: evaluación
-    print(f"\n  [3/3] Evaluando trayectoria con LLM...")
+    # Paso 3: evaluación de la ruta encontrada.
     evaluacion = evaluar_trayectoria_con_fallback(
-        objetivo_texto, perfil_id, r.trayectoria, habilidades_iniciales
+        objetivo_texto,
+        perfil_id,
+        r.trayectoria,
+        habilidades_iniciales,
     )
     resultado["paso3_evaluacion"] = evaluacion
-    resultado["exito_total"]      = True
+    resultado["exito_total"] = True
 
-    print(f"  ✓ Puntuación: {evaluacion.get('puntuacion')}/10 "
-          f"({evaluacion.get('nivel_calidad')})")
     return resultado
