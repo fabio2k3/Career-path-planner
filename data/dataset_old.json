@@ -1,0 +1,555 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "total_cursos": 35,
+    "total_habilidades": 36,
+    "descripcion": "Dataset de cursos tecnológicos con prerrequisitos y habilidades para planificación de trayectorias profesionales"
+  },
+  "habilidades": [
+    "python_basico",
+    "python_avanzado",
+    "logica_programacion",
+    "matematicas_basicas",
+    "algebra_lineal",
+    "calculo_optimizacion",
+    "estadistica_basica",
+    "estadistica_inferencial",
+    "probabilidad",
+    "html_css",
+    "javascript",
+    "sql_basico",
+    "sql_avanzado",
+    "nosql",
+    "estructuras_datos",
+    "algoritmos",
+    "apis_rest",
+    "fastapi",
+    "django",
+    "docker",
+    "kubernetes",
+    "microservicios",
+    "cicd",
+    "cloud_aws",
+    "pandas_numpy",
+    "visualizacion_datos",
+    "feature_engineering",
+    "machine_learning",
+    "deep_learning",
+    "nlp",
+    "computer_vision",
+    "mlops",
+    "mlflow",
+    "testing_python",
+    "seguridad_apis",
+    "big_data"
+  ],
+  "cursos": [
+    {
+      "id": "c01",
+      "nombre": "Lógica y Programación",
+      "descripcion": "Fundamentos de pensamiento algorítmico, estructuras de control y resolución de problemas.",
+      "prerrequisitos": [],
+      "habilidades": [
+        "logica_programacion"
+      ],
+      "duracion_semanas": 3,
+      "nivel": "principiante"
+    },
+    {
+      "id": "c02",
+      "nombre": "Python Básico",
+      "descripcion": "Sintaxis de Python, tipos de datos, funciones, manejo de archivos y módulos estándar.",
+      "prerrequisitos": [
+        "logica_programacion"
+      ],
+      "habilidades": [
+        "python_basico"
+      ],
+      "duracion_semanas": 4,
+      "nivel": "principiante"
+    },
+    {
+      "id": "c03",
+      "nombre": "Matemáticas para Tecnología",
+      "descripcion": "Aritmética, funciones, logaritmos y conceptos matemáticos esenciales para ciencias de la computación.",
+      "prerrequisitos": [],
+      "habilidades": [
+        "matematicas_basicas"
+      ],
+      "duracion_semanas": 3,
+      "nivel": "principiante"
+    },
+    {
+      "id": "c04",
+      "nombre": "Estadística Básica",
+      "descripcion": "Media, mediana, desviación estándar, distribuciones y análisis descriptivo de datos.",
+      "prerrequisitos": [
+        "matematicas_basicas"
+      ],
+      "habilidades": [
+        "estadistica_basica"
+      ],
+      "duracion_semanas": 4,
+      "nivel": "principiante"
+    },
+    {
+      "id": "c05",
+      "nombre": "HTML y CSS",
+      "descripcion": "Estructura de páginas web, estilos, layouts y diseño responsivo básico.",
+      "prerrequisitos": [],
+      "habilidades": [
+        "html_css"
+      ],
+      "duracion_semanas": 3,
+      "nivel": "principiante"
+    },
+    {
+      "id": "c06",
+      "nombre": "Bases de Datos Relacionales",
+      "descripcion": "Modelado relacional, SQL básico, consultas, joins y diseño de esquemas.",
+      "prerrequisitos": [
+        "logica_programacion"
+      ],
+      "habilidades": [
+        "sql_basico"
+      ],
+      "duracion_semanas": 4,
+      "nivel": "principiante"
+    },
+    {
+      "id": "c07",
+      "nombre": "Python Avanzado",
+      "descripcion": "Programación orientada a objetos, decoradores, generadores, concurrencia y buenas prácticas.",
+      "prerrequisitos": [
+        "python_basico"
+      ],
+      "habilidades": [
+        "python_avanzado"
+      ],
+      "duracion_semanas": 5,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c08",
+      "nombre": "Álgebra Lineal",
+      "descripcion": "Vectores, matrices, transformaciones lineales, autovalores y aplicaciones en IA.",
+      "prerrequisitos": [
+        "matematicas_basicas"
+      ],
+      "habilidades": [
+        "algebra_lineal"
+      ],
+      "duracion_semanas": 5,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c09",
+      "nombre": "Cálculo y Optimización",
+      "descripcion": "Derivadas, gradientes, descenso por gradiente y técnicas de optimización para ML.",
+      "prerrequisitos": [
+        "matematicas_basicas"
+      ],
+      "habilidades": [
+        "calculo_optimizacion"
+      ],
+      "duracion_semanas": 5,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c10",
+      "nombre": "Estadística Inferencial",
+      "descripcion": "Estimación, pruebas de hipótesis, intervalos de confianza y regresión lineal.",
+      "prerrequisitos": [
+        "estadistica_basica"
+      ],
+      "habilidades": [
+        "estadistica_inferencial"
+      ],
+      "duracion_semanas": 5,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c11",
+      "nombre": "Probabilidad",
+      "descripcion": "Teoría de probabilidad, variables aleatorias, distribuciones y teorema de Bayes.",
+      "prerrequisitos": [
+        "estadistica_basica"
+      ],
+      "habilidades": [
+        "probabilidad"
+      ],
+      "duracion_semanas": 4,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c12",
+      "nombre": "SQL Avanzado",
+      "descripcion": "Consultas complejas, stored procedures, optimización de queries e índices.",
+      "prerrequisitos": [
+        "sql_basico"
+      ],
+      "habilidades": [
+        "sql_avanzado"
+      ],
+      "duracion_semanas": 4,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c13",
+      "nombre": "JavaScript",
+      "descripcion": "Programación en JS, DOM, asincronía (Promises, async/await) y fundamentos de Node.js.",
+      "prerrequisitos": [
+        "html_css",
+        "logica_programacion"
+      ],
+      "habilidades": [
+        "javascript"
+      ],
+      "duracion_semanas": 5,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c14",
+      "nombre": "Estructuras de Datos y Algoritmos",
+      "descripcion": "Listas, árboles, grafos, algoritmos de búsqueda y ordenamiento, complejidad computacional.",
+      "prerrequisitos": [
+        "python_basico"
+      ],
+      "habilidades": [
+        "estructuras_datos",
+        "algoritmos"
+      ],
+      "duracion_semanas": 6,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c15",
+      "nombre": "APIs REST",
+      "descripcion": "Diseño de APIs RESTful, HTTP, autenticación básica, consumo y documentación con Swagger.",
+      "prerrequisitos": [
+        "python_basico"
+      ],
+      "habilidades": [
+        "apis_rest"
+      ],
+      "duracion_semanas": 4,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c16",
+      "nombre": "Análisis de Datos con Pandas",
+      "descripcion": "Manipulación de DataFrames, limpieza de datos, agrupaciones y operaciones vectorizadas con NumPy.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "estadistica_basica"
+      ],
+      "habilidades": [
+        "pandas_numpy"
+      ],
+      "duracion_semanas": 5,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c17",
+      "nombre": "NoSQL",
+      "descripcion": "Bases de datos no relacionales: MongoDB, diseño de documentos y casos de uso.",
+      "prerrequisitos": [
+        "sql_basico"
+      ],
+      "habilidades": [
+        "nosql"
+      ],
+      "duracion_semanas": 3,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c18",
+      "nombre": "Testing en Python",
+      "descripcion": "Pruebas unitarias con pytest, mocking, TDD y cobertura de código.",
+      "prerrequisitos": [
+        "python_avanzado"
+      ],
+      "habilidades": [
+        "testing_python"
+      ],
+      "duracion_semanas": 3,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c19",
+      "nombre": "Machine Learning",
+      "descripcion": "Regresión, clasificación, clustering, árboles de decisión, SVM y evaluación de modelos.",
+      "prerrequisitos": [
+        "algebra_lineal",
+        "estadistica_inferencial",
+        "python_avanzado"
+      ],
+      "habilidades": [
+        "machine_learning"
+      ],
+      "duracion_semanas": 8,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c20",
+      "nombre": "Visualización de Datos",
+      "descripcion": "Matplotlib, Seaborn, gráficos interactivos con Plotly y principios de storytelling con datos.",
+      "prerrequisitos": [
+        "pandas_numpy"
+      ],
+      "habilidades": [
+        "visualizacion_datos"
+      ],
+      "duracion_semanas": 3,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c21",
+      "nombre": "FastAPI",
+      "descripcion": "Desarrollo de APIs modernas y de alto rendimiento con FastAPI, validación con Pydantic.",
+      "prerrequisitos": [
+        "apis_rest",
+        "python_avanzado"
+      ],
+      "habilidades": [
+        "fastapi"
+      ],
+      "duracion_semanas": 4,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c22",
+      "nombre": "Django",
+      "descripcion": "Desarrollo web full-stack con Django, ORM, autenticación y despliegue básico.",
+      "prerrequisitos": [
+        "python_avanzado",
+        "sql_basico"
+      ],
+      "habilidades": [
+        "django"
+      ],
+      "duracion_semanas": 6,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c23",
+      "nombre": "Docker",
+      "descripcion": "Contenedores, Dockerfile, Docker Compose y gestión de imágenes y volúmenes.",
+      "prerrequisitos": [
+        "apis_rest"
+      ],
+      "habilidades": [
+        "docker"
+      ],
+      "duracion_semanas": 3,
+      "nivel": "intermedio"
+    },
+    {
+      "id": "c24",
+      "nombre": "Feature Engineering",
+      "descripcion": "Selección y transformación de variables, codificación, normalización y técnicas avanzadas.",
+      "prerrequisitos": [
+        "pandas_numpy",
+        "machine_learning"
+      ],
+      "habilidades": [
+        "feature_engineering"
+      ],
+      "duracion_semanas": 4,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c25",
+      "nombre": "Deep Learning",
+      "descripcion": "Redes neuronales, backpropagation, CNNs, RNNs y frameworks TensorFlow/PyTorch.",
+      "prerrequisitos": [
+        "machine_learning",
+        "calculo_optimizacion"
+      ],
+      "habilidades": [
+        "deep_learning"
+      ],
+      "duracion_semanas": 10,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c26",
+      "nombre": "MLflow y Gestión de Experimentos",
+      "descripcion": "Tracking de experimentos, registro de modelos y comparación de corridas con MLflow.",
+      "prerrequisitos": [
+        "machine_learning"
+      ],
+      "habilidades": [
+        "mlflow"
+      ],
+      "duracion_semanas": 2,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c27",
+      "nombre": "Kubernetes",
+      "descripcion": "Orquestación de contenedores, pods, servicios, deployments y escalado automático.",
+      "prerrequisitos": [
+        "docker"
+      ],
+      "habilidades": [
+        "kubernetes"
+      ],
+      "duracion_semanas": 5,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c28",
+      "nombre": "CI/CD",
+      "descripcion": "Integración y entrega continua con GitHub Actions, pipelines automáticos y despliegue.",
+      "prerrequisitos": [
+        "docker",
+        "testing_python"
+      ],
+      "habilidades": [
+        "cicd"
+      ],
+      "duracion_semanas": 3,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c29",
+      "nombre": "Cloud Computing con AWS",
+      "descripcion": "EC2, S3, Lambda, RDS y servicios clave de AWS para despliegue de aplicaciones.",
+      "prerrequisitos": [
+        "apis_rest",
+        "docker"
+      ],
+      "habilidades": [
+        "cloud_aws"
+      ],
+      "duracion_semanas": 6,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c30",
+      "nombre": "Microservicios",
+      "descripcion": "Arquitectura de microservicios, comunicación entre servicios, patrones y buenas prácticas.",
+      "prerrequisitos": [
+        "docker",
+        "apis_rest"
+      ],
+      "habilidades": [
+        "microservicios"
+      ],
+      "duracion_semanas": 5,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c31",
+      "nombre": "Seguridad en APIs",
+      "descripcion": "OAuth2, JWT, HTTPS, manejo de secretos y protección contra vulnerabilidades comunes.",
+      "prerrequisitos": [
+        "apis_rest"
+      ],
+      "habilidades": [
+        "seguridad_apis"
+      ],
+      "duracion_semanas": 3,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c32",
+      "nombre": "Big Data con Spark",
+      "descripcion": "Procesamiento distribuido de datos con Apache Spark y PySpark.",
+      "prerrequisitos": [
+        "sql_avanzado",
+        "python_avanzado"
+      ],
+      "habilidades": [
+        "big_data"
+      ],
+      "duracion_semanas": 6,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c33",
+      "nombre": "NLP — Procesamiento de Lenguaje Natural",
+      "descripcion": "Tokenización, embeddings, modelos de lenguaje, clasificación de texto y análisis de sentimiento.",
+      "prerrequisitos": [
+        "deep_learning",
+        "probabilidad"
+      ],
+      "habilidades": [
+        "nlp"
+      ],
+      "duracion_semanas": 7,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c34",
+      "nombre": "Computer Vision",
+      "descripcion": "Clasificación de imágenes, detección de objetos y segmentación con redes convolucionales.",
+      "prerrequisitos": [
+        "deep_learning"
+      ],
+      "habilidades": [
+        "computer_vision"
+      ],
+      "duracion_semanas": 7,
+      "nivel": "avanzado"
+    },
+    {
+      "id": "c35",
+      "nombre": "MLOps",
+      "descripcion": "Despliegue de modelos ML en producción, monitoreo, reentrenamiento y pipelines automatizados.",
+      "prerrequisitos": [
+        "machine_learning",
+        "docker",
+        "cloud_aws"
+      ],
+      "habilidades": [
+        "mlops"
+      ],
+      "duracion_semanas": 6,
+      "nivel": "avanzado"
+    }
+  ],
+  "perfiles_profesionales": {
+    "data_scientist": {
+      "nombre": "Data Scientist",
+      "descripcion": "Profesional que analiza grandes volúmenes de datos para extraer insights y construir modelos predictivos.",
+      "habilidades_requeridas": [
+        "python_avanzado",
+        "algebra_lineal",
+        "estadistica_inferencial",
+        "probabilidad",
+        "pandas_numpy",
+        "visualizacion_datos",
+        "machine_learning",
+        "feature_engineering"
+      ]
+    },
+    "backend_developer": {
+      "nombre": "Backend Developer",
+      "descripcion": "Desarrollador especializado en la lógica de servidor, APIs y gestión de bases de datos.",
+      "habilidades_requeridas": [
+        "python_avanzado",
+        "apis_rest",
+        "sql_avanzado",
+        "fastapi",
+        "docker",
+        "testing_python",
+        "microservicios"
+      ]
+    },
+    "ml_engineer": {
+      "nombre": "ML Engineer",
+      "descripcion": "Ingeniero que lleva modelos de ML a producción, optimizando el pipeline completo desde datos hasta despliegue.",
+      "habilidades_requeridas": [
+        "python_avanzado",
+        "machine_learning",
+        "deep_learning",
+        "docker",
+        "cloud_aws",
+        "mlops",
+        "feature_engineering"
+      ]
+    }
+  }
+}

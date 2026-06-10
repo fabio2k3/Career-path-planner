@@ -350,8 +350,8 @@ def main() -> int:
     Ejecuta la validación completa del dataset y muestra un resumen final.
     """
     base_dir = Path(__file__).resolve().parent.parent
-    synth = base_dir / "data" / "dataset_sintetico.json"
-    base = base_dir / "data" / "dataset.json"
+    synth = base_dir / "data" / "dataset.json"
+    base = base_dir / "data" / "dataset_old.json"
 
     default_input = synth if synth.exists() else base
 

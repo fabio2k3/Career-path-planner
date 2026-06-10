@@ -596,11 +596,11 @@ def main() -> None:
     )
     parser.add_argument("--input", type=Path,
         default=base_dir / "data" / "dataset.json",
-        help="Dataset de origen (default: data/dataset.json)",
+        help="Dataset de origen (default: data/dataset_old.json)",
     )
     parser.add_argument("--output", type=Path,
-        default=base_dir / "data" / "dataset_sintetico.json",
-        help="Ruta de salida (default: data/dataset_sintetico.json)",
+        default=base_dir / "data" / "dataset.json",
+        help="Ruta de salida (default: data/dataset.json)",
     )
     parser.add_argument("--courses", type=int, default=150,
         help="Número total de cursos a alcanzar (default: 150)",

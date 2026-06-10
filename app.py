@@ -6,8 +6,6 @@ Interfaz visual del sistema Career Path Planner.
 Uso:
     streamlit run app.py
 
-Requiere:
-    pip install streamlit
 """
 
 import sys
