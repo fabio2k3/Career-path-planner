@@ -596,7 +596,7 @@ def main() -> None:
     )
     parser.add_argument("--input", type=Path,
         default=base_dir / "data" / "dataset.json",
-        help="Dataset de origen (default: data/dataset_old.json)",
+        help="Dataset de origen (default: data/dataset_base.json)",
     )
     parser.add_argument("--output", type=Path,
         default=base_dir / "data" / "dataset.json",

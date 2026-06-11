@@ -147,14 +147,13 @@ def modo_con_llm(objetivo_texto: str, algoritmo: str, grafo: GrafoCursos, habili
     imprimir_evaluacion(resultado["paso3_evaluacion"])
 
 
-def modo_sin_llm(objetivo_texto: str, algoritmo: str, grafo: GrafoCursos, habilidades_iniciales: frozenset,) -> None:
+def modo_sin_llm(algoritmo: str, grafo: GrafoCursos, habilidades_iniciales: frozenset,) -> None:
     """
     Ejecuta búsqueda directa sin LLM.
 
     El usuario selecciona manualmente un perfil del catálogo y el sistema
     calcula una trayectoria con A* o Greedy.
     """
-    print(f'\n  Objetivo  : "{objetivo_texto}"')
     print(f"  Algoritmo : {algoritmo.upper()} | Modo: sin LLM")
 
     print("\n  Perfiles disponibles:")
@@ -246,26 +245,26 @@ def main() -> None:
 
     habilidades_iniciales = _parsear_habilidades(args.habilidades, grafo)
 
-    # Obtener objetivo: desde argumento o por teclado.
-    if args.objetivo:
-        objetivo_texto = args.objetivo.strip()
-    else:
-        print("  Escribe tu objetivo profesional (o 'salir' para terminar):")
-        objetivo_texto = input("  > ").strip()
-        if objetivo_texto.lower() in ("salir", "exit", "q"):
-            print("  Hasta luego.")
-            return
-
-    if not objetivo_texto:
-        print("  ✗ Objetivo vacío.")
-        return
-
     # Ejecutar el modo seleccionado.
     try:
         if args.sin_llm:
-            modo_sin_llm(objetivo_texto, args.algoritmo, grafo, habilidades_iniciales)
+            modo_sin_llm(args.algoritmo, grafo, habilidades_iniciales)
         else:
+            if args.objetivo:
+                objetivo_texto = args.objetivo.strip()
+            else:
+                print("  Escribe tu objetivo profesional (o 'salir' para terminar):")
+                objetivo_texto = input("  > ").strip()
+                if objetivo_texto.lower() in ("salir", "exit", "q"):
+                    print("  Hasta luego.")
+                    return
+
+            if not objetivo_texto:
+                print("  ✗ Objetivo vacío.")
+                return
+
             modo_con_llm(objetivo_texto, args.algoritmo, grafo, habilidades_iniciales)
+
     except KeyboardInterrupt:
         print("\n\n  ⚠ Interrumpido por el usuario.")
     except EnvironmentError as e:

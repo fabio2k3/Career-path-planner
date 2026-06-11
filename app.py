@@ -1,6 +1,6 @@
 """
 app.py
-------
+
 Interfaz visual del sistema Career Path Planner.
 
 Uso:

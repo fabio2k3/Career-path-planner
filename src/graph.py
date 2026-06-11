@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Se prioriza el dataset sintético si existe; en caso contrario, se usa el original.
 _SYNTH = BASE_DIR / "data" / "dataset.json"
-_BASE = BASE_DIR / "data" / "dataset_old.json"
+_BASE = BASE_DIR / "data" / "dataset_base.json"
 
 
 def _resolver_dataset() -> Path:
