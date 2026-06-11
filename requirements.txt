@@ -1,0 +1,13 @@
+# API y LLM
+huggingface-hub>=0.20.0
+python-dotenv>=1.0.0
+
+# Data
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Visualización
+matplotlib>=3.7.0
+
+# Utilidades
+requests>=2.31.0
