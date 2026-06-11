@@ -119,3 +119,6 @@ python experiments/generate_report.py
 ```
 
 Los resultados se guardan en `experiments/results/`.
+
+
+> Para usar la interfaz visual del proyecto consulta el [`README_APP.md`](README_APP.md).
