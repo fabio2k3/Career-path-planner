@@ -8,15 +8,12 @@ Sistema que recibe un objetivo profesional en lenguaje natural y genera una secu
 
 ```
 proyecto_trayectoria/
+├── .streamlit/
+│   └── config.toml
 ├── data/
 │   ├── dataset.json              # Catálogo de cursos, habilidades y perfiles
 │   └── instances/
 │       └── instances.json        # Instancias de prueba
-├── src/
-│   ├── graph.py                  # Representación del DAG
-│   ├── search.py                 # A* y Greedy
-│   ├── llm_integration.py        # Parseador y evaluador LLM
-│   └── main.py                   # Pipeline principal
 ├── experiments/
 │   ├── run_experiments.py        # Experimento A* vs Greedy
 │   ├── monte_carlo.py            # Simulación Monte Carlo
@@ -27,9 +24,19 @@ proyecto_trayectoria/
 │   ├── generate_synthetic_dataset.py
 │   ├── validate_dataset.py
 │   └── fix_dag.py
-├── .env                          # API key (no subir al repositorio)
-├── requirements.txt
-└── README.md
+├── src/
+│   ├── graph.py                  # Representación del DAG
+│   ├── search.py                 # A* y Greedy
+│   └── llm_integration.py        # Parseador y evaluador LLM
+├── tests/
+├── .env                          # API key (crearla y NO subir al repositorio)
+├── .gitignore
+├── app.py                        # Interfaz visual (Streamlit)
+├── LICENSE
+├── main.py                       # Pipeline principal
+├── README_APP.md
+├── README.md
+└── requirements.txt
 ```
 
 ---
